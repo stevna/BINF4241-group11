@@ -6,17 +6,13 @@ public class Player {
 
     public Player(String playerName) {
         name = playerName;
-        setId();
+        id = countPlayers;
         setPosition(0);
+        countPlayers++;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setId() {
-        id = countPlayers;
-        countPlayers++;
     }
 
     public int getId() {
@@ -31,7 +27,20 @@ public class Player {
         return position;
     }
 
-    // chunt zimmli sicher ih d'Game Klass, da die als einzigi über all squares und players bscheid weiss
+    public void removeFromSquare(Square square) {
+        if (!square.isFirstSquare()) {
+            square.setunoccupied();
+        }
+    }
+
+    public void enterSquare(Square square) {
+        if (!square.isFirstSquare()) {
+            square.setoccupied();
+        }
+        setPosition(square.getId());
+    }
+
+    // chunt möglicherwis ih d'Game Klass, da die als einzigi über all squares und players bscheid weiss
     public int move(int dicenumber){
         position = position + dicenumber;
         return position;
