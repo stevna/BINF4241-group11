@@ -16,6 +16,7 @@ public class Player {
 
     public void setId() {
         id = countPlayers;
+        countPlayers++;
     }
 
     public int getId() {
