@@ -1,52 +1,38 @@
 public class Player {
     public String name;
-    private int id = 0;
-    private int position = 0;
-    private static int numberOfPlayeres = 0;
+    private int id;
+    private int position;
+    private static int countPlayers = 0;
 
-    public Player(String playerName){
+    public Player(String playerName) {
         name = playerName;
-        id = numberOfPlayeres++;
+        setId();
+        setPosition(0);
     }
 
-
-    public void setName(String given_name){
-        name = given_name;
-
-    }
-
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-
-    public void setId(){
-
+    public void setId() {
+        id = countPlayers;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
-
-
     }
 
+    public void setPosition(int newPos) {
+        position = newPos;
+    }
 
-    public int getPosition(){
+    public int getPosition() {
         return position;
     }
 
-
+    // chunt zimmli sicher ih d'Game Klass, da die als einzigi über all squares und players bscheid weiss
     public int move(int dicenumber){
         position = position + dicenumber;
         return position;
-
-    }
-
-
-    public static void main(String[] args){
-
-
-
-
     }
 }
