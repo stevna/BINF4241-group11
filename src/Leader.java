@@ -7,11 +7,12 @@ public class Leader extends Square{
     public Leader(int numberOfSquares){
         super();
         double enddouble = Math.random();
-        enddouble = enddouble *(numberOfSquares-getId()) + getId()+1;
+        enddouble = enddouble *(numberOfSquares-(getId()+1)) + getId()+1;
         end = (int) enddouble;
 
         //move = end-start;
     }
+
 
     public int getEnd() {
         return end;

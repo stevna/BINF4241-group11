@@ -1,16 +1,12 @@
 import java.util.List;
 
 public class Main{
-
-
-
-
     public static void main(String[] args) {
 
         String[] names = new String[2];
         names[0] = "XXX";
         names[1] = "YYY";
-        Game mygame = new Game(16, names);
+        Game mygame = new Game(10, names);
 
         /*Player PlayerOne = new Player("Steven");
 

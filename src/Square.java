@@ -36,7 +36,7 @@ public class Square {
 
 
     public boolean isFirstSquare() {
-        if (getId() != 0) {
+        if (getId() == 0) {
             return true;
         }
         return false;

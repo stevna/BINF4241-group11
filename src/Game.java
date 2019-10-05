@@ -11,7 +11,6 @@ public class Game {
         for(Player player : players) {
             player.setPosition(0);
         }
-        squares.get(0).setoccupied();
         System.out.print("Initial state: ");
         getState();
         play();
@@ -32,11 +31,11 @@ public class Game {
             doublekindof = doublekindof *12 + 1;
             int kindof = (int) doublekindof;
 
-            if(kindof == 1){
+            if(kindof == 1 && i != 0 && i != numberOfSquares-1){
                 Leader leader= new Leader(numberOfSquares);
                 squares.add(leader);
             }
-            else if(kindof == 2){
+            else if(kindof == 2 && i != 0 && i != numberOfSquares-1){
                 Snake snake= new Snake();
                 squares.add(snake);
             }
@@ -50,11 +49,10 @@ public class Game {
         return squares.get(id);
     }
     public void play(){
-        boolean win = true; //false
+        boolean win = false; //false
         while(!win) {
             for(Player player: players) {
-                player.move(Dice.calculate());
-                System.out.print(player.name+": ");
+                move(player);
                 getState();
                 if(squares.get(numberOfSquares-1).checkoccupied()) {
                     win = true;
@@ -65,10 +63,48 @@ public class Game {
         }
     }
 
+    public void move(Player player){
+        int dice = Dice.calculate();
+        System.out.print(player.name+" roll "+dice+": ");
+
+        Square actualPosition = findSquare(player.getPosition());
+
+        int destinationNr = actualPosition.getId()+dice;
+        if (destinationNr > numberOfSquares-1){
+            int dif = numberOfSquares-1-actualPosition.getId();
+            destinationNr = numberOfSquares-1-(dice-dif);
+        }
+
+        Square destination = findSquare(destinationNr);
+
+        player.removeFromSquare(actualPosition);
+
+        if(!destination.checkoccupied()) {
+            if(destination instanceof Leader) {
+                //player.setPosition(((Leader) destination).getEnd());
+                player.enterSquare(findSquare(((Leader) destination).getEnd()));
+            }
+            else if (destination instanceof Snake){
+                //player.setPosition(((Snake) destination).getEnd());
+                player.enterSquare(findSquare(((Snake) destination).getEnd()));
+            }
+            else {
+                //player.setPosition(destination.getId());
+                player.enterSquare(destination);
+            }
+        }
+        else {
+            //player.setPosition(0);
+            player.enterSquare(findSquare(0));
+        }
+
+    }
+
+
     public void getState(){
         for(Square e: squares) {
             int nr = e.getId()+1;
-            if(e.checkoccupied()) {
+            if(e.checkoccupied() || e.getId()==0) {
                 System.out.print("["+nr);
                 for(Player player : players) {
                     if(player.getPosition() == e.getId()) {
@@ -78,10 +114,10 @@ public class Game {
                 System.out.print("]");
             }
             else if(e instanceof Leader) {
-                System.out.print("[" + nr + "->" + ((Leader) e).getEnd() + "]");
+                System.out.print("[" + nr + "->" + (((Leader) e).getEnd()+1) + "]");
             }
             else if(e instanceof Snake) {
-                System.out.print("[" + ((Snake) e).getEnd() + "<-" + nr + "]");
+                System.out.print("[" + (((Snake) e).getEnd()+1) + "<-" + nr + "]");
             }
             else if(e.isFirstSquare()) {
                 System.out.print("["+nr+"]");
@@ -90,5 +126,6 @@ public class Game {
                 System.out.print("["+nr+"]");
             }
         }
+        System.out.println();
     }
 }
