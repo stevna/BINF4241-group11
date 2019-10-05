@@ -6,7 +6,13 @@ public class Main{
 
 
     public static void main(String[] args) {
-        Player PlayerOne = new Player("Steven");
+
+        String[] names = new String[2];
+        names[0] = "XXX";
+        names[1] = "YYY";
+        Game mygame = new Game(16, names);
+
+        /*Player PlayerOne = new Player("Steven");
 
         System.out.println(PlayerOne.getName());
         System.out.println(PlayerOne.getId());
@@ -18,7 +24,7 @@ public class Main{
 
         int numberOfSquarse = 200;
         Square[] squares;
-        squares = new Square[numberOfSquarse];
+        squares = new Square[numberOfSquarse];*/
 
         /*Leader[] leaders;
         leaders = new Leader[numberOfSquarse];
@@ -26,7 +32,7 @@ public class Main{
 
 
         // wie chömer zuefällig eh leader oder eh square erstelle
-        for(int i = 0; i<numberOfSquarse;i++){
+        /*for(int i = 0; i<numberOfSquarse;i++){
 
             double doublekindof = Math.random();
             doublekindof = doublekindof *6 + 1;
@@ -51,7 +57,7 @@ public class Main{
 
         squares[numberOfSquarse-1].setLastSquare();
         squares[numberOfSquarse-1].isleader = false;
-        squares[numberOfSquarse-1].issnake = false;
+        squares[numberOfSquarse-1].issnake = false;*/
 
 
         /*Square square1 = new Square();
@@ -85,7 +91,7 @@ public class Main{
         System.out.println(square9.getId());
         square9.checkLastSquare();*/
 
-        System.out.println("this is the game now");
+        /*System.out.println("this is the game now");
 
         while(true){
 
@@ -117,7 +123,7 @@ public class Main{
                     System.out.println(PlayerOne.getName() + " has won the game");
                     break;
                 }
-            }
+            }/*
 
 
             /*Dice dice2 = new Dice();
@@ -132,8 +138,8 @@ public class Main{
 
             }
 
-            Dice.calculate();*/
-        }
+            Dice.calculate();
+        }*/
 
     }
 }

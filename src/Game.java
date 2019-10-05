@@ -12,17 +12,9 @@ public class Game {
             player.setPosition(0);
         }
         squares.get(0).setoccupied();
+        System.out.print("Initial state: ");
         getState();
         play();
-    }
-
-    //wird nachher wieder gelöscht
-    public static void main(String[] args) {
-        String[] names = new String[2];
-        names[0] = "XXX";
-        names[1] = "YYY";
-        Game mygame = new Game(16, names);
-
     }
 
     private void createPlayers(String[] names){
@@ -30,13 +22,6 @@ public class Game {
             Player player = new Player(element);
             players.add(player);
         }
-
-        //Output
-        for(Player e: players) {
-            System.out.println("Player: "+" " +e.name);
-        }
-        System.out.println(players.get(0).name);
-
     }
 
     private void createSquares(int size){
