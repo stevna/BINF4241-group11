@@ -72,7 +72,7 @@ public class Game {
                 player.move(Dice.calculate());
                 System.out.print(player.name+": ");
                 getState();
-                if(squares.get(numberOfSquares-1).isOccupied) {
+                if(squares.get(numberOfSquares-1).checkoccupied()) {
                     win = true;
                     System.out.println(player.name+" wins!");
                     break;
@@ -84,7 +84,7 @@ public class Game {
     public void getState(){
         for(Square e: squares) {
             int nr = e.getId()+1;
-            if(e.isOccupied) {
+            if(e.checkoccupied()) {
                 System.out.print("["+nr);
                 for(Player player : players) {
                     if(player.getPosition() == e.getId()) {
@@ -99,7 +99,7 @@ public class Game {
             else if(e.issnake){
                 System.out.print("["+nr+"<-"+e.end+"]");
             }*/
-            else if(e.isFirstSquare) {
+            else if(e.isFirstSquare()) {
                 System.out.print("["+nr+"]");
             }
             else {
