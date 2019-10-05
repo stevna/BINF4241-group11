@@ -1,20 +1,18 @@
 public class Square {
-    int squareId = 0;
+    private int squareId;
     private static int numberOfSquares = 0;
-    boolean isOccupied;
-    boolean isFirstSquare;
-    boolean isLastSquare;
-    boolean isleader;
-    boolean issnake;
+    private boolean isOccupied;
+    // boolean isFirstSquare;
+    // boolean isLastSquare;
+    // boolean isleader;
+    // boolean issnake;
 
 
     public Square(){
         squareId = numberOfSquares;
-        if (squareId ==0){
-            isFirstSquare = true;
-        }
+        setunoccupied();
 
-
+        /*
         double leaderdouble = Math.random();
         leaderdouble = leaderdouble *6 + 1;
         int leaderint = (int) leaderdouble;
@@ -31,19 +29,24 @@ public class Square {
         if(snakeint == 1 && squareId != 0){
             issnake = true;
         }
-
+        */
 
         numberOfSquares++;
     }
 
-    public boolean setLastSquare(){
-        return true;
+
+    public boolean isFirstSquare() {
+        if (getId() != 0) {
+            return true;
+        }
+        return false;
     }
 
     public int getId(){
         return squareId;
     }
 
+    /*
     public boolean checkFirstSquare(){
         if (isFirstSquare){
             System.out.println("This is the first square");
@@ -59,6 +62,7 @@ public class Square {
         }
         return false;
     }
+    */
 
     public boolean checkoccupied(){
         if(isOccupied){
@@ -75,7 +79,7 @@ public class Square {
         isOccupied = false;
     }
 
-
+    /*
     public void checkleader(){
         if(isleader){
             System.out.println("this is the start of a leader");
@@ -87,6 +91,7 @@ public class Square {
             System.out.println("this is the start of a snake");
         }
     }
+    */
 
 
 
