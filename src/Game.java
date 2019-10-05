@@ -33,14 +33,13 @@ public class Game {
             int kindof = (int) doublekindof;
 
             if(kindof == 1){
-                Leader leader= new Leader(i,numberOfSquares);
+                Leader leader= new Leader(numberOfSquares);
                 squares.add(leader);
             }
-            /*!!!SNAKE!!!
-            if(kindof == 2){
-                Snake snake = new Snake(i,numberOfSquares);
+            else if(kindof == 2){
+                Snake snake= new Snake();
                 squares.add(snake);
-            }*/
+            }
             else{
                 Square square = new Square();
                 squares.add(square);
@@ -78,12 +77,12 @@ public class Game {
                 }
                 System.out.print("]");
             }
-            /*else if(e.isleader) {
-                System.out.print("["+nr+"->"+e.end+"]");
+            else if(e instanceof Leader) {
+                System.out.print("[" + nr + "->" + ((Leader) e).getEnd() + "]");
             }
-            else if(e.issnake){
-                System.out.print("["+nr+"<-"+e.end+"]");
-            }*/
+            else if(e instanceof Snake) {
+                System.out.print("[" + ((Snake) e).getEnd() + "<-" + nr + "]");
+            }
             else if(e.isFirstSquare()) {
                 System.out.print("["+nr+"]");
             }
