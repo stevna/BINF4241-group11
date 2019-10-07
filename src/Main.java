@@ -3,39 +3,37 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Main{
+
     public static void main(String[] args) {
+
+        int number;
+        int players;
 
         Scanner inte = new Scanner(System.in);
         System.out.println("Please enter how many field you want: ");
-        int number = inte.nextInt();  // Read user input
+        number = inte.nextInt();  // Read user input
 
-        if(number< 6){
-            System.out.println("You have to have at least 6 fields, please start again\n");
-            String[] met = null;
-            main(met);
-        }
-
+        checkfield(number);
 
 
         System.out.println("Please enter how many players you want: ");
-        int players = inte.nextInt();
-        if(players< 1){
-            System.out.println("You have to be at least 2 players to play, please start again\n");
-            String[] met = null;
-            main(met);
-        }
+        players = inte.nextInt();
+
+        checkplayers(players);
 
 
         String[] names = new String[players];
-        System.out.println(names.length);
+        //System.out.println(names.length);
 
 
         Scanner player = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Please enter the players name: ");
 
+        //System.out.println(players);
+
         for(int i = 0;i<players;i++){
             names[i] = player.nextLine();
-            System.out.println(names[i]);
+            //System.out.println(names[i]);
 
         }
 
@@ -45,4 +43,28 @@ public class Main{
 
 
     }
+
+
+     static void checkfield(int number){
+        while(number< 6){
+            System.out.println("You have to have at least 6 fields, please try again");
+            Scanner inte = new Scanner(System.in);
+            number = inte.nextInt();
+
+
+        }
+    }
+
+
+    static void checkplayers(int players){
+        while(players< 1){
+            System.out.println("You have to have at least 1 player, please try again");
+            Scanner inter = new Scanner(System.in);
+            players = inter.nextInt();
+            System.out.println("while loop " + players);
+
+
+        }
+    }
+
 }
