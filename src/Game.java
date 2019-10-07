@@ -30,62 +30,41 @@ public class Game {
 
         for (int i = 0; i < numberOfSquares; i++) {
 
+
+            // every square  can be a snake or a leader by chance, we chose 1/6 here
             double doublekindof = Math.random();
             doublekindof = doublekindof * 2 + 1;
             int kindof = (int) doublekindof;
 
-            if (kindof == 1 && i != 0 && i != numberOfSquares - 1 && !endOfSnake.contains(i)) {
+
+            if (kindof == 1 && i != 0 && i != numberOfSquares - 1 &&!endOfSnake.contains(i)){
                 Leader leader = new Leader(numberOfSquares);
                 squares.add(leader);
                 endOfLeader.add(leader.getEnd());
 
-            } else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i)) {
+            } else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i) ) {
                 Snake snake = new Snake();
                 //System.out.println(snake.getEnd()+1);
 
                 //the end of a snake must not be leader, if this is the case, the snake is going to be a normal square with the appropriate id
                 if (squares.get(snake.getEnd()) instanceof Leader) {
-
-                    System.out.println("id "+ snake.getId() +" has to be changed");
-
                     snake.setEnd(-1);
-
-                    //Square square = new Square();
-                    //square.setId(snake.getId());
-                    //System.out.println("new idea of square " + square.getId());
-                    //squares.set(((snake.getEnd())),square);
-                    //squares.remove((snake.getId()));
-
-                    //das isch bullshit
-
-                    /*int id = snake.getId();
-
-                    snake = null;
-                    Square square = new Square();
-                    //System.out.println(square.getId());
-                    square.setId(id);
-                    squares.add(square);
-                    */
-
-
-                    squares.add(snake);
-                    endOfSnake.add(snake.getEnd());
-
-
-                } else {
-                    squares.add(snake);
-                    endOfSnake.add(snake.getEnd());
                 }
+
+                    squares.add(snake);
+                    endOfSnake.add(snake.getEnd());
 
 
             } else {
+                // if it is not a leader and not a snake, it is a normal square
                 Square square = new Square();
                 squares.add(square);
             }
         }
 
 
-
+/*
+// following loops were needed to check that no leader begins at the end of the snake and vice verca
         for (Square squareL : squares) {
             if (squareL instanceof Leader) {
                 if(endOfSnake.contains(squareL.getId())) {
@@ -104,18 +83,13 @@ public class Game {
                     System.out.println("There is a snake on the end of a leader on square " + (squareS.getId()+1));
 
                 }
-
-
-                    //break;
-                }
-
-
-
+               }
             }
 
-        }
+*/
 
 
+    }
 
 
 
@@ -140,7 +114,7 @@ public class Game {
 
     public void move(Player player){
         int dice = Dice.calculate();
-        String action = new String(player.name+" roll "+dice+": ");
+        String action = new String(player.name+" rolls "+dice+": ");
         System.out.printf("%-15s", action);
         getState();
 
@@ -156,22 +130,20 @@ public class Game {
 
         player.removeFromSquare(actualPosition);
 
+
+        //only move there if unoccupied and check if the square is a leader or a snake. if so, enter the new end
         if(!destination.checkoccupied()) {
             if(destination instanceof Leader) {
-                //player.setPosition(((Leader) destination).getEnd());
                 player.enterSquare(findSquare(((Leader) destination).getEnd()));
             }
             else if (destination instanceof Snake && ((Snake) destination).getEnd() != -1){
-                //player.setPosition(((Snake) destination).getEnd());
                 player.enterSquare(findSquare(((Snake) destination).getEnd()));
             }
             else {
-                //player.setPosition(destination.getId());
                 player.enterSquare(destination);
             }
         }
         else {
-            //player.setPosition(0);
             player.enterSquare(findSquare(0));
         }
 

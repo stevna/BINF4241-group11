@@ -8,7 +8,7 @@ public class Player {
         name = playerName;
         id = countPlayers;
         setPosition(0);
-        countPlayers++;
+        countPlayers++; //increase id for each created player
     }
 
     public String getName() {
@@ -38,11 +38,5 @@ public class Player {
             square.setoccupied();
         }
         setPosition(square.getId());
-    }
-
-    // chunt möglicherwis ih d'Game Klass, da die als einzigi über all squares und players bscheid weiss
-    public int move(int dicenumber){
-        position = position + dicenumber;
-        return position;
     }
 }
