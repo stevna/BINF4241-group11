@@ -26,10 +26,8 @@ public class Game {
     private void createSquares(int size) {
         numberOfSquares = size;
         ArrayList<Integer> endOfLeader = new ArrayList<Integer>();
-        ArrayList<Integer> endOfSnake = new ArrayList<Integer>();
 
         for (int i = 0; i < numberOfSquares; i++) {
-
 
             // every square  can be a snake or a leader by chance, we chose 1/6 here
             double doublekindof = Math.random();
@@ -41,8 +39,9 @@ public class Game {
                 Leader leader = new Leader(numberOfSquares);
                 squares.add(leader);
                 endOfLeader.add(leader.getEnd());
+            }
 
-            } else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i) ) {
+            else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i) ) {
                 Snake snake = new Snake();
                 //System.out.println(snake.getEnd()+1);
 
@@ -55,8 +54,9 @@ public class Game {
                 else {
                     squares.add(snake);
                 }
+            }
 
-            } else {
+            else {
                 // if it is not a leader and not a snake, it is a normal square
                 Square square = new Square();
                 squares.add(square);
@@ -135,10 +135,20 @@ public class Game {
         //only move there if unoccupied and check if the square is a leader or a snake. if so, enter the new end
         if(!destination.checkoccupied()) {
             if(destination instanceof Leader) {
-                player.enterSquare(findSquare(((Leader) destination).getEnd()));
+                if(!(findSquare(((Leader) destination).getEnd())).checkoccupied()) {
+                    player.enterSquare(findSquare(((Leader) destination).getEnd()));
+                }
+                else{
+                    player.enterSquare(findSquare(0));
+                }
             }
-            else if (destination instanceof Snake && ((Snake) destination).getEnd() != -1){
-                player.enterSquare(findSquare(((Snake) destination).getEnd()));
+            else if (destination instanceof Snake){
+                if(!(findSquare(((Snake) destination).getEnd()).checkoccupied())) {
+                    player.enterSquare(findSquare(((Snake) destination).getEnd()));
+                }
+                else{
+                    player.enterSquare(findSquare(0));
+                }
             }
             else {
                 player.enterSquare(destination);
