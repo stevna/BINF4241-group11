@@ -11,15 +11,12 @@ public class Main{
 
         Scanner inte = new Scanner(System.in);
         System.out.println("Please enter how many field you want: ");
-        number = inte.nextInt();  // Read user input
+        number = checkfield(inte.nextInt());
 
-        checkfield(number);
 
 
         System.out.println("Please enter how many players you want: ");
-        players = inte.nextInt();
-
-        checkplayers(players);
+        players = checkplayers(inte.nextInt());
 
 
         String[] names = new String[players];
@@ -45,26 +42,23 @@ public class Main{
     }
 
 
-     static void checkfield(int number){
+     static int checkfield(int number){
         while(number< 6){
             System.out.println("You have to have at least 6 fields, please try again");
             Scanner inte = new Scanner(System.in);
             number = inte.nextInt();
-
-
         }
+        return number;
     }
 
 
-    static void checkplayers(int players){
-        while(players< 1){
-            System.out.println("You have to have at least 1 player, please try again");
+    static int checkplayers(int players){
+        while(players < 2){
+            System.out.println("You have to have at least 2 player, please try again");
             Scanner inter = new Scanner(System.in);
             players = inter.nextInt();
-            System.out.println("while loop " + players);
-
-
         }
+        return players;
     }
 
 }
