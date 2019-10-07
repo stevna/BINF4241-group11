@@ -1,12 +1,45 @@
 import java.util.List;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main{
     public static void main(String[] args) {
 
-        String[] names = new String[2];
-        names[0] = "XXX";
-        names[1] = "YYY";
-        Game mygame = new Game(10, names);
+
+
+
+
+        Scanner inte = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Please enter how many field you want:");
+        int number = inte.nextInt();  // Read user input
+
+        System.out.println("Please enter how many players you want:");
+        int players = inte.nextInt();
+        if(players< 2){
+            System.out.println("You have to be at least 2 players to play");
+            String[] met = null;
+            main(met);
+        }
+
+
+        String[] names = new String[players];
+        System.out.println(names.length);
+
+
+        Scanner player = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Please enter the players name: ");
+
+        for(int i = 0;i<players;i++){
+
+            //String player = myObj.nextLine();
+            names[i] = player.nextLine();
+            System.out.println(names[i]);
+
+        }
+
+
+        Game mygame = new Game(number, names);
+
 
         /*Player PlayerOne = new Player("Steven");
 

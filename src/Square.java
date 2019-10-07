@@ -79,6 +79,10 @@ public class Square {
         isOccupied = false;
     }
 
+    public void  setId(int id){
+        squareId = id;
+    }
+
     /*
     public void checkleader(){
         if(isleader){

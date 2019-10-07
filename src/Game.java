@@ -23,28 +23,102 @@ public class Game {
         }
     }
 
-    private void createSquares(int size){
+    private void createSquares(int size) {
         numberOfSquares = size;
-        for(int i = 0; i<numberOfSquares;i++){
+        ArrayList<Integer> endOfLeader = new ArrayList<Integer>();
+        ArrayList<Integer> endOfSnake = new ArrayList<Integer>();
+
+        for (int i = 0; i < numberOfSquares; i++) {
 
             double doublekindof = Math.random();
-            doublekindof = doublekindof *12 + 1;
+            doublekindof = doublekindof * 2 + 1;
             int kindof = (int) doublekindof;
 
-            if(kindof == 1 && i != 0 && i != numberOfSquares-1){
-                Leader leader= new Leader(numberOfSquares);
+            if (kindof == 1 && i != 0 && i != numberOfSquares - 1 && !endOfSnake.contains(i)) {
+                Leader leader = new Leader(numberOfSquares);
                 squares.add(leader);
-            }
-            else if(kindof == 2 && i != 0 && i != numberOfSquares-1){
-                Snake snake= new Snake();
-                squares.add(snake);
-            }
-            else{
+                endOfLeader.add(leader.getEnd());
+
+            } else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i)) {
+                Snake snake = new Snake();
+                //System.out.println(snake.getEnd()+1);
+
+                //the end of a snake must not be leader, if this is the case, the snake is going to be a normal square with the appropriate id
+                if (squares.get(snake.getEnd()) instanceof Leader) {
+
+                    System.out.println("id "+ snake.getId() +" has to be changed");
+
+                    snake.setEnd(-1);
+
+                    //Square square = new Square();
+                    //square.setId(snake.getId());
+                    //System.out.println("new idea of square " + square.getId());
+                    //squares.set(((snake.getEnd())),square);
+                    //squares.remove((snake.getId()));
+
+                    //das isch bullshit
+
+                    /*int id = snake.getId();
+
+                    snake = null;
+                    Square square = new Square();
+                    //System.out.println(square.getId());
+                    square.setId(id);
+                    squares.add(square);
+                    */
+
+
+                    squares.add(snake);
+                    endOfSnake.add(snake.getEnd());
+
+
+                } else {
+                    squares.add(snake);
+                    endOfSnake.add(snake.getEnd());
+                }
+
+
+            } else {
                 Square square = new Square();
                 squares.add(square);
             }
         }
-    }
+
+
+
+        for (Square squareL : squares) {
+            if (squareL instanceof Leader) {
+                if(endOfSnake.contains(squareL.getId())) {
+
+                    System.out.println("There is a leader at the end of a snake on square " + (squareL.getId()+1));
+                }
+
+
+                //break;
+            }}
+
+        for (Square squareS : squares) {
+            if (squareS instanceof Snake) {
+                if(endOfLeader.contains(squareS.getId())) {
+
+                    System.out.println("There is a snake on the end of a leader on square " + (squareS.getId()+1));
+
+                }
+
+
+                    //break;
+                }
+
+
+
+            }
+
+        }
+
+
+
+
+
     public Square findSquare(int id){
         return squares.get(id);
     }
@@ -84,7 +158,7 @@ public class Game {
                 //player.setPosition(((Leader) destination).getEnd());
                 player.enterSquare(findSquare(((Leader) destination).getEnd()));
             }
-            else if (destination instanceof Snake){
+            else if (destination instanceof Snake && ((Snake) destination).getEnd() != -1){
                 //player.setPosition(((Snake) destination).getEnd());
                 player.enterSquare(findSquare(((Snake) destination).getEnd()));
             }
@@ -116,7 +190,7 @@ public class Game {
             else if(e instanceof Leader) {
                 System.out.print("[" + nr + "->" + (((Leader) e).getEnd()+1) + "]");
             }
-            else if(e instanceof Snake) {
+            else if(e instanceof Snake && ((Snake) e).getEnd() != -1) {
                 System.out.print("[" + (((Snake) e).getEnd()+1) + "<-" + nr + "]");
             }
             else if(e.isFirstSquare()) {

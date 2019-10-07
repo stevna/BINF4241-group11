@@ -1,20 +1,35 @@
 import java.lang.Math;
+import java.util.ArrayList;
+
 
 public class Snake extends Square{
     //public int move;
-    public int end;
+    private int end;
+    public ArrayList<Integer> endOfLeader2;
 
     public Snake(){
         super();
-        double enddouble = Math.random();
-        enddouble = enddouble *(getId()-1) + 0;
-        end = (int) enddouble;
+        getEndSquare();
+
 
         //move = end-start;
     }
 
     public int getEnd() {
         return end;
+    }
+
+    public void setEnd(int end2){
+        end = end2;
+    }
+
+
+    private void getEndSquare(){
+        double enddouble = Math.random();
+        enddouble = enddouble *(getId()-1) + 0;
+        end = (int) enddouble;
+
+
     }
 
 }
