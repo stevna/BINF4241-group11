@@ -31,7 +31,7 @@ public class Game {
 
             // every square  can be a snake or a leader by chance, we chose 1/6 here
             double doublekindof = Math.random();
-            doublekindof = doublekindof * 6 + 1;
+            doublekindof = doublekindof * 2 + 1;
             int kindof = (int) doublekindof;
 
 
@@ -43,13 +43,16 @@ public class Game {
 
             else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i) ) {
                 Snake snake = new Snake();
-                //System.out.println(snake.getEnd()+1);
+                System.out.println("id" + (snake.getId()+1));
+                System.out.println("end" + (snake.getEnd()+1));
 
                 //the end of a snake must not be leader, if this is the case, the snake is going to be a normal square with the appropriate id
-                if (squares.get(snake.getEnd()) instanceof Leader && squares.get(snake.getEnd()) instanceof Snake) {
-                    snake = null;
+                if (squares.get(snake.getEnd()) instanceof Leader) {
+                    /*snake = null;
                     Square square = new Square();
-                    squares.add((square));
+                    squares.add((square));*/
+                    snake.setEnd(-1);
+                    squares.add(snake);
                 }
                 else {
                     squares.add(snake);
@@ -142,7 +145,7 @@ public class Game {
                     player.enterSquare(findSquare(0));
                 }
             }
-            else if (destination instanceof Snake){
+            else if (destination instanceof Snake && ((Snake) destination).getEnd() !=-1){
                 if(!(findSquare(((Snake) destination).getEnd()).checkoccupied())) {
                     player.enterSquare(findSquare(((Snake) destination).getEnd()));
                 }

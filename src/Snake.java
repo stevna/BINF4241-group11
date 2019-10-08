@@ -19,8 +19,9 @@ public class Snake extends Square{
         return end;
     }
 
-    public void setEnd(int end2){
+    public int setEnd(int end2){
         end = end2;
+        return end;
     }
 
 
