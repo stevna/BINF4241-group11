@@ -43,10 +43,8 @@ public class Game {
 
             else if (kindof == 2 && i != 0 && i != numberOfSquares - 1 && !endOfLeader.contains(i) ) {
                 Snake snake = new Snake();
-                System.out.println("id" + (snake.getId()+1));
-                System.out.println("end" + (snake.getEnd()+1));
 
-                //the end of a snake must not be leader, if this is the case, the snake is going to be a normal square with the appropriate id
+                //the end of a snake must not be leader, if this is the case, the end of the snake is going to be set to -1. the same happens if the end of the snake is the beginning of a new snake
                 if (squares.get(snake.getEnd()) instanceof Leader || squares.get(snake.getEnd()) instanceof Snake) {
                     /*snake = null;
                     Square square = new Square();
