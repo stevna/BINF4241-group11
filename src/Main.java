@@ -15,7 +15,7 @@ public class Main{
             System.out.println("Please enter how many field you want: ");
             number = checkfield(inte.nextInt());
 
-            System.out.println("Please enter how many players you want: (type one name, press enter and so on) ");
+            System.out.println("Please enter how many players you want: ");
             players = checkplayers(inte.nextInt());
 
 
@@ -24,7 +24,7 @@ public class Main{
 
 
             Scanner player = new Scanner(System.in);  // Create a Scanner object
-            System.out.println("Please enter the players name: ");
+            System.out.println("Please enter the players name: (type one name, press enter and so on)  ");
 
             //System.out.println(players);
 
