@@ -1,1 +1,2 @@
-git_readme
+we implemented that two players are not allowed to be on the same field. if this should happen, the second player cannot be moved and he stays at the start position of his turn.
+we also implemented, that it is not allowed to have a leader beginning at the end of a snake end and vice verca. thus no connections between snakes and leaders are allowed(even though connections between several leaders and connection betwenn several snakes are possible)
