@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,34 +10,42 @@ public class Main{
         int number;
         int players;
 
-        Scanner inte = new Scanner(System.in);
-        System.out.println("Please enter how many field you want: ");
-        number = checkfield(inte.nextInt());
+        try {
+            Scanner inte = new Scanner(System.in);
+            System.out.println("Please enter how many field you want: ");
+            number = checkfield(inte.nextInt());
+
+            System.out.println("Please enter how many players you want: (type one name, press enter and so on) ");
+            players = checkplayers(inte.nextInt());
 
 
-
-        System.out.println("Please enter how many players you want: ");
-        players = checkplayers(inte.nextInt());
-
-
-        String[] names = new String[players];
-        //System.out.println(names.length);
+            String[] names = new String[players];
+            //System.out.println(names.length);
 
 
-        Scanner player = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Please enter the players name: ");
+            Scanner player = new Scanner(System.in);  // Create a Scanner object
+            System.out.println("Please enter the players name: ");
 
-        //System.out.println(players);
+            //System.out.println(players);
 
-        for(int i = 0;i<players;i++){
-            names[i] = player.nextLine();
-            //System.out.println(names[i]);
+            for(int i = 0;i<players;i++){
+                names[i] = player.nextLine();
+                //System.out.println(names[i]);
+
+            }
+
+
+            Game mygame = new Game(number, names);
+
+        }
+        catch (InputMismatchException e){
+            System.out.println("Please fill in a number and start the programm again.");
 
         }
 
-
-        Game mygame = new Game(number, names);
-
+        catch (IndexOutOfBoundsException p){
+            System.out.println("There went something wrong, please start the programm again");
+        }
 
 
     }
