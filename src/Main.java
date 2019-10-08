@@ -53,7 +53,7 @@ public class Main{
 
      static int checkfield(int number){
         while(number< 6){
-            System.out.println("You have to have at least 6 fields, please try again");
+            System.out.println("There must be at least 6 squares, please try again");
             Scanner inte = new Scanner(System.in);
             number = inte.nextInt();
         }
@@ -62,8 +62,8 @@ public class Main{
 
 
     static int checkplayers(int players){
-        while(players < 2){
-            System.out.println("You have to have at least 2 player, please try again");
+        while(players < 2 || players > 4){
+            System.out.println("The number of players has to be at least 2 and not more than 4, please try again");
             Scanner inter = new Scanner(System.in);
             players = inter.nextInt();
         }
