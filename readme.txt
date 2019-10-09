@@ -1,2 +1,2 @@
-we implemented that two players are not allowed to be on the same field. if this should happen, the second player cannot be moved and he stays at the start position of his turn.
+we implemented that two players are not allowed to be on the same field. if this should happen, the second player is moved to the very first square.
 we also implemented, that it is not allowed to have a leader beginning at the end of a snake end and vice verca. thus no connections between snakes and leaders are allowed. the same is the case for connections between several leaders and between several snakes.
