@@ -1,27 +1,38 @@
 import java.util.ArrayList;
 
 public class Bishop extends ChessPiece {
-    ArrayList<Object> initialposition = new ArrayList<>();
-    public Bishop(Enum col){
-    super();
-    color = col.toString();
+    public Bishop(Enum col, Enum field) {
+        super();
+        color = col.toString();
+        pieceName = "Bishop";
 
-        if (color == "white"){
-            for(int i = 0;i<7;i++) {
-                initialposition.add(fields.values());
-                initialposition.add(0);
-                System.out.println("white" + initialposition);
-            }
+        if (color == "white" && field.toString() == "C"){
+            initialposition.add(fields.C);
+            initialposition.add(0);
+
+        }
+
+        else if (color == "white" && field.toString() == "F"){
+            initialposition.add(fields.F);
+            initialposition.add(0);
+
+        }
+
+        else if(color == "black" && field.toString() == "C"){
+            initialposition.add(fields.C);
+            initialposition.add(7);
+
+        }
+
+        else{
+            initialposition.add(fields.F);
+            initialposition.add(7);
+
+        }
+
+        movements.add(initialposition);
+
+
 
     }
-        else if(color == "black"){
-        initialposition.add(fields.D);
-        initialposition.add(7);
-        System.out.println("black"+initialposition);
-
-    }
-
-
-
-}
 }
