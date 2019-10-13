@@ -21,8 +21,8 @@ public class Square {
         coordinates.add(xCoord);
         coordinates.add(yCoord);
 
-        //System.out.println("coordinates in square are " + coordinates);
-        numberOfSquares++;
+        // System.out.println("coordinates in square are " + coordinates);
+        // numberOfSquares++;
 
     }
 

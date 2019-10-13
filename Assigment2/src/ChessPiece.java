@@ -15,7 +15,7 @@ public class ChessPiece {
 
 
     public ChessPiece(){
-        ArrayList initialposition;
+        // ArrayList initialposition;
         id = numberOfChessPieces;
         numberOfChessPieces++;
 
