@@ -10,6 +10,7 @@ public class Game {
     enum FieldsKnight{B,G};
     enum FieldsBishop{C,F};
     ArrayList<ChessPiece> pieces = new ArrayList<>();
+    Board board;
 
 
     public Game() {
@@ -42,7 +43,7 @@ public class Game {
 
     private void placeInitial(){
 
-        Board board = new Board();
+        board = new Board();
 
         //for both color, black and white, do the following
         for(Color color: Color.values()){
@@ -80,7 +81,7 @@ public class Game {
                 //check for every square if a piece is on it. if so, set to occupied        to string is needed, otherwise I cant compares enum? so i have to take the first of the array initialposition which is the x-axis, convert and the compare it
                 if(pieces.get(q).getInitial().get(0).toString() == board.getArray(i).getCoord().get(0).toString() && pieces.get(q).getInitial().get(1).equals(board.getArray(i).getCoord().get(1))){
                     board.getArray(i).setoccupied();
-                    System.out.println(pieces.get(q).color +" "+ pieces.get(q).pieceName+ " with id " + pieces.get(q).getId() + " " + "initial position square id is " + i + " and coordinates are " + pieces.get(q).getInitial());
+                    System.out.println(pieces.get(q).color +" "+ pieces.get(q).pieceName+ " with id " + pieces.get(q).getId() + " " + "initial position square id is " + board.getArray(i).getId() + " and coordinates are " + pieces.get(q).getInitial());
                     //System.out.println(board.getArray(i).getId());
 
                 }
