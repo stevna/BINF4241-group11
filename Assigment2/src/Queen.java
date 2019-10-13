@@ -7,18 +7,18 @@ public class Queen extends ChessPiece {
 
         if (color == "white"){
             initialposition.add(fields.D);
-            initialposition.add(0);
+            initialposition.add(1);
+            shortName = "WQ";
 
         }
         else if(color == "black"){
             initialposition.add(fields.D);
-            initialposition.add(7);
+            initialposition.add(8);
+            shortName = "BQ";
 
         }
 
         movements.add(initialposition);
-
-
 
     }
 }

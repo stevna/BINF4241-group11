@@ -9,12 +9,14 @@ public class Pawn extends ChessPiece {
 
         if (color == "white") {
             initialposition.add(field);
-            initialposition.add(1);
+            initialposition.add(2);
+            shortName = "WP";
 
 
         } else if (color == "black") {
             initialposition.add(field);
-            initialposition.add(6);
+            initialposition.add(7);
+            shortName = "BP";
         }
 
         movements.add(initialposition);

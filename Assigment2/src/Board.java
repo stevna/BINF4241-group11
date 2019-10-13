@@ -3,16 +3,16 @@ import java.util.ArrayList;
 
 public class Board {
     enum fields {A,B,C,D,E,F,G,H};
-    private ArrayList<Square> coordinates = new ArrayList <>();
+    private ArrayList<Square> squares = new ArrayList <>();
 
 
     public Board(){
-        for (int z=0;z<8;z++){
+        for (int y=1;y<=8;y++){
             for(fields xCoord: fields.values()){
-            Square square = new Square(xCoord,z);
-            //System.out.println(square.getId());
-            //System.out.println(xCoord + " " + square.getyCoord());
-            coordinates.add(square);
+                Square square = new Square(xCoord,y);
+                //System.out.println(square.getId());
+                //System.out.println(xCoord + " " + square.getyCoord());
+                squares.add(square);
             }
         }
 
@@ -29,7 +29,7 @@ public class Board {
     }
 
     public Square getArray(int i){
-        return coordinates.get(i);
+        return squares.get(i);
     }
 
 }

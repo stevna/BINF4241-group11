@@ -7,32 +7,32 @@ public class Rook extends ChessPiece{
 
         if (color == "white" && field.toString() == "A"){
             initialposition.add(fields.A);
-            initialposition.add(0);
+            initialposition.add(1);
+            shortName = "WT";
 
         }
 
         else if (color == "white" && field.toString() == "H"){
             initialposition.add(fields.H);
-            initialposition.add(0);
+            initialposition.add(1);
+            shortName = "WT";
 
         }
 
         else if(color == "black" && field.toString() == "A"){
             initialposition.add(fields.A);
-            initialposition.add(7);
+            initialposition.add(8);
+            shortName = "BT";
 
         }
 
         else{
             initialposition.add(fields.H);
-            initialposition.add(7);
-
+            initialposition.add(8);
+            shortName = "BT";
         }
 
-
         movements.add(initialposition);
-
-
 
     }
 

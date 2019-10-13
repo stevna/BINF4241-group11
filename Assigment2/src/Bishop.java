@@ -8,31 +8,32 @@ public class Bishop extends ChessPiece {
 
         if (color == "white" && field.toString() == "C"){
             initialposition.add(fields.C);
-            initialposition.add(0);
+            initialposition.add(1);
+            shortName = "WB";
 
         }
 
         else if (color == "white" && field.toString() == "F"){
             initialposition.add(fields.F);
-            initialposition.add(0);
+            initialposition.add(1);
+            shortName = "WB";
 
         }
 
         else if(color == "black" && field.toString() == "C"){
             initialposition.add(fields.C);
-            initialposition.add(7);
+            initialposition.add(8);
+            shortName = "BB";
 
         }
 
         else{
             initialposition.add(fields.F);
-            initialposition.add(7);
-
+            initialposition.add(8);
+            shortName = "BB";
         }
 
         movements.add(initialposition);
-
-
 
     }
 }

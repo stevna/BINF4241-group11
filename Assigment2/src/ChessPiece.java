@@ -12,6 +12,7 @@ public class ChessPiece {
 
     enum fields {A,B,C,D,E,F,G,H};
     String pieceName;
+    String shortName;
 
 
     public ChessPiece(){
@@ -49,5 +50,7 @@ public class ChessPiece {
         return movements.get((movements.size()-1));
     }
 
-
+    public String getShortName() {
+        return shortName;
+    }
 }

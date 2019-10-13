@@ -15,6 +15,7 @@ public class Game {
 
     public Game() {
         placeInitial();
+        getState();
         //bispiel ihgob
         String inputX = "B"; //userinput example
         int inputY = 7;       // userinput example
@@ -40,6 +41,20 @@ public class Game {
         }
     }
 
+    public void getState() {
+        for(int y=8;y>0;y--) {
+            for(FieldsPawns x : FieldsPawns.values()) {
+                System.out.print("[");
+                for(ChessPiece p: pieces) {
+                    if(p.getLastMovement().get(0).toString().equals(x.toString()) && p.getLastMovement().get(1).equals(y)) {
+                        System.out.print(p.getShortName());
+                    }
+                }
+                System.out.print("]");
+            }
+            System.out.println();
+        }
+    }
 
     private void placeInitial(){
 
@@ -53,12 +68,12 @@ public class Game {
             pieces.add(queen);
 
             //for every enum in FieldPawns create the corresponding Pawns
-            for(FieldsPawns field:FieldsPawns.values()){
+            for(FieldsPawns field: FieldsPawns.values()){
                 Pawn pawn= new Pawn(color,field);
                 pieces.add(pawn);
             }
 
-            for(FieldsRook field:FieldsRook.values()){
+            for(FieldsRook field: FieldsRook.values()){
                 Rook rook = new Rook(color,field);
                 pieces.add(rook);
             }
@@ -74,7 +89,7 @@ public class Game {
             }
         }
 
-
+        /*
         for(int q = 0;q<pieces.size();q++){
             //loop through the pieces array and check their initial position
             for(int i = 0;i<64;i++){
@@ -86,7 +101,7 @@ public class Game {
 
                 }
             }
-        }
+        }*/
     }
 
     /*for(int u = 0;u<64;u++){

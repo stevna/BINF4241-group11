@@ -14,17 +14,16 @@ public class King extends ChessPiece {
 
         if (color == "white"){
             initialposition.add(fields.E);
-            initialposition.add(0);
-
-    }
-        else if(color == "black"){
-            initialposition.add(fields.E);
-            initialposition.add(7);
+            initialposition.add(1);
+            shortName = "WK";
 
         }
+        else if(color == "black"){
+            initialposition.add(fields.E);
+            initialposition.add(8);
+            shortName = "BK";
 
+        }
         movements.add(initialposition);
-
-
-
-}}
+    }
+}
