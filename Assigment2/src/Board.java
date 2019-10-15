@@ -32,4 +32,5 @@ public class Board {
         return squares.get(i);
     }
 
+
 }
