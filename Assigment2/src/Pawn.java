@@ -1,8 +1,8 @@
 public class Pawn extends ChessPiece {
-    private int[] possibleMovesWhite = {0, 1, -1, 1, 1, -1};
-    private int[] possibleMovesBlack = {0, -1, 1, -1, -1, 1};
-    private int[] possibleFirstMovesWhite = {0, 1, -1, 1, 1, -1, 0, 2};
-    private int[] possibleFirstMovesBlack = {0, -1, 1, -1, -1, 1, 0, -2};
+    //private int[] possibleMovesWhite = {0, 1, -1, 1, 1, -1};
+    //private int[] possibleMovesBlack = {0, -1, 1, -1, -1, 1};
+    //private int[] possibleFirstMovesWhite = {0, 1, -1, 1, 1, -1, 0, 2};
+    //private int[] possibleFirstMovesBlack = {0, -1, 1, -1, -1, 1, 0, -2};
     private boolean first_move = true;
 
 
@@ -30,8 +30,43 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public boolean moveValidation(int xDest, int yDest) {
-        int[] possibleMoves;
+    public boolean moveValidation(Board board, int xDest, int yDest) {
+        if (color.equals("white")) {
+            if (xDest - xcord == 0 && yDest - ycord == 2 && isFirst_move()
+                    && !board.isOccupied(xDest,yDest) && !board.isOccupied(xDest,yDest-1)) {
+                setFirst_moveToFalse();
+                return true;
+            }
+            else if (xDest - xcord == 0 && yDest - ycord == 1 && !board.isOccupied(xDest, yDest)) {
+                return true;
+            }
+            else if (xDest - xcord == 1 && yDest - ycord == 1 && board.isOccupied(xDest,yDest)) {
+                return true;
+            }
+            else if (xcord - xDest == 1 && yDest - ycord == 1 && board.isOccupied(xDest,yDest)) {
+                return true;
+            }
+        }
+
+        else if (color.equals("black")){
+            if (xcord - xDest == 0 && ycord - yDest == 2 && isFirst_move()
+                    && !board.isOccupied(xDest,yDest) && !board.isOccupied(xDest,yDest+1)) {
+                setFirst_moveToFalse();
+                return true;
+            }
+            else if (xcord - xDest == 0 && ycord - yDest == 1 && !board.isOccupied(xDest, yDest)) {
+                return true;
+            }
+            else if (xcord - xDest == 0 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
+                return true;
+            }
+            else if (xDest - xcord == 1 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
+                return true;
+            }
+        }
+        return false;
+
+        /*int[] possibleMoves;
         if(color.equals("white")) {
             if (isFirst_move()) {
                 possibleMoves = possibleFirstMovesWhite;
@@ -55,6 +90,6 @@ public class Pawn extends ChessPiece {
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 }

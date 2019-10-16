@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ChessPiece {
+public abstract class ChessPiece {
     private int id;
     private static int numberOfChessPieces = 0;
     int xcord;
@@ -35,6 +35,11 @@ public class ChessPiece {
         this.xcord = x;
         this.ycord = y;
     }
+
+    public boolean moveValidation(int xDest, int yDest) {
+        return true;
+    }
+
     public boolean moveValidation(Board board, int xDest, int yDest) {
         return true;
     }
