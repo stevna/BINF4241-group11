@@ -38,7 +38,11 @@ public class Game {
 
         //bispiel ihgob
         String inputX = "B"; //userinput example
-        int inputY = 8;       // userinput example
+        int inputY = 2;       // userinput example
+
+
+        String destInputX = "B";
+        int destInputY = 3;
 
 
         for (int u = 0; u < 32; u++) {
@@ -46,30 +50,20 @@ public class Game {
             if (pieces.get(u).getLastMovement().get(0).toString() == inputX && pieces.get(u).getLastMovement().get(1).equals(inputY)) {
                 //es feld wo de wird usgsuecht
 
-                if (movevalidation(inputX,inputY,FieldsPawns.B.toString(),7,pieces.get(u))) {
+                if (movevalidation(inputX,inputY,destInputX,destInputY,pieces.get(u))) {
                     //id vo dem feld woner grad druf stoht
-                    System.out.println(getStartId(inputX, inputY));
-                    pieces.get(u).move(FieldsPawns.B, 7);
-                    System.out.println(getEndId(FieldsPawns.B.toString(), 7));
-                    System.out.println(pieces.get(u).color + " " + pieces.get(u).pieceName + " with id " + pieces.get(u).getId() + " has been moved");
-                    System.out.println("Fuck this shiti");
+                    pieces.get(u).move(destInputX, destInputY);
+                    System.out.println("\n"+pieces.get(u).color + " " + pieces.get(u).pieceName + " with id " + pieces.get(u).getId() + " has been moved from " + inputX + inputY + " to " + destInputX + destInputY + "\n" );
                 }
             }
         }
 
 
-
-        for (int a = 0; a < 32; a++) {
-            if (pieces.get(a).getId() == 12) {
-                System.out.println("initial position was " + pieces.get(a).getInitial());
-                System.out.println("new position is " + pieces.get(a).movements.get((pieces.get(a).movements.size() - 1)));
-                //check if the moving worked
-
-                //System.out.println(pieces.get(u).getId());
-            }
-        }
         getState();
     }
+
+
+
 
     public void getState() {
         for (int y = 8; y > 0; y--) {
@@ -143,22 +137,32 @@ public class Game {
     }*/
 
     public boolean movevalidation(String letstart, int numstart, String letend, int numend, ChessPiece piece) {
-        if(piece.color == "black"){
+
+        //nur für die schwarze buure
+        if(piece.getShortName() == "BP"){
             if(getStartId(letstart,numstart)-getEndId(letend,numend) == 8) {
                 return true;
 
         }
+        }
+        //für di wiise bure
+        else if(piece.getShortName() == "WP"){
+            if(getEndId(letend,numend)-getStartId(letstart,numstart) == 8){
+                return true;
+            }
         }
         return false;
 
 
     }
 
+
+
     public int getStartId(String let, int num){
         int initialid = 0;
         for(int i = 0;i<64;i++) {
             if(board.getArray(i).getxCoord().toString() == let && board.getArray(i).getyCoord() == num){
-                System.out.println("the initial position id of the moved figure  " + i);
+                //System.out.println("the initial position id of the moved figure  " + i);
                 initialid = i;
 
             }
@@ -172,7 +176,7 @@ public class Game {
         int EndId = 0;
         for(int i = 0;i<64;i++) {
             if(board.getArray(i).getxCoord().toString() == let && board.getArray(i).getyCoord() == num){
-                System.out.println("the end  position id of the moved figure  " + i);
+                //System.out.println("the end  position id of the moved figure  " + i);
                 EndId = i;
 
             }

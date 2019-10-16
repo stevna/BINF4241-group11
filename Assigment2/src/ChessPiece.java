@@ -27,7 +27,7 @@ public class ChessPiece {
         return initialposition;
     }
 
-    public void move(Enum xDest, int yDest){
+    public void move(String xDest, int yDest){
         ArrayList<Object> move = new ArrayList<>();
         move.add(xDest);
         move.add(yDest);
