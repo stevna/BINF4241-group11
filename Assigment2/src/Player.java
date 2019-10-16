@@ -4,8 +4,10 @@ public class Player {
     private String name;
     private int id;
     private String color;
+    enum Color{black, white};
     private static int numberOfPlayers = 0;
     private ArrayList<ChessPiece> eatenPieces = new ArrayList<>();
+    private ArrayList<ChessPiece> ownedpieces = new ArrayList<>();
 
     // set the players name, id and color
     // first player gets black and second white
@@ -14,10 +16,10 @@ public class Player {
         id = numberOfPlayers;
         numberOfPlayers++;
         if(id == 0) {
-            color = "white";
+            color = Color.white.toString();
         }
         else {
-            color = "black";
+            color = Color.black.toString();
         }
     }
 
@@ -33,7 +35,18 @@ public class Player {
         return id;
     }
 
-    public void addEatenPieces(ChessPiece p) {
+    public void eatPiece(ChessPiece p) {
         eatenPieces.add(p);
+    }
+
+    // retrieves the players eaten queen if a one of the player's pawn touches the adversary's edge of the board
+    public ChessPiece retrieveQueen() {
+        for(ChessPiece piece : eatenPieces) {
+            if (piece instanceof Queen) {
+                eatenPieces.remove(piece);
+                return piece;
+            }
+        }
+        return null;
     }
 }
