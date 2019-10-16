@@ -39,4 +39,7 @@ public class ChessPiece {
         return true;
     }
 
+    public String getColor() {
+        return color;
+    }
 }
