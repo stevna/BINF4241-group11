@@ -8,6 +8,7 @@ public class Game {
     ArrayList<ChessPiece> pieces = new ArrayList<>();
     ArrayList<Player> players = new ArrayList<>();
     private boolean gameOver = false;
+    Board board;
     //different enums for initialization to know where to initialise which piece
     enum Color {black, white}
     enum letters {A, B, C, D, E, F, G, H};
@@ -26,7 +27,6 @@ public class Game {
         placeInitial();
         getState();
         initializePlayers(names);
-
     }
 
     //shows the actual state of the game
@@ -51,6 +51,8 @@ public class Game {
     }
 
     private void placeInitial() {
+
+        board = new Board();
 
         //for both color, black and white, do the following
         for (Color color : Color.values()) {
@@ -148,7 +150,7 @@ public class Game {
         int yDest = Integer.parseInt(d[1])-1;
 
         //move, if moveValidation is True and the piece has the same colour as the player
-        if(piece.moveValidation(xDest,yDest) && piece.getColor().equals(p.getColor())) {
+        if(piece.moveValidation(board,xDest,yDest) && piece.getColor().equals(p.getColor())) {
             ChessPiece pieceOnDestination = whoIsThere(xDest,yDest);
             if(pieceOnDestination != null) {
                 if(!(pieceOnDestination.getColor() == p.getColor())) {
@@ -164,6 +166,10 @@ public class Game {
                     piece.setCord(xDest,yDest);
                     didMove = true;
 
+                    board.leave(xSource,ySource);
+                    board.enter(xDest,yDest);
+
+
                     //-------------will be removed later--------------
                     if(pieceOnDestination instanceof King) {
                         gameOver = true;
@@ -174,6 +180,9 @@ public class Game {
             else {
                 piece.setCord(xDest,yDest);
                 didMove = true;
+
+                board.leave(xSource,ySource);
+                board.enter(xDest,yDest);
             }
         }
         return didMove;
@@ -192,30 +201,6 @@ public class Game {
     //Converts a letter (A to H) into an integer (0 to 7)
     public int letterToInteger(String l) {
         return letters.valueOf(l).ordinal();
-    }
-    public boolean isSomethingBetween(ChessPiece p, int xDest, int yDest) {
-        if(p instanceof Rook){
-            if(p.getXcord()==xDest) {
-                if(p.getYcord()<yDest) {
-                    for(int i=p.getYcord()+1;p.getYcord()+1<=yDest;i++) {
-                        if(whoIsThere(xDest,i)!=null) {
-                            return true;
-                        }
-                    }
-                }
-                else {
-                    for(int i=p.getYcord()-1;p.getYcord()-1>=yDest;i--) {
-                        if(whoIsThere(xDest,i)!=null) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            else if (p.getYcord()==yDest) {
-
-            }
-        }
-        return false;
     }
 
 }
