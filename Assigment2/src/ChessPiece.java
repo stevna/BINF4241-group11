@@ -30,4 +30,13 @@ public class ChessPiece {
     public int getYcord() {
         return ycord;
     }
+
+    public void setCord(int x, int y) {
+        this.xcord = x;
+        this.ycord = y;
+    }
+    public boolean movevalidation() {
+        return true;
+    }
+
 }

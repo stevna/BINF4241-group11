@@ -1,9 +1,12 @@
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
 
     ArrayList<ChessPiece> pieces = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<>();
+    private boolean gameOver = false;
     //different enums for initialization to know where to initialise which piece
     enum Color {
         black, white
@@ -11,11 +14,27 @@ public class Game {
 
     enum Fields {A, B, C, D, E, F, G, H};
 
-    public Game() {
+    public Game(String[] names) {
         placeInitial();
         getState();
+        initializePlayers(names);
+        while(!gameOver) {
+            for (Player p : players) {
+                System.out.println(p.getName());
 
-        System.out.println(Fields.valueOf("C").ordinal());
+                Scanner piece = new Scanner(System.in);  // Create a Scanner object
+                System.out.println("Enter Piece: ");
+                String selectedPiece = piece.nextLine();
+                Scanner field = new Scanner(System.in);  // Create a Scanner object
+                System.out.println("Enter Destination: ");
+                String destination = field.nextLine();
+                move(selectedPiece, destination);
+
+                getState();
+
+            }
+        }
+
     }
 
     public void getState() {
@@ -74,6 +93,42 @@ public class Game {
         pieces.add(bishop3);
         Bishop bishop4 = new Bishop(Color.black, 5,7);
         pieces.add(bishop4);
+    }
+    public void initializePlayers(String[] names) {
+        Player player1 = new Player(names[0]);
+        players.add(player1);
+        Player player2 = new Player(names[1]);
+        players.add(player2);
+    }
+
+    public void move(String source, String destination){
+        System.out.println("Move "+source+" to "+destination);
+        String[] s = source.split("");
+        int xSource = letterToInteger(s[0]);
+        int ySource = Integer.parseInt(s[1])-1;
+        ChessPiece piece = whoIsThere(xSource,ySource);
+
+        //Check if peace belongs to the right player
+
+        String[] d = destination.split("");
+        int xDest = letterToInteger(d[0]);
+        int yDest = Integer.parseInt(d[1])-1;
+
+        if(piece.movevalidation()) {
+            piece.setCord(xDest,yDest);
+        }
+
+    }
+    public ChessPiece whoIsThere(int x, int y) {
+        for(ChessPiece piece: pieces) {
+            if(piece.getXcord() == x && piece.getYcord() == y) {
+                return piece;
+            }
+        }
+        return null;
+    }
+    public int letterToInteger(String l) {
+        return Fields.valueOf(l).ordinal();
     }
 }
 
