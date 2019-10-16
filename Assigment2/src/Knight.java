@@ -17,7 +17,7 @@ public class Knight extends ChessPiece {
     }
 
     @Override
-    public boolean moveValidation(int xDest, int yDest) {
+    public boolean moveValidation(Board board, int xDest, int yDest) {
         for (int i = 0; i < possibleMoves.length; i = i + 2) {
             if (xDest == xcord + possibleMoves[i] && yDest == ycord + possibleMoves[i + 1]) {
                 return true;

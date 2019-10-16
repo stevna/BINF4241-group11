@@ -36,13 +36,7 @@ public abstract class ChessPiece {
         this.ycord = y;
     }
 
-    public boolean moveValidation(int xDest, int yDest) {
-        return true;
-    }
-
-    public boolean moveValidation(Board board, int xDest, int yDest) {
-        return true;
-    }
+    public abstract boolean moveValidation(Board board, int xDest, int yDest);
 
     public String getColor() {
         return color;
