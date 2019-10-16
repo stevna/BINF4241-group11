@@ -3,74 +3,27 @@ import java.util.ArrayList;
 
 public class Game {
 
-
+    ArrayList<ChessPiece> pieces = new ArrayList<>();
     //different enums for initialization to know where to initialise which piece
     enum Color {
         black, white
     }
 
-    ;
-
-    enum FieldsPawns {A, B, C, D, E, F, G, H}
-
-    ;
-
-    enum FieldsRook {A, H}
-
-    ;
-
-    enum FieldsKnight {B, G}
-
-    ;
-
-    enum FieldsBishop {C, F}
-
-    ;
-    ArrayList<ChessPiece> pieces = new ArrayList<>();
-    Board board;
-
+    enum Fields {A, B, C, D, E, F, G, H};
 
     public Game() {
-
         placeInitial();
         getState();
 
-
-        //bispiel ihgob
-        String inputX = "B"; //userinput example
-        int inputY = 2;       // userinput example
-
-
-        String destInputX = "B";
-        int destInputY = 3;
-
-
-        for (int u = 0; u < 32; u++) {
-            //do nimmi input x, wandles um und input y und denn suechi das feld woner wett und mach denn en move
-            if (pieces.get(u).getLastMovement().get(0).toString() == inputX && pieces.get(u).getLastMovement().get(1).equals(inputY)) {
-                //es feld wo de wird usgsuecht
-
-                if (movevalidation(inputX,inputY,destInputX,destInputY,pieces.get(u))) {
-                    //id vo dem feld woner grad druf stoht
-                    pieces.get(u).move(destInputX, destInputY);
-                    System.out.println("\n"+pieces.get(u).color + " " + pieces.get(u).pieceName + " with id " + pieces.get(u).getId() + " has been moved from " + inputX + inputY + " to " + destInputX + destInputY + "\n" );
-                }
-            }
-        }
-
-
-        getState();
+        System.out.println(Fields.valueOf("C").ordinal());
     }
 
-
-
-
     public void getState() {
-        for (int y = 8; y > 0; y--) {
-            for (FieldsPawns x : FieldsPawns.values()) {
+        for (int y = 7; y >= 0; y--) {
+            for (int x=0;x<8;x++) {
                 System.out.print("[");
                 for (ChessPiece p : pieces) {
-                    if (p.getLastMovement().get(0).toString().equals(x.toString()) && p.getLastMovement().get(1).equals(y)) {
+                    if (p.getXcord() == x && p.getYcord() == y) {
                         System.out.print(p.getShortName());
                     }
                 }
@@ -82,8 +35,6 @@ public class Game {
 
     private void placeInitial() {
 
-        board = new Board();
-
         //for both color, black and white, do the following
         for (Color color : Color.values()) {
             King king = new King(color);
@@ -92,98 +43,38 @@ public class Game {
             pieces.add(queen);
 
             //for every enum in FieldPawns create the corresponding Pawns
-            for (FieldsPawns field : FieldsPawns.values()) {
-                Pawn pawn = new Pawn(color, field);
+            for (int i=0;i<8;i++) {
+                Pawn pawn = new Pawn(color, i);
                 pieces.add(pawn);
             }
-
-            for (FieldsRook field : FieldsRook.values()) {
-                Rook rook = new Rook(color, field);
-                pieces.add(rook);
-            }
-
-            for (FieldsKnight field : FieldsKnight.values()) {
-                Knight knight = new Knight(color, field);
-                pieces.add(knight);
-            }
-
-            for (FieldsBishop field : FieldsBishop.values()) {
-                Bishop bishop = new Bishop(color, field);
-                pieces.add(bishop);
-            }
         }
+        Rook rook1 = new Rook(Color.white, 0,0);
+        pieces.add(rook1);
+        Rook rook2 = new Rook(Color.white, 7,0);
+        pieces.add(rook2);
+        Rook rook3 = new Rook(Color.black, 0,7);
+        pieces.add(rook3);
+        Rook rook4 = new Rook(Color.black, 7,7);
+        pieces.add(rook4);
 
-        /*
-        for(int q = 0;q<pieces.size();q++){
-            //loop through the pieces array and check their initial position
-            for(int i = 0;i<64;i++){
-                //check for every square if a piece is on it. if so, set to occupied        to string is needed, otherwise I cant compares enum? so i have to take the first of the array initialposition which is the x-axis, convert and the compare it
-                if(pieces.get(q).getInitial().get(0).toString() == board.getArray(i).getCoord().get(0).toString() && pieces.get(q).getInitial().get(1).equals(board.getArray(i).getCoord().get(1))){
-                    board.getArray(i).setoccupied();
-                    System.out.println(pieces.get(q).color +" "+ pieces.get(q).pieceName+ " with id " + pieces.get(q).getId() + " " + "initial position square id is " + board.getArray(i).getId() + " and coordinates are " + pieces.get(q).getInitial());
-                    //System.out.println(board.getArray(i).getId());
+        Knight knight1 = new Knight(Color.white, 1,0);
+        pieces.add(knight1);
+        Knight knight2 = new Knight(Color.white, 6,0);
+        pieces.add(knight2);
+        Knight knight3 = new Knight(Color.black, 1,7);
+        pieces.add(knight3);
+        Knight knight4 = new Knight(Color.black, 6,7);
+        pieces.add(knight4);
 
-                }
-            }
-        }*/
+        Bishop bishop1 = new Bishop(Color.white, 2,0);
+        pieces.add(bishop1);
+        Bishop bishop2 = new Bishop(Color.white, 5,0);
+        pieces.add(bishop2);
+        Bishop bishop3 = new Bishop(Color.black, 2,7);
+        pieces.add(bishop3);
+        Bishop bishop4 = new Bishop(Color.black, 5,7);
+        pieces.add(bishop4);
     }
-
-    /*for(int u = 0;u<64;u++){
-        if(board.getArray(u).checkoccupied()){
-            System.out.println(board.getArray(u).getCoord() + " is occupied");
-        }
-
-
-    }*/
-
-    public boolean movevalidation(String letstart, int numstart, String letend, int numend, ChessPiece piece) {
-
-        //nur für die schwarze buure
-        if(piece.getShortName() == "BP"){
-            if(getStartId(letstart,numstart)-getEndId(letend,numend) == 8) {
-                return true;
-
-        }
-        }
-        //für di wiise bure
-        else if(piece.getShortName() == "WP"){
-            if(getEndId(letend,numend)-getStartId(letstart,numstart) == 8){
-                return true;
-            }
-        }
-        return false;
-
-
-    }
-
-
-
-    public int getStartId(String let, int num){
-        int initialid = 0;
-        for(int i = 0;i<64;i++) {
-            if(board.getArray(i).getxCoord().toString() == let && board.getArray(i).getyCoord() == num){
-                //System.out.println("the initial position id of the moved figure  " + i);
-                initialid = i;
-
-            }
-        }
-        return initialid;
-    }
-
-
-
-    public int getEndId(String let, int num){
-        int EndId = 0;
-        for(int i = 0;i<64;i++) {
-            if(board.getArray(i).getxCoord().toString() == let && board.getArray(i).getyCoord() == num){
-                //System.out.println("the end  position id of the moved figure  " + i);
-                EndId = i;
-
-            }
-        }
-        return EndId;
-    }
-
-    }
+}
 
 

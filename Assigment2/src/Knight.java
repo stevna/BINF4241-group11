@@ -1,42 +1,16 @@
 public class Knight extends ChessPiece {
 
-    public Knight(Enum col, Enum field) {
+    public Knight(Enum col, int x, int y) {
         super();
         color = col.toString();
-        pieceName = "Knight";
-
-        if (color == "white" && field.toString() == "B"){
-            initialposition.add(fields.B);
-            initialposition.add(1);
+        xcord = x;
+        ycord = y;
+        if (color.equals("white")){
             shortName = "WN";
-
         }
-
-        else if (color == "white" && field.toString() == "G"){
-            initialposition.add(fields.G);
-            initialposition.add(1);
-            shortName = "WN";
-
-        }
-
-        else if(color == "black" && field.toString() == "B"){
-            initialposition.add(fields.B);
-            initialposition.add(8);
+        else if(color.equals("black")){
             shortName = "BN";
-
         }
-
-        else{
-            initialposition.add(fields.G);
-            initialposition.add(8);
-            shortName = "BN";
-
-        }
-
-
-        movements.add(initialposition);
-
-
 
     }
 

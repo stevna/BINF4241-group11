@@ -3,22 +3,16 @@ public class Queen extends ChessPiece {
     public Queen(Enum col) {
         super();
         color = col.toString();
-        pieceName = "Queen";
+        xcord = 3;
 
         if (color == "white"){
-            initialposition.add(fields.D);
-            initialposition.add(1);
+            ycord = 0;
             shortName = "WQ";
-
         }
         else if(color == "black"){
-            initialposition.add(fields.D);
-            initialposition.add(8);
+            ycord = 7;
             shortName = "BQ";
-
         }
-
-        movements.add(initialposition);
 
     }
 }

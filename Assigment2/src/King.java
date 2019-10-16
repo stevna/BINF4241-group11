@@ -8,22 +8,16 @@ public class King extends ChessPiece {
 
     public King(Enum col) {
         super();
-
         color = col.toString();
-        pieceName = "King";
-
-        if (color == "white"){
-            initialposition.add(fields.E);
-            initialposition.add(1);
+        xcord = 4;
+        if (color.equals("white")){
+            ycord = 0;
             shortName = "WK";
-
         }
-        else if(color == "black"){
-            initialposition.add(fields.E);
-            initialposition.add(8);
+        else if(color.equals("black")){
+            ycord = 7;
             shortName = "BK";
 
         }
-        movements.add(initialposition);
     }
 }
