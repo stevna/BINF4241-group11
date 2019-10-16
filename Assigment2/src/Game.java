@@ -141,12 +141,12 @@ public class Game {
 
         //System.out.println("Move "+source+" to "+destination);
         String[] s = src.split("");
-        int xSource = letterToInteger(s[0]);
+        int xSource = letterToInteger(s[0].toUpperCase());
         int ySource = Integer.parseInt(s[1])-1;
         ChessPiece piece = whoIsThere(xSource,ySource);
 
         String[] d = dest.split("");
-        int xDest = letterToInteger(d[0]);
+        int xDest = letterToInteger(d[0].toUpperCase());
         int yDest = Integer.parseInt(d[1])-1;
 
         //move, if moveValidation is True and the piece has the same colour as the player
