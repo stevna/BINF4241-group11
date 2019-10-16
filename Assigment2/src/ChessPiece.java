@@ -43,7 +43,6 @@ public class ChessPiece {
 
     public ArrayList getMovements(){
         return movements;
-
     }
 
     public ArrayList getLastMovement(){
