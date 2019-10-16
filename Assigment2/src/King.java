@@ -1,10 +1,7 @@
 import java.util.ArrayList;
 
 public class King extends ChessPiece {
-    //ArrayList<Object> initialposition = new ArrayList<>();
-
-    //array list ide array list, es innere sind positione, es üssere isch di ganz move gschicht
-    //denn übergit meh die liste und zeigt eifach immer es letschte element ah
+    private int[] possibleMoves = {0, 1, 1, 1, 1, 0, 1, -1, 0, -1, -1, -1, -1, 0, -1, 1};
 
     public King(Enum col) {
         super();
@@ -19,5 +16,15 @@ public class King extends ChessPiece {
             shortName = "BK";
 
         }
+    }
+
+    @Override
+    public boolean moveValidation(int xDest, int yDest) {
+        for (int i = 0; i < possibleMoves.length; i = i + 2) {
+            if (xDest == xcord + possibleMoves[i] && yDest == ycord + possibleMoves[i + 1]) {
+                return true;
+            }
+        }
+        return false;
     }
 }
