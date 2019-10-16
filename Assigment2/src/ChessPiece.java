@@ -35,7 +35,7 @@ public class ChessPiece {
         this.xcord = x;
         this.ycord = y;
     }
-    public boolean movevalidation() {
+    public boolean moveValidation(int xDest, int yDest) {
         return true;
     }
 
