@@ -1,3 +1,4 @@
+import java.lang.constant.DynamicConstantDesc;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,11 +9,18 @@ public class Game {
     ArrayList<Player> players = new ArrayList<>();
     private boolean gameOver = false;
     //different enums for initialization to know where to initialise which piece
-    enum Color {
-        black, white
+    enum Color {black, white}
+    enum letters {A, B, C, D, E, F, G, H};
+    enum fields {
+        A1, A2, A3, A4, A5, A6, A7, A8,
+        B1, B2, B3, B4, B5, B6, B7, B8,
+        C1, C2, C3, C4, C5, C6, C7, C8,
+        D1, D2, D3, D4, D5, D6, D7, D8,
+        E1, E2, E3, E4, E5, E6, E7, E8,
+        F1, F2, F3, F4, F5, F6, F7, F8,
+        G1, G2, G3, G4, G5, G6, G7, G8,
+        H1, H2, H3, H4, H5, H6, H7, H8,
     }
-
-    enum Fields {A, B, C, D, E, F, G, H};
 
     public Game(String[] names) {
         placeInitial();
@@ -26,10 +34,15 @@ public class Game {
         for (int y = 7; y >= 0; y--) {
             for (int x=0;x<8;x++) {
                 System.out.print("[");
+                boolean printed = false;
                 for (ChessPiece p : pieces) {
                     if (p.getXcord() == x && p.getYcord() == y) {
                         System.out.print(p.getShortName());
+                        printed = true;
                     }
+                }
+                if(!printed) {
+                    System.out.print("  ");
                 }
                 System.out.print("]");
             }
@@ -97,10 +110,10 @@ public class Game {
         while(!gameOver) {
             for (Player p : players) {
                 boolean successfulMove = false;
-                System.out.println("Player: "+p.getName());
+                System.out.println("\nPlayer: "+p.getName());
                 while(!successfulMove) {
                     Scanner piece = new Scanner(System.in);  // Create a Scanner object
-                    System.out.print("Enter the field of the piece which you wanna move: ");
+                    System.out.print("Enter the position of the piece which you wanna move: ");
                     String selectedPiece = piece.nextLine();
                     Scanner field = new Scanner(System.in);  // Create a Scanner object
                     System.out.print("Enter the destination: ");
@@ -121,18 +134,18 @@ public class Game {
         }
     }
 
-    public boolean move(Player p,String source, String destination){
+    public boolean move(Player p, String src, String dest){
         boolean didMove = false;
+
         //System.out.println("Move "+source+" to "+destination);
-        String[] s = source.split("");
+        String[] s = src.split("");
         int xSource = letterToInteger(s[0]);
         int ySource = Integer.parseInt(s[1])-1;
         ChessPiece piece = whoIsThere(xSource,ySource);
 
-        String[] d = destination.split("");
+        String[] d = dest.split("");
         int xDest = letterToInteger(d[0]);
         int yDest = Integer.parseInt(d[1])-1;
-
 
         //move, if moveValidation is True and the piece has the same colour as the player
         if(piece.moveValidation(xDest,yDest) && piece.getColor().equals(p.getColor())) {
@@ -178,18 +191,33 @@ public class Game {
 
     //Converts a letter (A to H) into an integer (0 to 7)
     public int letterToInteger(String l) {
-        return Fields.valueOf(l).ordinal();
+        return letters.valueOf(l).ordinal();
+    }
+    public boolean isSomethingBetween(ChessPiece p, int xDest, int yDest) {
+        if(p instanceof Rook){
+            if(p.getXcord()==xDest) {
+                if(p.getYcord()<yDest) {
+                    for(int i=p.getYcord()+1;p.getYcord()+1<=yDest;i++) {
+                        if(whoIsThere(xDest,i)!=null) {
+                            return true;
+                        }
+                    }
+                }
+                else {
+                    for(int i=p.getYcord()-1;p.getYcord()-1>=yDest;i--) {
+                        if(whoIsThere(xDest,i)!=null) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else if (p.getYcord()==yDest) {
+
+            }
+        }
+        return false;
     }
 
-    public void removePiece(ChessPiece p) {
-        /*for(int i=0;i<pieces.size();i++) {
-            pieces.remove(p);
-        }*/
-        pieces.remove(p);
-    }
-    public void addPiece(ChessPiece p) {
-        pieces.add(p);
-    }
 }
 
 
