@@ -19,6 +19,7 @@ public class Rook extends ChessPiece{
 
         if(xcord==xDest) {
             if(ycord<yDest) {
+                // Move upwards
                 for(int i=ycord+1;i<yDest;i++) {
                     if(board.isOccupied(xDest,i)) {
                         return false;
@@ -26,6 +27,7 @@ public class Rook extends ChessPiece{
                 }
             }
             else {
+                // Move downwards
                 for(int i=ycord;i>yDest;i--) {
                     if(board.isOccupied(xDest,i)) {
                         return false;
@@ -34,6 +36,7 @@ public class Rook extends ChessPiece{
             }
         }
         else if (ycord==yDest) {
+            // Move right
             if(xcord<xDest) {
                 for(int i=xcord+1;i<xDest;i++) {
                     if(board.isOccupied(i,yDest)) {
@@ -42,6 +45,7 @@ public class Rook extends ChessPiece{
                 }
             }
             else {
+                // Move left
                 for(int i=xcord-1;i>xDest;i--) {
                     if(board.isOccupied(i,yDest)) {
                         return false;

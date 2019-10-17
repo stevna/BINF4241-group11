@@ -19,25 +19,32 @@ public class Bishop extends ChessPiece {
     @Override
     public boolean moveValidation(Board board, int xDest, int yDest) {
 
+        // if the bishop can't reach the field
         if(Math.abs(xcord-xDest)!=Math.abs(ycord-yDest)){
             return false;
         }
 
         int xOffset, yOffset;
 
+        // Find direction to x coordinate of destination
         if(xcord < xDest){
             xOffset = 1;
-        }else{
+        }
+        else{
             xOffset = -1;
         }
 
+        // Find direction to y coordinate of destination
         if(ycord < yDest){
             yOffset = 1;
-        }else{
+        }
+        else{
             yOffset = -1;
         }
 
         int y = ycord + yOffset;
+
+        // Move diagonal
         for(int x = xcord + xOffset; x != xDest; x += xOffset){
             if(board.isOccupied(x,y)){
                 return false;

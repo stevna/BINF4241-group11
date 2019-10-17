@@ -19,18 +19,21 @@ public class Queen extends ChessPiece {
     @Override
     public boolean moveValidation(Board board, int xDest, int yDest) {
 
+        //this validation is a mix of the rook and the bishop validation
         if(Math.abs(xcord-xDest)==Math.abs(ycord-yDest)){
             int xOffset, yOffset;
 
             if(xcord < xDest){
                 xOffset = 1;
-            }else{
+            }
+            else{
                 xOffset = -1;
             }
 
             if(ycord < yDest){
                 yOffset = 1;
-            }else{
+            }
+            else{
                 yOffset = -1;
             }
 
