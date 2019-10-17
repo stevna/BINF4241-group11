@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public abstract class ChessPiece {
     private int id;
@@ -6,13 +5,12 @@ public abstract class ChessPiece {
     int xcord;
     int ycord;
     String color;
-    String shortName;
+    String shortName; // name that ist printed out in the console
 
 
     public ChessPiece(){
         id = numberOfChessPieces;
         numberOfChessPieces++;
-
     }
 
     public String getShortName() {
@@ -36,7 +34,7 @@ public abstract class ChessPiece {
         this.ycord = y;
     }
 
-    public abstract boolean moveValidation(Board board, int xDest, int yDest);
+    public abstract boolean moveValidation(Board board, int xDest, int yDest); // abstract method
 
     public String getColor() {
         return color;

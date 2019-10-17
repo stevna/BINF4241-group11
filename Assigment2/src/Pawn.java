@@ -1,95 +1,84 @@
 public class Pawn extends ChessPiece {
-    //private int[] possibleMovesWhite = {0, 1, -1, 1, 1, -1};
-    //private int[] possibleMovesBlack = {0, -1, 1, -1, -1, 1};
-    //private int[] possibleFirstMovesWhite = {0, 1, -1, 1, 1, -1, 0, 2};
-    //private int[] possibleFirstMovesBlack = {0, -1, 1, -1, -1, 1, 0, -2};
-    private boolean first_move = true;
+    private boolean firstMove = true; // to make sure that the pawns can go 2 fields forward in their first move
 
-
+    // set the variables for the pawn
     public Pawn(Enum col, int x) {
         super();
         color = col.toString();
         xcord = x;
 
+        // set initial xcord and shortName if it is a white pawn
         if (color.equals("white")) {
             ycord = 1;
             shortName = "WP";
         }
+
+        // set initial xcord and shortName if it is a black pawn
         else if (color.equals("black")) {
             ycord = 6;
             shortName = "BP";
         }
     }
 
-    private void setFirst_moveToFalse() {
-        first_move = false;
+    private void setFirstMoveToFalse() {
+        firstMove = false;
     }
 
     private  boolean isFirst_move() {
-        return first_move;
+        return firstMove;
     }
 
     @Override
     public boolean moveValidation(Board board, int xDest, int yDest) {
+        //  move validation for white pawns
         if (color.equals("white")) {
+            // checks if the pawn can move two fields forward
             if (xDest - xcord == 0 && yDest - ycord == 2 && isFirst_move()
                     && !board.isOccupied(xDest,yDest) && !board.isOccupied(xDest,yDest-1)) {
-                setFirst_moveToFalse();
+                setFirstMoveToFalse(); // firstMove gets false
                 return true;
             }
+
+            // checks if the pawn can move one field forward
             else if (xDest - xcord == 0 && yDest - ycord == 1 && !board.isOccupied(xDest, yDest)) {
                 return true;
             }
+
+            // Checks if the field diagonal on the right side is occupied
             else if (xDest - xcord == 1 && yDest - ycord == 1 && board.isOccupied(xDest,yDest)) {
                 return true;
             }
+
+            // Checks if the field diagonal on the left side is occupied
             else if (xcord - xDest == 1 && yDest - ycord == 1 && board.isOccupied(xDest,yDest)) {
                 return true;
             }
         }
 
+        // move validations for black pawns
         else if (color.equals("black")){
+            // checks if the pawn can move two fields forward
             if (xcord - xDest == 0 && ycord - yDest == 2 && isFirst_move()
                     && !board.isOccupied(xDest,yDest) && !board.isOccupied(xDest,yDest+1)) {
-                setFirst_moveToFalse();
+                setFirstMoveToFalse(); // firstMove gets false
                 return true;
             }
+
+            // checks if the pawn can move one field forward
             else if (xcord - xDest == 0 && ycord - yDest == 1 && !board.isOccupied(xDest, yDest)) {
                 return true;
             }
-            else if (xcord - xDest == 0 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
+
+            // Checks if the field diagonal on the left side is occupied
+            else if (xcord - xDest == 1 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
                 return true;
             }
+
+            // Checks if the field diagonal on the right side is occupied
             else if (xDest - xcord == 1 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
                 return true;
             }
         }
         return false;
-
-        /*int[] possibleMoves;
-        if(color.equals("white")) {
-            if (isFirst_move()) {
-                possibleMoves = possibleFirstMovesWhite;
-                setFirst_moveToFalse();
-            }
-            else {
-                possibleMoves = possibleMovesWhite;
-            }
-        }
-        else {
-            if (isFirst_move()) {
-                possibleMoves = possibleFirstMovesBlack;
-                setFirst_moveToFalse();
-            }
-            else {
-                possibleMoves = possibleMovesBlack;
-            }
-        }
-        for (int i = 0; i < possibleMoves.length; i = i + 2) {
-            if (xDest == xcord + possibleMoves[i] && yDest == ycord + possibleMoves[i + 1]) {
-                return true;
-            }
-        }
-        return false;*/
     }
 }
