@@ -1,6 +1,7 @@
 import java.lang.constant.DynamicConstantDesc;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Scanner;
 
 public class Game {
@@ -138,7 +139,12 @@ public class Game {
 
     public boolean move(Player p, String src, String dest){
         boolean didMove = false;
-
+        if(src.length()!=2 || dest.length()!=2) {
+            return didMove;
+        }
+        if(!checkField(src) || !checkField(dest)){
+            return didMove;
+        }
         //System.out.println("Move "+source+" to "+destination);
         String[] s = src.split("");
         int xSource = letterToInteger(s[0].toUpperCase());
@@ -201,6 +207,15 @@ public class Game {
     //Converts a letter (A to H) into an integer (0 to 7)
     public int letterToInteger(String l) {
         return letters.valueOf(l).ordinal();
+    }
+
+    public boolean checkField(String field){
+        for(fields f: fields.values()){
+            if(f.toString().equals(field)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
