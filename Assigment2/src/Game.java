@@ -1,7 +1,4 @@
-import java.lang.constant.DynamicConstantDesc;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.Scanner;
 
 public class Game {
@@ -10,7 +7,6 @@ public class Game {
     ArrayList<Player> players = new ArrayList<>();
     private boolean gameOver = false;
     Board board;
-    //different enums for initialization to know where to initialise which piece
     enum Color {black, white}
     enum letters {A, B, C, D, E, F, G, H};
     enum fields {
@@ -30,7 +26,7 @@ public class Game {
         initializePlayers(names);
     }
 
-    //shows the actual state of the game
+    // shows the actual state of the game
     public void getState() {
         for (int y = 7; y >= 0; y--) {
             for (int x=0;x<8;x++) {
@@ -51,26 +47,27 @@ public class Game {
         }
     }
 
+    // This method creates for each color the chess pieces with it's initial coordinates
     private void placeInitial() {
 
         board = new Board();
 
-        //for both color, black and white, do the following
+        // for both color, black and white, do the following
         for (Color color : Color.values()) {
-            //Create the King
+            // Create the King
             King king = new King(color);
             pieces.add(king);
-            //Create the Queen
+            // Create the Queen
             Queen queen = new Queen(color);
             pieces.add(queen);
 
-            //Create the Pawns
+            // Create the Pawns
             for (int i=0;i<8;i++) {
                 Pawn pawn = new Pawn(color, i);
                 pieces.add(pawn);
             }
         }
-        //Create the Rooks
+        // Create the Rooks
         Rook rook1 = new Rook(Color.white, 0,0);
         pieces.add(rook1);
         Rook rook2 = new Rook(Color.white, 7,0);
@@ -80,7 +77,7 @@ public class Game {
         Rook rook4 = new Rook(Color.black, 7,7);
         pieces.add(rook4);
 
-        //Create the Knights
+        // Create the Knights
         Knight knight1 = new Knight(Color.white, 1,0);
         pieces.add(knight1);
         Knight knight2 = new Knight(Color.white, 6,0);
@@ -90,7 +87,7 @@ public class Game {
         Knight knight4 = new Knight(Color.black, 6,7);
         pieces.add(knight4);
 
-        //Create the Bishops
+        // Create the Bishops
         Bishop bishop1 = new Bishop(Color.white, 2,0);
         pieces.add(bishop1);
         Bishop bishop2 = new Bishop(Color.white, 5,0);
@@ -101,7 +98,7 @@ public class Game {
         pieces.add(bishop4);
     }
 
-    //Create the two players
+    // Create an Player class object for each player
     public void initializePlayers(String[] names) {
         Player player1 = new Player(names[0]);
         players.add(player1);
@@ -109,34 +106,52 @@ public class Game {
         players.add(player2);
     }
 
+    // This method starts the game and is used to get the inputs of the users
     public void play(){
+
+        // While the King is not dead
         while(!gameOver) {
+
+            // For each player
             for (Player p : players) {
                 boolean successfulMove = false;
                 System.out.println("\nPlayer: "+p.getName());
+
+                // While the player hasn't move any piece
                 while(!successfulMove) {
+
+                    // Asks for input of the source and destination of one particular piece
                     Scanner piece = new Scanner(System.in);  // Create a Scanner object
                     System.out.print("Enter the position of the piece which you wanna move: ");
                     String selectedPiece = piece.nextLine();
                     Scanner field = new Scanner(System.in);  // Create a Scanner object
                     System.out.print("Enter the destination: ");
                     String destination = field.nextLine();
+
+                    // Moves the piece if possible
                     if(move(p,selectedPiece, destination)) {
                         successfulMove = true;
                     }
+
+                    // if the piece couldn't have been moved
                     else {
                         System.out.println("\nInvalid move! Please try again.\n");
                     }
                 }
+
+                // if one king is dead
                 if(gameOver) {
                     break;
                 }
+
+                // Print the actual state of the board
                 getState();
 
             }
         }
     }
 
+    // This method is used to move a figure to another position if the games rule allow it
     public boolean move(Player p, String src, String dest){
         boolean didMove = false;
         if(src.length()!=2 || dest.length()!=2) {
@@ -145,7 +160,8 @@ public class Game {
         if(!checkField(src) || !checkField(dest)){
             return didMove;
         }
-        //System.out.println("Move "+source+" to "+destination);
+
+        // split both inputs
         String[] s = src.split("");
         int xSource = letterToInteger(s[0].toUpperCase());
         int ySource = Integer.parseInt(s[1])-1;
@@ -155,11 +171,17 @@ public class Game {
         int xDest = letterToInteger(d[0].toUpperCase());
         int yDest = Integer.parseInt(d[1])-1;
 
-        //move, if moveValidation is True and the piece has the same colour as the player
-        if(piece.moveValidation(board,xDest,yDest) && piece.getColor().equals(p.getColor())) {
+        // move, if source is occupied, moveValidation is True and the piece has the same colour as the player
+        if(board.isOccupied(xSource,ySource) && piece.moveValidation(board,xDest,yDest) && piece.getColor().equals(p.getColor())) {
             ChessPiece pieceOnDestination = whoIsThere(xDest,yDest);
+
+            // if the destination is occupied
             if(pieceOnDestination != null) {
-                if(!(pieceOnDestination.getColor() == p.getColor())) {
+
+                // if the piece on the destination has not the same colour
+                if(!(pieceOnDestination.getColor().equals(p.getColor()))) {
+
+                    // Get the instance of the enemy player
                     Player enemy;
                     if(players.get(0) == p) {
                         enemy = players.get(1);
@@ -167,34 +189,48 @@ public class Game {
                     else {
                         enemy = players.get(0);
                     }
+
+                    // Add the piece to eatenPieces of the enemy
                     enemy.eatPiece(pieceOnDestination);
+
+                    // Remove the piece of the enemy
                     pieces.remove(pieceOnDestination);
+
+                    // Move the piece to the new position
                     piece.setCord(xDest,yDest);
                     didMove = true;
 
+                    // Update the board
                     board.leave(xSource,ySource);
                     board.enter(xDest,yDest);
 
 
-                    //-------------will be removed later--------------
+                    // -------------will be removed later--------------
+                    // If the King of one player dies, the other player wins
                     if(pieceOnDestination instanceof King) {
                         gameOver = true;
                         System.out.println("Player: " + p.getName() + " wins!");
                     }
                 }
             }
+
+            // if the destination is not occupied
             else {
+                // Move the piece to the new position
                 piece.setCord(xDest,yDest);
                 didMove = true;
 
+                // Update the board
                 board.leave(xSource,ySource);
                 board.enter(xDest,yDest);
             }
         }
+
+        // Return if the piece has been moved (true) or not (false)
         return didMove;
     }
 
-    //Returns the instance of ChessPiece which is on the field XY
+    // Returns the instance of ChessPiece which is on the field XY
     public ChessPiece whoIsThere(int x, int y) {
         for(ChessPiece piece: pieces) {
             if(piece.getXcord() == x && piece.getYcord() == y) {
@@ -204,11 +240,12 @@ public class Game {
         return null;
     }
 
-    //Converts a letter (A to H) into an integer (0 to 7)
+    // Converts a letter (A to H) into an integer (0 to 7)
     public int letterToInteger(String l) {
         return letters.valueOf(l).ordinal();
     }
 
+    // Checks if the input of the user is a valid field
     public boolean checkField(String field){
         for(fields f: fields.values()){
             if(f.toString().equals(field)) {
@@ -219,5 +256,3 @@ public class Game {
     }
 
 }
-
-
