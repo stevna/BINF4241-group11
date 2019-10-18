@@ -128,6 +128,8 @@ public class Game {
                     String destination = null;
 
                     if(input.length==2) {
+
+                        // Move a pawn (example A3)
                         for(ChessPiece piece: pieces){
                             if(piece instanceof Pawn && piece.getColor()==p.getColor() && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
                                 selectedPiece = piece;
@@ -139,7 +141,8 @@ public class Game {
                         }
                     }
                     else if (input.length==3) {
-                        //Pawn Capture
+                        
+                        //Capture a piece with a pawn (example dxe)
                         if(input[1].equals("x")) {
                             int y;
                             for(ChessPiece piece: pieces){
@@ -162,8 +165,18 @@ public class Game {
                             }
                         }
 
+                        // Move a piece (example Na3)
                         else {
-                            System.out.println("Move Piece");
+                            for(ChessPiece piece: pieces){
+                                if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor()==p.getColor()
+                                        && piece.moveValidation(board, letterToInteger(input[1]),Integer.parseInt(input[2])-1)) {
+                                    selectedPiece = piece;
+                                }
+                            }
+                            destination = input[1]+input[2];
+                            if(selectedPiece!=null && move(p, selectedPiece, destination)) {
+                                successfulMove = true;
+                            }
                         }
                     }
                     else if (input.length==4) {
