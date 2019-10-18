@@ -119,18 +119,60 @@ public class Game {
 
                 // While the player hasn't move any piece
                 while(!successfulMove) {
+                    Scanner userinput = new Scanner(System.in);  // Create a Scanner object
+                    System.out.print("Enter " +p.getColor()+" move: ");
+                    String inp = userinput.nextLine();
 
-                    // Asks for input of the source and destination of one particular piece
-                    Scanner piece = new Scanner(System.in);  // Create a Scanner object
-                    System.out.print("Enter the position of the piece which you wanna move: ");
-                    String selectedPiece = piece.nextLine();
-                    Scanner field = new Scanner(System.in);  // Create a Scanner object
-                    System.out.print("Enter the destination: ");
-                    String destination = field.nextLine();
+                    String[] input = inp.split("");
+                    ChessPiece selectedPiece = null;
+                    String destination = null;
 
-                    // Moves the piece if possible
-                    if(move(p,selectedPiece, destination)) {
-                        successfulMove = true;
+                    if(input.length==2) {
+                        for(ChessPiece piece: pieces){
+                            if(piece instanceof Pawn && piece.getColor()==p.getColor() && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
+                                selectedPiece = piece;
+                            }
+                        }
+                        destination = input[0]+input[1];
+                        if(selectedPiece!=null && move(p, selectedPiece, destination)) {
+                            successfulMove = true;
+                        }
+                    }
+                    else if (input.length==3) {
+                        //Pawn Capture
+                        if(input[1].equals("x")) {
+                            int y;
+                            for(ChessPiece piece: pieces){
+                                if (p.getColor() == "white") {
+                                    y = piece.getYcord()+1;
+                                }
+                                else {
+                                    y = piece.getYcord()-1;
+                                }
+                                if(piece instanceof Pawn && piece.getColor()==p.getColor()
+                                        && piece.moveValidation(board, letterToInteger(input[2]),y)
+                                        && letterToInteger(input[0]) == piece.getXcord()) {
+                                    selectedPiece = piece;
+                                    destination = input[2]+(y+1);
+                                    System.out.println(destination);
+                                }
+                            }
+                            if(selectedPiece!=null && capture(p, selectedPiece, destination)) {
+                                successfulMove = true;
+                            }
+                        }
+
+                        else {
+                            System.out.println("Move Piece");
+                        }
+                    }
+                    else if (input.length==4) {
+                        if(input[1].equals("x")) {
+
+                        }
+                    }
+                    else if (input.length==5) {
+
                     }
 
                     // if the piece couldn't have been moved
@@ -152,82 +194,77 @@ public class Game {
     }
 
     // This method is used to move a figure to another position if the games rule allow it
-    public boolean move(Player p, String src, String dest){
+    public boolean move(Player p, ChessPiece src, String dest){
         boolean didMove = false;
-        if(src.length()!=2 || dest.length()!=2) {
-            return didMove;
-        }
-        if(!checkField(src) || !checkField(dest)){
-            return didMove;
-        }
 
-        // split both inputs
-        String[] s = src.split("");
-        int xSource = letterToInteger(s[0].toUpperCase());
-        int ySource = Integer.parseInt(s[1])-1;
-        ChessPiece piece = whoIsThere(xSource,ySource);
+        /*if(!checkField(dest)){
+            return didMove;
+        }*/
 
         String[] d = dest.split("");
         int xDest = letterToInteger(d[0].toUpperCase());
         int yDest = Integer.parseInt(d[1])-1;
 
-        // move, if source is occupied, moveValidation is True and the piece has the same colour as the player
-        if(board.isOccupied(xSource,ySource) && piece.moveValidation(board,xDest,yDest) && piece.getColor().equals(p.getColor())) {
-            ChessPiece pieceOnDestination = whoIsThere(xDest,yDest);
+        ChessPiece pieceOnDestination = whoIsThere(xDest,yDest);
 
-            // if the destination is occupied
-            if(pieceOnDestination != null) {
+        // if the destination is not occupied
+        // Move the piece to the new position
+        src.setCord(xDest,yDest);
+        didMove = true;
 
-                // if the piece on the destination has not the same colour
-                if(!(pieceOnDestination.getColor().equals(p.getColor()))) {
+        // Update the board
+        board.leave(src.getXcord(),src.getYcord());
+        board.enter(xDest,yDest);
 
-                    // Get the instance of the enemy player
-                    Player enemy;
-                    if(players.get(0) == p) {
-                        enemy = players.get(1);
-                    }
-                    else {
-                        enemy = players.get(0);
-                    }
+        // Return if the piece has been moved (true) or not (false)
+        return didMove;
+    }
 
-                    // Add the piece to eatenPieces of the enemy
-                    enemy.eatPiece(pieceOnDestination);
+    public boolean capture(Player p, ChessPiece src, String dest){
+        boolean didMove = false;
 
-                    // Remove the piece of the enemy
-                    pieces.remove(pieceOnDestination);
+        /*if(!checkField(dest)){
+            return didMove;
+        }*/
 
-                    // Move the piece to the new position
-                    piece.setCord(xDest,yDest);
-                    didMove = true;
+        String[] d = dest.split("");
+        int xDest = letterToInteger(d[0].toUpperCase());
+        int yDest = Integer.parseInt(d[1])-1;
 
-                    // Update the board
-                    board.leave(xSource,ySource);
-                    board.enter(xDest,yDest);
+        ChessPiece pieceOnDestination = whoIsThere(xDest,yDest);
 
+        // if the destination is occupied
+        if(pieceOnDestination != null) {
 
-                    // -------------will be removed later--------------
-                    // If the King of one player dies, the other player wins
-                    if(pieceOnDestination instanceof King) {
-                        gameOver = true;
-                        System.out.println("Player: " + p.getName() + " wins!");
-                    }
-                }
-            }
+            // if the piece on the destination has not the same colour
+            if (!(pieceOnDestination.getColor().equals(p.getColor()))) {
 
-            // if the destination is not occupied
-            else {
+                // Add the piece to eatenPieces
+                p.eatPiece(pieceOnDestination);
+
+                // Remove the piece of the enemy
+                pieces.remove(pieceOnDestination);
+
                 // Move the piece to the new position
-                piece.setCord(xDest,yDest);
+                src.setCord(xDest, yDest);
                 didMove = true;
 
                 // Update the board
-                board.leave(xSource,ySource);
-                board.enter(xDest,yDest);
+                board.leave(src.getXcord(), src.getYcord());
+                board.enter(xDest, yDest);
+
+
+                // -------------will be removed later--------------
+                // If the King of one player dies, the other player wins
+                if (pieceOnDestination instanceof King) {
+                    gameOver = true;
+                    System.out.println("Player: " + p.getName() + " wins!");
+                }
             }
         }
 
         // Return if the piece has been moved (true) or not (false)
-        return didMove;
+        return  didMove;
     }
 
     // Returns the instance of ChessPiece which is on the field XY
@@ -242,7 +279,7 @@ public class Game {
 
     // Converts a letter (A to H) into an integer (0 to 7)
     public int letterToInteger(String l) {
-        return letters.valueOf(l).ordinal();
+        return letters.valueOf(l.toUpperCase()).ordinal();
     }
 
     // Checks if the input of the user is a valid field
