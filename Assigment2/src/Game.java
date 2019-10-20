@@ -128,11 +128,48 @@ public class Game {
                     String destination = null;
 
                     if(inp.toLowerCase().equals("o-o")) {
-                        System.out.println("kingside castling");
+                        ChessPiece king;
+                        ChessPiece rook;
+                        if(p.getColor().equals("white")) {
+                            selectedPiece = whoIsThere(4,0);
+                            rook = whoIsThere(7,0);
+                            if(selectedPiece.getShortName().equals("WK") && rook.getShortName().equals("WT")) {
+                                selectedPiece.setCord(7,0);
+                                rook.setCord(4,0);
+                                successfulMove = true;
+                            }
+                        }
+                        else if (p.getColor().equals("black")) {
+                            selectedPiece = whoIsThere(4,7);
+                            rook = whoIsThere(7,7);
+                            if(selectedPiece.getShortName().equals("BK") && rook.getShortName().equals("BT")) {
+                                selectedPiece.setCord(7,7);
+                                rook.setCord(4,7);
+                                successfulMove = true;
+                            }
+                        }
                     }
 
                     else if(inp.toString().toLowerCase().equals("o-o-o")) {
-                        System.out.println("queenside castling");
+                        ChessPiece rook;
+                        if(p.getColor().equals("white")) {
+                            selectedPiece = whoIsThere(4,0);
+                            rook = whoIsThere(0,0);
+                            if(selectedPiece.getShortName().equals("WK") && rook.getShortName().equals("WT")) {
+                                selectedPiece.setCord(0,0);
+                                rook.setCord(4,0);
+                                successfulMove = true;
+                            }
+                        }
+                        else if (p.getColor().equals("black")) {
+                            selectedPiece = whoIsThere(4,7);
+                            rook = whoIsThere(0,7);
+                            if(selectedPiece.getShortName().equals("BK") && rook.getShortName().equals("BT")) {
+                                selectedPiece.setCord(0,7);
+                                rook.setCord(4,7);
+                                successfulMove = true;
+                            }
+                        }
                     }
 
                     else if(input.length==2) {
@@ -205,21 +242,24 @@ public class Game {
                         }
                         else if(input[2].equals("=")){
                             destination = input[0]+input[1];
-                            for(ChessPiece piece: pieces){
-                                selectedPiece = piece;
-                                if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
-                                    if(move(p, selectedPiece, destination)) {
-                                        successfulMove = true;
-                                        promotion(p,selectedPiece,input[3]);
+                            if(input[1].equals("1")||input[1].equals("8")) {
+                                for (ChessPiece piece : pieces) {
+                                    selectedPiece = piece;
+                                    if (piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]), Integer.parseInt(input[1]) - 1)) {
+                                        if (move(p, selectedPiece, destination)) {
+                                            successfulMove = true;
+                                            promotion(p, selectedPiece, input[3]);
+                                        }
                                     }
-                                }
-                                else if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.captureValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)){
-                                    if(capture(p, selectedPiece, destination)) {
-                                        successfulMove = true;
-                                        promotion(p,selectedPiece,input[3]);
+                                    else if (piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.captureValidation(board, letterToInteger(input[0]), Integer.parseInt(input[1]) - 1)) {
+                                        if (capture(p, selectedPiece, destination)) {
+                                            successfulMove = true;
+                                            System.out.println("Promotion capture");
+                                            promotion(p, selectedPiece, input[3]);
+                                        }
                                     }
-                                }
 
+                                }
                             }
                         }
                     }
@@ -359,50 +399,47 @@ public class Game {
     }
 
     public void promotion(Player p, ChessPiece pawn, String x) {
+        int index = pieces.indexOf(pawn);
         if(p.getColor().equals("white")) {
             if(x.toUpperCase().equals("Q")) {
-                pieces.remove(pawn);
+                System.out.println("1");
                 Queen q = new Queen(Color.white);
+                System.out.println("2");
                 q.setCord(pawn.getXcord(),pawn.getYcord());
-                pieces.add(q);
+                System.out.println("3");
+                pieces.set(index,q);
+                System.out.println("4");
             }
             else if(x.toUpperCase().equals("T")) {
-                pieces.remove(pawn);
                 Rook r = new Rook(Color.white,pawn.getXcord(),pawn.getYcord());
-                pieces.add(r);
+                pieces.set(index,r);
             }
             else if(x.toUpperCase().equals("B")) {
-                pieces.remove(pawn);
                 Bishop b = new Bishop(Color.white,pawn.getXcord(),pawn.getYcord());
-                pieces.add(b);
+                pieces.set(index,b);
             }
             else if(x.toUpperCase().equals("N")) {
-                pieces.remove(pawn);
                 Knight k = new Knight(Color.white,pawn.getXcord(),pawn.getYcord());
-                pieces.add(k);
+                pieces.set(index,k);
             }
         }
         else if(p.getColor().equals("black")) {
             if(x.toUpperCase().equals("Q")) {
-                pieces.remove(pawn);
                 Queen q = new Queen(Color.black);
                 q.setCord(pawn.getXcord(),pawn.getYcord());
-                pieces.add(q);
+                pieces.set(index,q);
             }
             else if(x.toUpperCase().equals("T")) {
-                pieces.remove(pawn);
                 Rook r = new Rook(Color.black,pawn.getXcord(),pawn.getYcord());
-                pieces.add(r);
+                pieces.set(index,r);
             }
             else if(x.toUpperCase().equals("B")) {
-                pieces.remove(pawn);
                 Bishop b = new Bishop(Color.black,pawn.getXcord(),pawn.getYcord());
-                pieces.add(b);
+                pieces.set(index,b);
             }
             else if(x.toUpperCase().equals("N")) {
-                pieces.remove(pawn);
                 Knight k = new Knight(Color.black,pawn.getXcord(),pawn.getYcord());
-                pieces.add(k);
+                pieces.set(index,k);
             }
         }
     }
