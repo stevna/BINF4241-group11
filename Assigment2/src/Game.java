@@ -127,11 +127,19 @@ public class Game {
                     ChessPiece selectedPiece = null;
                     String destination = null;
 
-                    if(input.length==2) {
+                    if(inp.toLowerCase().equals("o-o")) {
+                        System.out.println("kingside castling");
+                    }
+
+                    else if(inp.toString().toLowerCase().equals("o-o-o")) {
+                        System.out.println("queenside castling");
+                    }
+
+                    else if(input.length==2) {
 
                         // Move a pawn (example A3)
                         for(ChessPiece piece: pieces){
-                            if(piece instanceof Pawn && piece.getColor()==p.getColor() && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
+                            if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
                                 selectedPiece = piece;
                             }
                         }
@@ -141,7 +149,7 @@ public class Game {
                         }
                     }
                     else if (input.length==3) {
-                        
+
                         //Capture a piece with a pawn (example dxe)
                         if(input[1].equals("x")) {
                             int y;
@@ -180,8 +188,18 @@ public class Game {
                         }
                     }
                     else if (input.length==4) {
+                        //Capture a piece with another piece (example Txa3)
                         if(input[1].equals("x")) {
-
+                            for(ChessPiece piece: pieces){
+                                if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor()==p.getColor()
+                                        && piece.moveValidation(board, letterToInteger(input[2]),Integer.parseInt(input[3])-1)) {
+                                    selectedPiece = piece;
+                                }
+                            }
+                            destination = input[2]+input[3];
+                            if(selectedPiece!=null && capture(p, selectedPiece, destination)) {
+                                successfulMove = true;
+                            }
                         }
                     }
                     else if (input.length==5) {
@@ -189,7 +207,7 @@ public class Game {
                     }
 
                     // if the piece couldn't have been moved
-                    else {
+                    if(selectedPiece==null) {
                         System.out.println("\nInvalid move! Please try again.\n");
                     }
                 }
@@ -213,6 +231,9 @@ public class Game {
         /*if(!checkField(dest)){
             return didMove;
         }*/
+        if(src instanceof King && kingSuicide(p,src,dest)) {
+            return didMove;
+        }
 
         String[] d = dest.split("");
         int xDest = letterToInteger(d[0].toUpperCase());
@@ -221,13 +242,15 @@ public class Game {
         ChessPiece pieceOnDestination = whoIsThere(xDest,yDest);
 
         // if the destination is not occupied
-        // Move the piece to the new position
-        src.setCord(xDest,yDest);
-        didMove = true;
+        if(pieceOnDestination==null) {
+            // Update the board
+            board.leave(src.getXcord(), src.getYcord());
+            board.enter(xDest, yDest);
 
-        // Update the board
-        board.leave(src.getXcord(),src.getYcord());
-        board.enter(xDest,yDest);
+            // Move the piece to the new position
+            src.setCord(xDest, yDest);
+            didMove = true;
+        }
 
         // Return if the piece has been moved (true) or not (false)
         return didMove;
@@ -239,6 +262,10 @@ public class Game {
         /*if(!checkField(dest)){
             return didMove;
         }*/
+
+        if(src instanceof King && kingSuicide(p,src,dest)) {
+            return didMove;
+        }
 
         String[] d = dest.split("");
         int xDest = letterToInteger(d[0].toUpperCase());
@@ -258,14 +285,13 @@ public class Game {
                 // Remove the piece of the enemy
                 pieces.remove(pieceOnDestination);
 
-                // Move the piece to the new position
-                src.setCord(xDest, yDest);
-                didMove = true;
-
                 // Update the board
                 board.leave(src.getXcord(), src.getYcord());
                 board.enter(xDest, yDest);
 
+                // Move the piece to the new position
+                src.setCord(xDest, yDest);
+                didMove = true;
 
                 // -------------will be removed later--------------
                 // If the King of one player dies, the other player wins
@@ -293,6 +319,25 @@ public class Game {
     // Converts a letter (A to H) into an integer (0 to 7)
     public int letterToInteger(String l) {
         return letters.valueOf(l.toUpperCase()).ordinal();
+    }
+
+    public boolean kingSuicide(Player p, ChessPiece src, String dest) {
+        String[] d = dest.split("");
+        int xDest = letterToInteger(d[0].toUpperCase());
+        int yDest = Integer.parseInt(d[1])-1;
+        for(ChessPiece piece: pieces){
+            if(piece instanceof Pawn) {
+                if (!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,xDest,yDest)) {
+                    return true;
+                }
+            }
+            else {
+                if (!piece.getColor().equals(p.getColor()) && piece.moveValidation(board, xDest, yDest)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     // Checks if the input of the user is a valid field

@@ -36,6 +36,10 @@ public abstract class ChessPiece {
 
     public abstract boolean moveValidation(Board board, int xDest, int yDest); // abstract method
 
+    public boolean captureValidation(Board board, int xDest, int yDest){
+        return true;
+    }
+
     public String getColor() {
         return color;
     }
