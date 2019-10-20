@@ -34,19 +34,19 @@ public class Pawn extends ChessPiece {
         // white pawns
         if (color.equals("white")) {
             // Checks if the field diagonal on the right side or on the left side is occupied
-            if (board.isOccupied(xDest,yDest)) {
+            //if (board.isOccupied(xDest,yDest)) {
                 if((xDest - xcord == 1 && yDest - ycord == 1) || (xcord - xDest == 1 && yDest - ycord == 1))
                 return true;
-            }
+            //}
         }
 
         // black pawns
         else if (color.equals("black")) {
             // Checks if the field diagonal on the right side or on the left side is occupied
-            if (board.isOccupied(xDest,yDest)) {
+            //if (board.isOccupied(xDest,yDest)) {
                 if((xcord - xDest == 1 && ycord - yDest == 1) || (xDest - xcord == 1 && ycord - yDest == 1))
                 return true;
-            }
+            //}
         }
         // if the pawn can't reach the enemy
         return false;
