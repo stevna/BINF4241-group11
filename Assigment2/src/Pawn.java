@@ -28,6 +28,7 @@ public class Pawn extends ChessPiece {
         return firstMove;
     }
 
+    @Override
     public boolean captureValidation(Board board, int xDest, int yDest) {
 
         // white pawns
@@ -53,7 +54,7 @@ public class Pawn extends ChessPiece {
 
     @Override
     public boolean moveValidation(Board board, int xDest, int yDest) {
-        
+
         //  move validation for white pawns
         if (color.equals("white")) {
             // checks if the pawn can move two fields forward
