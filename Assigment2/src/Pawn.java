@@ -28,8 +28,32 @@ public class Pawn extends ChessPiece {
         return firstMove;
     }
 
+    public boolean captureValidation(Board board, int xDest, int yDest) {
+
+        // white pawns
+        if (color.equals("white")) {
+            // Checks if the field diagonal on the right side or on the left side is occupied
+            if (board.isOccupied(xDest,yDest)) {
+                if((xDest - xcord == 1 && yDest - ycord == 1) || (xcord - xDest == 1 && yDest - ycord == 1))
+                return true;
+            }
+        }
+
+        // black pawns
+        else if (color.equals("black")) {
+            // Checks if the field diagonal on the right side or on the left side is occupied
+            if (board.isOccupied(xDest,yDest)) {
+                if((xcord - xDest == 1 && ycord - yDest == 1) || (xDest - xcord == 1 && ycord - yDest == 1))
+                return true;
+            }
+        }
+        // if the pawn can't reach the enemy
+        return false;
+    }
+
     @Override
     public boolean moveValidation(Board board, int xDest, int yDest) {
+        
         //  move validation for white pawns
         if (color.equals("white")) {
             // checks if the pawn can move two fields forward
@@ -41,16 +65,6 @@ public class Pawn extends ChessPiece {
 
             // checks if the pawn can move one field forward
             else if (xDest - xcord == 0 && yDest - ycord == 1 && !board.isOccupied(xDest, yDest)) {
-                return true;
-            }
-
-            // Checks if the field diagonal on the right side is occupied
-            else if (xDest - xcord == 1 && yDest - ycord == 1 && board.isOccupied(xDest,yDest)) {
-                return true;
-            }
-
-            // Checks if the field diagonal on the left side is occupied
-            else if (xcord - xDest == 1 && yDest - ycord == 1 && board.isOccupied(xDest,yDest)) {
                 return true;
             }
         }
@@ -68,17 +82,8 @@ public class Pawn extends ChessPiece {
             else if (xcord - xDest == 0 && ycord - yDest == 1 && !board.isOccupied(xDest, yDest)) {
                 return true;
             }
-
-            // Checks if the field diagonal on the left side is occupied
-            else if (xcord - xDest == 1 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
-                return true;
-            }
-
-            // Checks if the field diagonal on the right side is occupied
-            else if (xDest - xcord == 1 && ycord - yDest == 1 && board.isOccupied(xDest,yDest)) {
-                return true;
-            }
         }
+        // if the pawn can't reach the field
         return false;
     }
 }
