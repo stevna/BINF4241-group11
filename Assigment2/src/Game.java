@@ -210,22 +210,18 @@ public class Game {
                                 if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
                                     if(move(p, selectedPiece, destination)) {
                                         successfulMove = true;
+                                        promotion(p,selectedPiece,input[3]);
                                     }
                                 }
                                 else if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.captureValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)){
                                     if(capture(p, selectedPiece, destination)) {
                                         successfulMove = true;
+                                        promotion(p,selectedPiece,input[3]);
                                     }
-                                }
-                                if(successfulMove){
-                                    promotion(p,selectedPiece,input[3]);
                                 }
 
                             }
                         }
-                    }
-                    else if (input.length==5) {
-
                     }
 
                     // if the piece couldn't have been moved
@@ -362,63 +358,53 @@ public class Game {
         return false;
     }
 
-    public boolean promotion(Player p, ChessPiece pawn, String x) {
+    public void promotion(Player p, ChessPiece pawn, String x) {
         if(p.getColor().equals("white")) {
-            if(x.toUpperCase() == "Q") {
+            if(x.toUpperCase().equals("Q")) {
                 pieces.remove(pawn);
                 Queen q = new Queen(Color.white);
                 q.setCord(pawn.getXcord(),pawn.getYcord());
                 pieces.add(q);
-                return true;
             }
-            else if(x.toUpperCase() == "T") {
+            else if(x.toUpperCase().equals("T")) {
                 pieces.remove(pawn);
                 Rook r = new Rook(Color.white,pawn.getXcord(),pawn.getYcord());
                 pieces.add(r);
-                return true;
             }
-            else if(x.toUpperCase() == "B") {
+            else if(x.toUpperCase().equals("B")) {
                 pieces.remove(pawn);
                 Bishop b = new Bishop(Color.white,pawn.getXcord(),pawn.getYcord());
                 pieces.add(b);
-                return true;
             }
-            else if(x.toUpperCase() == "N") {
+            else if(x.toUpperCase().equals("N")) {
                 pieces.remove(pawn);
                 Knight k = new Knight(Color.white,pawn.getXcord(),pawn.getYcord());
                 pieces.add(k);
-                return true;
             }
         }
         else if(p.getColor().equals("black")) {
-            if(x.toUpperCase() == "Q") {
+            if(x.toUpperCase().equals("Q")) {
                 pieces.remove(pawn);
                 Queen q = new Queen(Color.black);
                 q.setCord(pawn.getXcord(),pawn.getYcord());
                 pieces.add(q);
-                return true;
             }
-            else if(x.toUpperCase() == "T") {
+            else if(x.toUpperCase().equals("T")) {
                 pieces.remove(pawn);
                 Rook r = new Rook(Color.black,pawn.getXcord(),pawn.getYcord());
                 pieces.add(r);
-                return true;
             }
-            else if(x.toUpperCase() == "B") {
+            else if(x.toUpperCase().equals("B")) {
                 pieces.remove(pawn);
                 Bishop b = new Bishop(Color.black,pawn.getXcord(),pawn.getYcord());
                 pieces.add(b);
-                return true;
             }
-            else if(x.toUpperCase() == "N") {
+            else if(x.toUpperCase().equals("N")) {
                 pieces.remove(pawn);
                 Knight k = new Knight(Color.black,pawn.getXcord(),pawn.getYcord());
                 pieces.add(k);
-                return true;
             }
         }
-
-        return false;
     }
 
     // Checks if the input of the user is a valid field
