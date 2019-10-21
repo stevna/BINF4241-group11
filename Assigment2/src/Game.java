@@ -117,6 +117,8 @@ public class Game {
                 boolean successfulMove = false;
                 System.out.println("\nPlayer: "+p.getName());
 
+                check(p);
+
                 // While the player hasn't move any piece
                 while(!successfulMove) {
                     Scanner userinput = new Scanner(System.in);  // Create a Scanner object
@@ -264,6 +266,10 @@ public class Game {
                         }
                     }
 
+
+
+
+
                     // if the piece couldn't have been moved
                     if(selectedPiece==null || !successfulMove) {
                         System.out.println("\nInvalid move! Please try again.\n");
@@ -397,6 +403,46 @@ public class Game {
         }
         return false;
     }
+
+    public void check(Player p){
+        int indexWhite = 0;
+        int indexBlack = 0;
+        for(ChessPiece piece: pieces){
+            if(piece.getShortName() == "WK"){
+                indexWhite = piece.getId();
+            }
+            else if(piece.getShortName() == "BK"){
+                indexBlack = piece.getId();
+            }
+
+        }
+
+        for(ChessPiece piece: pieces){
+
+            if(piece instanceof Pawn) {
+                if (piece.color == "black"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
+                    System.out.println("White King is in check");
+                }
+                else if(piece.color == "white"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexBlack).getXcord(),pieces.get(indexBlack).getYcord())) {
+                    System.out.println("Black King is in check");
+                }
+            }
+            else {
+                if (piece.color == "black" && !piece.getColor().equals(p.getColor()) && piece.moveValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
+                    System.out.println("White King is in check");
+                }
+                else if(piece.color == "white" && !piece.getColor().equals(p.getColor()) && piece.moveValidation(board,pieces.get(indexBlack).getXcord(),pieces.get(indexBlack).getYcord())) {
+                    System.out.println("Black King is in checkkk");
+                }
+            }
+        }
+
+    }
+
+
+
+
+
 
     public void promotion(Player p, ChessPiece pawn, String x) {
         int index = pieces.indexOf(pawn);
