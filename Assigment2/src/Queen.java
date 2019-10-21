@@ -54,7 +54,7 @@ public class Queen extends ChessPiece {
                 }
             }
             else {
-                for(int i=ycord;i>yDest;i--) {
+                for(int i=ycord-1;i>yDest;i--) {
                     if(board.isOccupied(xDest,i)) {
                         return false;
                     }
