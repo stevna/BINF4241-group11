@@ -66,6 +66,7 @@ public class Pawn extends ChessPiece {
 
             // checks if the pawn can move one field forward
             else if (xDest - xcord == 0 && yDest - ycord == 1 && !board.isOccupied(xDest, yDest)) {
+                setFirstMoveToFalse(); // first move is over
                 return true;
             }
         }
@@ -81,6 +82,7 @@ public class Pawn extends ChessPiece {
 
             // checks if the pawn can move one field forward
             else if (xcord - xDest == 0 && ycord - yDest == 1 && !board.isOccupied(xDest, yDest)) {
+                setFirstMoveToFalse(); //first move is over
                 return true;
             }
         }
