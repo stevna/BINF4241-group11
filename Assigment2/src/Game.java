@@ -125,7 +125,6 @@ public class Game {
                         System.exit(0);
                     }
                     else if(inp.toLowerCase().equals("o-o")) {
-                        ChessPiece king;
                         ChessPiece rook;
                         if(p.getColor().equals("white")) {
                             selectedPiece = whoIsThere(4,0);
@@ -186,7 +185,7 @@ public class Game {
                         if(input[1].equals("x") && checkInputP(input[0],input[2])) {
                             int y;
                             for(ChessPiece piece: pieces){
-                                if (p.getColor() == "white") {
+                                if (p.getColor().equals("white")) {
                                     y = piece.getYcord()+1;
                                 }
                                 else {
@@ -210,13 +209,14 @@ public class Game {
                         // Move a piece (example Na3)
                         else if(checkInput(input[1],input[2])) {
                             for(ChessPiece piece: pieces){
-                                if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor()==p.getColor()
+                                if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor().equals(p.getColor())
                                         && piece.moveValidation(board, letterToInteger(input[1]),Integer.parseInt(input[2])-1)) {
                                     selectedPiece = piece;
+                                    cnt++;
                                 }
                             }
                             destination = input[1]+input[2];
-                            if(selectedPiece!=null && move(p, selectedPiece, destination)) {
+                            if(cnt==1 && selectedPiece!=null && move(p, selectedPiece, destination)) {
                                 successfulMove = true;
                             }
                         }
@@ -225,13 +225,14 @@ public class Game {
                         //Capture a piece with another piece (example Txa3)
                         if(input[1].equals("x")) {
                             for(ChessPiece piece: pieces){
-                                if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor()==p.getColor()
+                                if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor().equals(p.getColor())
                                         && piece.moveValidation(board, letterToInteger(input[2]),Integer.parseInt(input[3])-1)) {
                                     selectedPiece = piece;
+                                    cnt++;
                                 }
                             }
                             destination = input[2]+input[3];
-                            if(selectedPiece!=null && capture(p, selectedPiece, destination)) {
+                            if(cnt==1 && selectedPiece!=null && capture(p, selectedPiece, destination)) {
                                 successfulMove = true;
                             }
                         }
@@ -260,7 +261,7 @@ public class Game {
                     } //---------------------------------------------------------------------------------------------------------------------------------------------
                     else if(input.length==5 && checkInput(input[1],input[2]) && checkInput(input[3],input[4])) {
                         ChessPiece piece = whoIsThere(letterToInteger(input[1]),Integer.parseInt(input[2])-1);
-                        if(!(piece instanceof Pawn) && input[0].toUpperCase()==piece.getShortName().split("")[1] && piece.getColor()==p.getColor()
+                        if(!(piece instanceof Pawn) && input[0].toUpperCase().equals(piece.getShortName().split("")[1]) && piece.getColor().equals(p.getColor())
                             && piece.moveValidation(board, letterToInteger(input[3]),Integer.parseInt(input[4])-1)) {
                             selectedPiece = piece;
                             destination = input[3]+input[4];
@@ -270,9 +271,9 @@ public class Game {
                         }
 
                     }
-                    else if(input.length==6 && input[1]=="x" && checkInput(input[1],input[2]) && checkInput(input[3],input[4])) {
+                    else if(input.length==6 && input[1].equals("x") && checkInput(input[2],input[3]) && checkInput(input[4],input[5])) {
                         ChessPiece piece = whoIsThere(letterToInteger(input[2]),Integer.parseInt(input[3])-1);
-                        if(!(piece instanceof Pawn) && input[0].toUpperCase()==piece.getShortName().split("")[1] && piece.getColor()==p.getColor()
+                        if(!(piece instanceof Pawn) && input[0].toUpperCase().equals(piece.getShortName().split("")[1]) && piece.getColor().equals(p.getColor())
                                 && piece.moveValidation(board, letterToInteger(input[4]),Integer.parseInt(input[5])-1)) {
                             selectedPiece = piece;
                             destination = input[4]+input[5];
@@ -289,6 +290,9 @@ public class Game {
                     // if the piece couldn't have been moved
                     if(selectedPiece==null || !successfulMove) {
                         System.out.println("\nInvalid move! Please try again.\n");
+                    }
+                    if(cnt>1) {
+                        System.out.println("Multiple pieces of this type can reach this position.\n");
                     }
                 }
 
