@@ -12,8 +12,10 @@ public class Game {
 
     public Game(String[] names) {
         placeInitial();
-        getState();
         initializePlayers(names);
+
+        System.out.println("\nInitial State:");
+        getState();
     }
 
     // shows the actual state of the game
