@@ -9,16 +9,6 @@ public class Game {
     Board board;
     enum Color {black, white}
     enum letters {A, B, C, D, E, F, G, H};
-    enum fields {
-        A1, A2, A3, A4, A5, A6, A7, A8,
-        B1, B2, B3, B4, B5, B6, B7, B8,
-        C1, C2, C3, C4, C5, C6, C7, C8,
-        D1, D2, D3, D4, D5, D6, D7, D8,
-        E1, E2, E3, E4, E5, E6, E7, E8,
-        F1, F2, F3, F4, F5, F6, F7, F8,
-        G1, G2, G3, G4, G5, G6, G7, G8,
-        H1, H2, H3, H4, H5, H6, H7, H8,
-    }
 
     public Game(String[] names) {
         placeInitial();
@@ -117,6 +107,7 @@ public class Game {
                 boolean successfulMove = false;
                 System.out.println("\nPlayer: "+p.getName());
 
+                //Verify if the King is in Check
                 check(p);
 
                 // While the player hasn't move any piece
@@ -129,7 +120,10 @@ public class Game {
                     ChessPiece selectedPiece = null;
                     String destination = null;
 
-                    if(inp.toLowerCase().equals("o-o")) {
+                    if(inp.equals("quit")) {
+                        System.exit(0);
+                    }
+                    else if(inp.toLowerCase().equals("o-o")) {
                         ChessPiece king;
                         ChessPiece rook;
                         if(p.getColor().equals("white")) {
@@ -174,7 +168,7 @@ public class Game {
                         }
                     }
 
-                    else if(input.length==2) {
+                    else if(input.length==2 && checkInput(input[0],input[1])) {
 
                         // Move a pawn (example A3)
                         for(ChessPiece piece: pieces){
@@ -188,9 +182,8 @@ public class Game {
                         }
                     }
                     else if (input.length==3) {
-
                         //Capture a piece with a pawn (example dxe)
-                        if(input[1].equals("x")) {
+                        if(input[1].equals("x") && checkInputP(input[0],input[2])) {
                             int y;
                             for(ChessPiece piece: pieces){
                                 if (p.getColor() == "white") {
@@ -215,7 +208,7 @@ public class Game {
                         }
 
                         // Move a piece (example Na3)
-                        else {
+                        else if(checkInput(input[1],input[2])) {
                             for(ChessPiece piece: pieces){
                                 if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor()==p.getColor()
                                         && piece.moveValidation(board, letterToInteger(input[1]),Integer.parseInt(input[2])-1)) {
@@ -228,7 +221,7 @@ public class Game {
                             }
                         }
                     }
-                    else if (input.length==4) {
+                    else if (input.length==4 && checkInput(input[2],input[3])) {
                         //Capture a piece with another piece (example Txa3)
                         if(input[1].equals("x")) {
                             for(ChessPiece piece: pieces){
@@ -242,7 +235,7 @@ public class Game {
                                 successfulMove = true;
                             }
                         }
-                        else if(input[2].equals("=")){
+                        else if(input[2].equals("=") && checkInput(input[0],input[1])){
                             destination = input[0]+input[1];
                             if(input[1].equals("1")||input[1].equals("8")) {
                                 for (ChessPiece piece : pieces) {
@@ -407,32 +400,34 @@ public class Game {
     public void check(Player p){
         int indexWhite = 0;
         int indexBlack = 0;
+        int index = 0;
         for(ChessPiece piece: pieces){
             if(piece.getShortName() == "WK"){
-                indexWhite = piece.getId();
+                indexWhite = index;
             }
             else if(piece.getShortName() == "BK"){
-                indexBlack = piece.getId();
+                indexBlack = index;
             }
+            index += 1;
 
         }
 
         for(ChessPiece piece: pieces){
 
             if(piece instanceof Pawn) {
-                if (piece.color == "black"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
-                    System.out.println("White King is in check");
+                if (piece.getColor() == "black"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
+                    System.out.println("White King is in check!");
                 }
-                else if(piece.color == "white"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexBlack).getXcord(),pieces.get(indexBlack).getYcord())) {
-                    System.out.println("Black King is in check");
+                else if(piece.getColor() == "white"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexBlack).getXcord(),pieces.get(indexBlack).getYcord())) {
+                    System.out.println("Black King is in check!");
                 }
             }
             else {
-                if (piece.color == "black" && !piece.getColor().equals(p.getColor()) && piece.moveValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
-                    System.out.println("White King is in check");
+                if (piece.getColor() == "black" && !piece.getColor().equals(p.getColor()) && piece.moveValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
+                    System.out.println("White King is in check!");
                 }
-                else if(piece.color == "white" && !piece.getColor().equals(p.getColor()) && piece.moveValidation(board,pieces.get(indexBlack).getXcord(),pieces.get(indexBlack).getYcord())) {
-                    System.out.println("Black King is in checkkk");
+                else if(piece.getColor() == "white" && !piece.getColor().equals(p.getColor()) && piece.moveValidation(board,pieces.get(indexBlack).getXcord(),pieces.get(indexBlack).getYcord())) {
+                    System.out.println("Black King is in check!");
                 }
             }
         }
@@ -490,14 +485,27 @@ public class Game {
         }
     }
 
-    // Checks if the input of the user is a valid field
-    public boolean checkField(String field){
-        for(fields f: fields.values()){
-            if(f.toString().equals(field)) {
-                return true;
-            }
+    public boolean checkInput(String xinput, String yinput) {
+        try {
+            Integer i = Integer.parseInt(yinput);
+            letterToInteger(xinput);
         }
-        return false;
+        catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
+    }
+
+    //Check input of the letters when a pawn captures another piece
+    public boolean checkInputP(String xinput, String yinput) {
+        try {
+            letterToInteger(yinput);
+            letterToInteger(xinput);
+        }
+        catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
 
 }
