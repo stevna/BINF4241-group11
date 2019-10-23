@@ -19,6 +19,7 @@ public class Game {
     // shows the actual state of the game
     public void getState() {
         for (int y = 7; y >= 0; y--) {
+            System.out.print((y+1)+" ");
             for (int x=0;x<8;x++) {
                 System.out.print("[");
                 boolean printed = false;
@@ -35,6 +36,11 @@ public class Game {
             }
             System.out.println();
         }
+        System.out.print("  ");
+        for(Enum e: letters.values()) {
+            System.out.print(" "+e+"  ");
+        }
+        System.out.println();
     }
 
     // This method creates for each color the chess pieces with it's initial coordinates
