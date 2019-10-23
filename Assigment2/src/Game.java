@@ -112,6 +112,7 @@ public class Game {
 
                 // While the player hasn't move any piece
                 while(!successfulMove) {
+                    int cnt = 0;
                     Scanner userinput = new Scanner(System.in);  // Create a Scanner object
                     System.out.print("Enter " +p.getColor()+" move: ");
                     String inp = userinput.nextLine();
@@ -169,7 +170,6 @@ public class Game {
                     }
 
                     else if(input.length==2 && checkInput(input[0],input[1])) {
-
                         // Move a pawn (example A3)
                         for(ChessPiece piece: pieces){
                             if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
@@ -256,6 +256,29 @@ public class Game {
 
                                 }
                             }
+                        }
+                    } //---------------------------------------------------------------------------------------------------------------------------------------------
+                    else if(input.length==5 && checkInput(input[1],input[2]) && checkInput(input[3],input[4])) {
+                        ChessPiece piece = whoIsThere(letterToInteger(input[1]),Integer.parseInt(input[2])-1);
+                        if(!(piece instanceof Pawn) && input[0].toUpperCase()==piece.getShortName().split("")[1] && piece.getColor()==p.getColor()
+                            && piece.moveValidation(board, letterToInteger(input[3]),Integer.parseInt(input[4])-1)) {
+                            selectedPiece = piece;
+                            destination = input[3]+input[4];
+                        }
+                        if(selectedPiece!=null && move(p, selectedPiece, destination)) {
+                            successfulMove = true;
+                        }
+
+                    }
+                    else if(input.length==6 && input[1]=="x" && checkInput(input[1],input[2]) && checkInput(input[3],input[4])) {
+                        ChessPiece piece = whoIsThere(letterToInteger(input[2]),Integer.parseInt(input[3])-1);
+                        if(!(piece instanceof Pawn) && input[0].toUpperCase()==piece.getShortName().split("")[1] && piece.getColor()==p.getColor()
+                                && piece.moveValidation(board, letterToInteger(input[4]),Integer.parseInt(input[5])-1)) {
+                            selectedPiece = piece;
+                            destination = input[4]+input[5];
+                        }
+                        if(selectedPiece!=null && capture(p, selectedPiece, destination)) {
+                            successfulMove = true;
                         }
                     }
 
