@@ -20,14 +20,6 @@ public class Pawn extends ChessPiece {
         }
     }
 
-    private void setFirstMoveToFalse() {
-        firstMove = false;
-    }
-
-    private  boolean isFirst_move() {
-        return firstMove;
-    }
-
     @Override
     public boolean captureValidation(Board board, int xDest, int yDest) {
 

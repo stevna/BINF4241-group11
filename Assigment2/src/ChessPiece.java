@@ -6,6 +6,7 @@ public abstract class ChessPiece {
     int ycord;
     String color;
     String shortName; // name that ist printed out in the console
+    private boolean firstMove = true;
 
 
     public ChessPiece(){
@@ -42,5 +43,13 @@ public abstract class ChessPiece {
 
     public String getColor() {
         return color;
+    }
+
+    void setFirstMoveToFalse() {
+        firstMove = false;
+    }
+
+    boolean isFirst_move() {
+        return firstMove;
     }
 }
