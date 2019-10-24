@@ -1,12 +1,13 @@
 Assignment 2 - Chess Game
 
 Specifications:
-- The only allows to move and capture according to the chess rules
-- The king can't kill himself by moving to another position
-- Pawns can move two fields in their first move
-- the user gets informed when he is in check
-- it doesn't matter if you insert uppercase or lowercase letters
-- At any time in the game you can use "quit" to end the game
+- Our implementation allows you to move and capture according to the chess rules.
+- The king can't kill himself by moving to another position.
+- Pawns can move two fields in their first move.
+- The user gets informed when he is in check.
+- It doesn't matter if you insert uppercase or lowercase letters.
+- Invalid inputs cause in an error message and the user is forced to enter another valid input.
+- At any time in the game you can use "quit" to end the game.
 
 Our implementation of the chess game allows you do to de following tasks:
 - Pawn
