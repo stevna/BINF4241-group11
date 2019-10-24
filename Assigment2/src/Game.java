@@ -138,18 +138,22 @@ public class Game {
                             selectedPiece = whoIsThere(4,0);
                             rook = whoIsThere(7,0);
                             if(selectedPiece.getShortName().equals("WK") && rook.getShortName().equals("WT")) {
-                                selectedPiece.setCord(7,0);
-                                rook.setCord(4,0);
-                                successfulMove = true;
+                                if(selectedPiece.isFirst_move() && rook.isFirst_move()) {
+                                    selectedPiece.setCord(7, 0);
+                                    rook.setCord(4, 0);
+                                    successfulMove = true;
+                                }
                             }
                         }
                         else if (p.getColor().equals("black")) {
                             selectedPiece = whoIsThere(4,7);
                             rook = whoIsThere(7,7);
                             if(selectedPiece.getShortName().equals("BK") && rook.getShortName().equals("BT")) {
-                                selectedPiece.setCord(7,7);
-                                rook.setCord(4,7);
-                                successfulMove = true;
+                                if(selectedPiece.isFirst_move() && rook.isFirst_move()) {
+                                    selectedPiece.setCord(7, 7);
+                                    rook.setCord(4, 7);
+                                    successfulMove = true;
+                                }
                             }
                         }
                     }
@@ -160,18 +164,22 @@ public class Game {
                             selectedPiece = whoIsThere(4,0);
                             rook = whoIsThere(0,0);
                             if(selectedPiece.getShortName().equals("WK") && rook.getShortName().equals("WT")) {
-                                selectedPiece.setCord(0,0);
-                                rook.setCord(4,0);
-                                successfulMove = true;
+                                if(selectedPiece.isFirst_move() && rook.isFirst_move()) {
+                                    selectedPiece.setCord(0, 0);
+                                    rook.setCord(4, 0);
+                                    successfulMove = true;
+                                }
                             }
                         }
                         else if (p.getColor().equals("black")) {
                             selectedPiece = whoIsThere(4,7);
                             rook = whoIsThere(0,7);
                             if(selectedPiece.getShortName().equals("BK") && rook.getShortName().equals("BT")) {
-                                selectedPiece.setCord(0,7);
-                                rook.setCord(4,7);
-                                successfulMove = true;
+                                if(selectedPiece.isFirst_move() && rook.isFirst_move()) {
+                                    selectedPiece.setCord(0, 7);
+                                    rook.setCord(4, 7);
+                                    successfulMove = true;
+                                }
                             }
                         }
                     }
@@ -342,6 +350,11 @@ public class Game {
             // Move the piece to the new position
             src.setCord(xDest, yDest);
             didMove = true;
+
+            // if first move then set first move to false
+            if(src.isFirst_move()) {
+                src.setFirstMoveToFalse();
+            }
         }
 
         // Return if the piece has been moved (true) or not (false)
@@ -384,6 +397,11 @@ public class Game {
                 // Move the piece to the new position
                 src.setCord(xDest, yDest);
                 didMove = true;
+
+                // if first move then set first move to false
+                if(src.isFirst_move()) {
+                    src.setFirstMoveToFalse();
+                }
 
                 // -------------will be removed later--------------
                 // If the King of one player dies, the other player wins
