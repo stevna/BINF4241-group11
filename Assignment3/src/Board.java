@@ -5,8 +5,9 @@ public class Board {
 
     // Initialize the matrix
     private boolean[][] matrix = new boolean[8][8];
+    private static Board uniqueInstance;
 
-    public Board(){
+    private Board(){
 
         // Set initial positions of the pieces to occupied
         for(int y=0;y<2;y++) {
@@ -19,6 +20,13 @@ public class Board {
                 enter(x,y);
             }
         }
+    }
+
+    public static Board getInstance(){
+        if(uniqueInstance == null){
+            uniqueInstance = new Board();
+        }
+        return uniqueInstance;
     }
 
     // Prints the board
@@ -47,3 +55,5 @@ public class Board {
     }
 
 }
+
+

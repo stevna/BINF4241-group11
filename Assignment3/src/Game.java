@@ -48,7 +48,7 @@ public class Game {
     // This method creates for each color the chess pieces with it's initial coordinates
     private void placeInitial() {
 
-        board = new Board();
+        board = Board.getInstance();
 
         // for both color, black and white, do the following
         for (Color color : Color.values()) {
