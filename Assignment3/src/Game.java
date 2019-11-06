@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game {
+public class Game implements Subject{
 
     ArrayList<ChessPiece> pieces = new ArrayList<>();
     Player[] players = new Player[2];
     private boolean gameOver = false;
     Board board;
+    private ArrayList<Observer> observers = new ArrayList<>();
+    Scoreboard scoreboard;
+
     enum Color {black, white}
     enum letters {A, B, C, D, E, F, G, H}
 
@@ -18,8 +21,30 @@ public class Game {
         initializePlayers(names);
 
         System.out.println("\nInitial State:");
+        scoreboard = Scoreboard.getInstance();
+        registerObserver(scoreboard);
+
         getState();
     }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        int observerIndex = observers.indexOf(observer);
+        observers.remove(observerIndex);
+    }
+
+    @Override
+    public void notifyObserver(int pos, int score) {
+        for(Observer observer : observers) {
+            observer.update(pos, score);
+        }
+    }
+
 
     // shows the actual state of the game
     public void getState() {
@@ -122,7 +147,7 @@ public class Game {
             while (playerIterator.hasNext()) {
                 Player p = (Player)playerIterator.next();
                 boolean successfulMove = false;
-                System.out.println("\nPlayer: "+p.getName());
+                System.out.println("\nPlayer: "+p.getName() + ", score:" + scoreboard.getScore(p.getId()));
 
                 //Verify if the King is in Check
                 check(p);
@@ -417,6 +442,13 @@ public class Game {
                 // Update the board
                 board.leave(src.getXcord(), src.getYcord());
                 board.enter(xDest, yDest);
+
+                if (pieceOnDestination instanceof Queen) {
+                    notifyObserver(p.getId(), 5);
+                }
+                else {
+                    notifyObserver(p.getId(), 1);
+                }
 
                 // Move the piece to the new position
                 src.setCord(xDest, yDest);
