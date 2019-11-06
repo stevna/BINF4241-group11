@@ -4,11 +4,11 @@ import java.util.Scanner;
 public class Game {
 
     ArrayList<ChessPiece> pieces = new ArrayList<>();
-    ArrayList<Player> players = new ArrayList<>();
+    Player[] players = new Player[2];
     private boolean gameOver = false;
     Board board;
     enum Color {black, white}
-    enum letters {A, B, C, D, E, F, G, H};
+    enum letters {A, B, C, D, E, F, G, H}
 
     public Game(String[] names) {
         placeInitial();
@@ -99,9 +99,9 @@ public class Game {
     // Create an Player class object for each player
     public void initializePlayers(String[] names) {
         Player player1 = new Player(names[0]);
-        players.add(player1);
+        players[0] = player1;
         Player player2 = new Player(names[1]);
-        players.add(player2);
+        players[1] = player2;
     }
 
     // This method starts the game and is used to get the inputs of the users
