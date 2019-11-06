@@ -10,6 +10,9 @@ public class Game {
     enum Color {black, white}
     enum letters {A, B, C, D, E, F, G, H}
 
+    // Iterator pieceIterator = new PieceIterator(pieces);
+    // Iterator playerIterator = new PlayerIterator(players);
+
     public Game(String[] names) {
         placeInitial();
         initializePlayers(names);
@@ -25,9 +28,12 @@ public class Game {
             for (int x=0;x<8;x++) {
                 System.out.print("[");
                 boolean printed = false;
-                for (ChessPiece p : pieces) {
-                    if (p.getXcord() == x && p.getYcord() == y) {
-                        System.out.print(p.getShortName());
+                // ------------------------------- ITERATOR -------------------------------
+                Iterator pieceIterator = new PieceIterator(pieces);
+                while (pieceIterator.hasNext()) {
+                    ChessPiece piece = (ChessPiece) pieceIterator.next();
+                    if (piece.getXcord() == x && piece.getYcord() == y) {
+                        System.out.print(piece.getShortName());
                         printed = true;
                     }
                 }
@@ -110,8 +116,11 @@ public class Game {
         // While the King is not dead
         while(!gameOver) {
 
+            // ------------------------------- ITERATOR -------------------------------
             // For each player
-            for (Player p : players) {
+            Iterator playerIterator = new PlayerIterator(players);
+            while (playerIterator.hasNext()) {
+                Player p = (Player)playerIterator.next();
                 boolean successfulMove = false;
                 System.out.println("\nPlayer: "+p.getName());
 
@@ -185,8 +194,11 @@ public class Game {
                     }
 
                     else if(input.length==2 && checkInput(input[0],input[1])) {
+                        // ------------------------------- ITERATOR -------------------------------
+                        Iterator pieceIterator = new PieceIterator(pieces);
                         // Move a pawn (example A3)
-                        for(ChessPiece piece: pieces){
+                        while (pieceIterator.hasNext()){
+                            ChessPiece piece = (ChessPiece)pieceIterator.next();
                             if(piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]),Integer.parseInt(input[1])-1)) {
                                 selectedPiece = piece;
                             }
@@ -200,7 +212,10 @@ public class Game {
                         //Capture a piece with a pawn (example dxe)
                         if(input[1].equals("x") && checkInputP(input[0],input[2])) {
                             int y;
-                            for(ChessPiece piece: pieces){
+                            // ------------------------------- ITERATOR -------------------------------
+                            Iterator pieceIterator = new PieceIterator(pieces);
+                            while (pieceIterator.hasNext()){
+                                ChessPiece piece = (ChessPiece)pieceIterator.next();
                                 if (p.getColor().equals("white")) {
                                     y = piece.getYcord()+1;
                                 }
@@ -224,7 +239,10 @@ public class Game {
 
                         // Move a piece (example Na3)
                         else if(checkInput(input[1],input[2])) {
-                            for(ChessPiece piece: pieces){
+                            // ------------------------------- ITERATOR -------------------------------
+                            Iterator pieceIterator = new PieceIterator(pieces);
+                            while (pieceIterator.hasNext()){
+                                ChessPiece piece = (ChessPiece)pieceIterator.next();
                                 if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor().equals(p.getColor())
                                         && piece.moveValidation(board, letterToInteger(input[1]),Integer.parseInt(input[2])-1)) {
                                     selectedPiece = piece;
@@ -240,7 +258,10 @@ public class Game {
                     else if (input.length==4 && checkInput(input[2],input[3])) {
                         //Capture a piece with another piece (example Txa3)
                         if(input[1].equals("x")) {
-                            for(ChessPiece piece: pieces){
+                            // ------------------------------- ITERATOR -------------------------------
+                            Iterator pieceIterator = new PieceIterator(pieces);
+                            while (pieceIterator.hasNext()){
+                                ChessPiece piece = (ChessPiece)pieceIterator.next();
                                 if(piece.getShortName().split("")[1].equals(input[0].toUpperCase()) && piece.getColor().equals(p.getColor())
                                         && piece.moveValidation(board, letterToInteger(input[2]),Integer.parseInt(input[3])-1)) {
                                     selectedPiece = piece;
@@ -255,7 +276,10 @@ public class Game {
                         else if(input[2].equals("=") && checkInput(input[0],input[1])){
                             destination = input[0]+input[1];
                             if(input[1].equals("1")||input[1].equals("8")) {
-                                for (ChessPiece piece : pieces) {
+                                // ------------------------------- ITERATOR -------------------------------
+                                Iterator pieceIterator = new PieceIterator(pieces);
+                                while (pieceIterator.hasNext()){
+                                    ChessPiece piece = (ChessPiece)pieceIterator.next();
                                     selectedPiece = piece;
                                     if (piece instanceof Pawn && piece.getColor().equals(p.getColor()) && piece.moveValidation(board, letterToInteger(input[0]), Integer.parseInt(input[1]) - 1)) {
                                         if (move(p, selectedPiece, destination)) {
@@ -418,7 +442,10 @@ public class Game {
 
     // Returns the instance of ChessPiece which is on the field XY
     public ChessPiece whoIsThere(int x, int y) {
-        for(ChessPiece piece: pieces) {
+        // ------------------------------- ITERATOR -------------------------------
+        Iterator pieceIterator = new PieceIterator(pieces);
+        while (pieceIterator.hasNext()) {
+            ChessPiece piece = (ChessPiece)pieceIterator.next();
             if(piece.getXcord() == x && piece.getYcord() == y) {
                 return piece;
             }
@@ -435,7 +462,10 @@ public class Game {
         String[] d = dest.split("");
         int xDest = letterToInteger(d[0].toUpperCase());
         int yDest = Integer.parseInt(d[1])-1;
-        for(ChessPiece piece: pieces){
+        // ------------------------------- ITERATOR -------------------------------
+        Iterator pieceIterator = new PieceIterator(pieces);
+        while (pieceIterator.hasNext()){
+            ChessPiece piece = (ChessPiece)pieceIterator.next();
             if(piece instanceof Pawn) {
                 if (!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,xDest,yDest)) {
                     return true;
@@ -454,7 +484,10 @@ public class Game {
         int indexWhite = 0;
         int indexBlack = 0;
         int index = 0;
-        for(ChessPiece piece: pieces){
+        // ------------------------------- ITERATOR -------------------------------
+        Iterator pieceIterator = new PieceIterator(pieces);
+        while (pieceIterator.hasNext()){
+            ChessPiece piece = (ChessPiece)pieceIterator.next();
             if(piece.getShortName() == "WK"){
                 indexWhite = index;
             }
@@ -465,7 +498,10 @@ public class Game {
 
         }
 
-        for(ChessPiece piece: pieces){
+        // ------------------------------- ITERATOR -------------------------------
+        Iterator secondPieceIterator = new PieceIterator(pieces);
+        while (secondPieceIterator.hasNext()){
+            ChessPiece piece = (ChessPiece)secondPieceIterator.next();
 
             if(piece instanceof Pawn) {
                 if (piece.getColor() == "black"&&!piece.getColor().equals(p.getColor()) && piece.captureValidation(board,pieces.get(indexWhite).getXcord(),pieces.get(indexWhite).getYcord())) {
