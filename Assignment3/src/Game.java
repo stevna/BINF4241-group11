@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game implements Subject{
+public class Game implements Subject, IteratorCreator {
 
     private ArrayList<ChessPiece> pieces = new ArrayList<>();
     private Player[] players = new Player[2];
