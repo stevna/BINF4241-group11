@@ -7,7 +7,7 @@ If the images are not viewable we also uploaded a pdf file (Answers.pdf).
 1. We implemented the Singleton-Pattern in the “Board” class and the “Scoreboard” class (which we implemented in Part 3), 
 because it should have only one instance of each of them during the running program. 
 Furthermore, the implementation of this pattern provides a global point of access the instance of both classes. 
-Therefore, we don’t have to give the instance of the board to the pieces.
+Therefore, we don’t have to give the instance of the board to the pieces. The implementation can be seen in the class diagram. In general, it is how we learnt in the lecture, the constructor of the board is private and we created a public function(getinstance()) to create an instance if no exists yet or if one exists, it gets returned.
 
 2. Class diagrams:
 ![Board](./img/singleton_classdiagram_board.JPG)
@@ -22,6 +22,7 @@ Therefore, we don’t have to give the instance of the board to the pieces.
 1. We implemented the Iterator-Pattern in the “Game” class to iterate over the chess pieces and the players.
 Both are store in a lists with a different underlying presentation. The chess pieces are stored in an arraylist and the players are stored in an array.
 The implementation of this pattern allows us consistent access to the elements of both lists.
+Also this pattern is implemented how we learnt in the lecture. We created the iterator interface and two classes which are called PieceIterator and PlayerIterator, with the important corresponding functions hasnext() and next(). We then implemented two functions (createPieceIterator and CreatePlayerIterator) in our game class which create the respective iterator instance.
 
 2. Class diagram:
 ![Iterator](./img/iterator_classdiagram.JPG)
@@ -42,7 +43,7 @@ After the actor has entered the castling command the Game class calls the valida
 
 ## Part 3
 ### Observer: Scorecard
-The following class diagram shows how we implemented the Scorecard with the Obeserver-Pattern.
+The following class diagram shows how we implemented the Scoreboard with the Obeserver-Pattern.
 ![Iterator](./img/observer_classdiagram_scoreboard.JPG)
 
 
