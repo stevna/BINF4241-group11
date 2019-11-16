@@ -43,7 +43,7 @@ After the actor has entered the castling command the Game class calls the valida
 
 ## Part 3
 ### Observer: Scorecard
-The following class diagram shows how we implemented the Scoreboard with the Obeserver-Pattern.
+The following class diagram shows how we implemented the Scorecard using the Obeserver-Pattern. Every time a player captures an enemy piece, he gets five points in case the enemy piece was the queen and one point for all other eaten pieces. Whenever it is the turn of a player, his current points are displayed.
 ![Iterator](./img/observer_classdiagram_scoreboard.JPG)
 
 
