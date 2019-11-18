@@ -23,7 +23,7 @@ public class Washingmachine extends Device {
         Washingmachine wm = new Washingmachine();
         Thread mt;
         while(true) {
-            System.out.println("\nWhat do want to do? (washing machine)");
+            System.out.println("\nWhat do you want to do? (washing machine)");
             System.out.println("1. Switch on");
             System.out.println("2. Select degrees");
             Scanner scanner = new Scanner(System.in);
@@ -36,7 +36,7 @@ public class Washingmachine extends Device {
                     mt.start();
 
                 case "2":
-                    WashingmachineSelectDegreesCommand wmsd = new WashingmachineSelectDegreesCommand(wm);
+                    WashingmachineSelectDegreesCommand wmsd = new WashingmachineSelectDegreesCommand(wm,30);
                     mt = new Thread(wmsd);
                     mt.start();
             }
