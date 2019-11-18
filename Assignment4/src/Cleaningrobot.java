@@ -21,7 +21,7 @@ public class Cleaningrobot extends Device {
 
     public void backToCharge(){
         if(status == eStatus.on) {
-            System.out.println("Time expired, Robot goes back to chargin station");
+            System.out.println("Time expired, Robot goes back to charging station");
             loading = eloading.yes;
         }
         else {
@@ -44,12 +44,12 @@ public class Cleaningrobot extends Device {
         }
     }
 
-    public void getCleainingPercentage(){
+    public void getCleaningPercentage(){
         System.out.println("Percentage of cleaning completion is " + cleaningCompletion);
 
     }
 
-    public void completeCleaining(){
+    public void completeCleaning(){
         System.out.println("Outstanding cleaning completed");
         status = eStatus.off;
     }

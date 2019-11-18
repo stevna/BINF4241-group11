@@ -6,6 +6,6 @@ public class CleaningrobotCompleteCleaningCommand implements Command {
     }
 
     public void execute() {
-        cleaningrobot.completeCleaining();
+        cleaningrobot.completeCleaning();
     }
 }
