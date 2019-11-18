@@ -1,19 +1,31 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Microwave extends Device implements Runnable {
 
+    public Microwave(){
+        func.add("Check timer");
+        func.add("Interrupt");
+        func.add("Set temperature");
+        func.add("Set timer");
+        func.add("Start baking");
+        func.add("Switch off");
+        func.add("Switch on");
+    }
 
+
+    private Timer timerclass = new Timer();
     private String name = "Microwave";
-
-
 
     enum eStatus{on, off}
     private eStatus status = eStatus.off;
     enum eBaking{on,off}
     private eBaking baking = eBaking.off;
 
-    private int timer = 0;
     private int temp = 0;
+    ArrayList<Integer> timerlist= new ArrayList<>();
 
 
     public void run(){
@@ -35,8 +47,18 @@ public class Microwave extends Device implements Runnable {
 
 
 
+
+
     public void checkTimer(){
-        System.out.println("the timer is: " + timer);
+
+        //give back last element of the timerlist
+        if(baking == eBaking.off) {
+            System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
+        }
+        else{
+            System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
+
+        }
     }
 
     public void interrupt(){
@@ -67,19 +89,32 @@ public class Microwave extends Device implements Runnable {
 
     public void setTimer() {
 
+        //mit sleep funktionierts anschinend nid, bruched de timer
         Scanner scanner = new Scanner(System.in);
         System.out.println(("Please type how many seconds the timer should be"));
         String timer = scanner.nextLine();
         int timerint = Integer.parseInt(timer);
+        timerlist.add(timerint);
 
-        System.out.println("You set your microwace timer to: " + timerint);
+        System.out.println("You set your timer to: " + timerint);
         System.out.println("Timer started");
+
+        timerclass.schedule(new hello(),timerint*1000);
+
 
     }
 
+    class hello extends TimerTask {
+        public void run(){
+            System.out.format("Timer Task Finished..!%n");
+            timerclass.cancel(); // Terminate the timer thread
+        }
+    }
+
+
     public void startBaking(){
 
-        if(status == eStatus.on && temp>0){
+        if(status == eStatus.on && temp>0 && timerlist.size()>0 && timerlist.get(timerlist.size() - 1)>0){
             baking = eBaking.on;
             System.out.println("Baking started");
         }

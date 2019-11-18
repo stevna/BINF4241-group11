@@ -1,11 +1,24 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Cleaningrobot extends Device {
 
-    private String name = "Cleaningrobot";
 
+    public Cleaningrobot(){
+        func.add("Back to charge");
+        func.add("Battery Charging Status");
+        func.add("Battery Status");
+        func.add("Check cleaning percentage");
+        func.add("Complete cleaning");
+        func.add("End cleaning");
+        func.add("Set timer");
+        func.add("Start vacuum cleaner");
+    }
+
+
+    private String name = "Cleaningrobot";
     private Timer timerclass = new Timer();
 
     private int BatteryStatus = 100;
@@ -16,6 +29,7 @@ public class Cleaningrobot extends Device {
 
     enum eloading{yes,no};
     private eloading loading = eloading.yes;
+    int timer = 0;
 
 
 
@@ -65,23 +79,17 @@ public class Cleaningrobot extends Device {
         //mit sleep funktionierts anschinend nid, bruched de timer
         Scanner scanner = new Scanner(System.in);
         System.out.println(("Please type how many seconds the timer should be"));
-        String timer = scanner.nextLine();
-        int timerint = Integer.parseInt(timer);
+        String timerstr = scanner.nextLine();
+        int timerint = Integer.parseInt(timerstr);
+        timer = timerint;
 
         System.out.println("You set your timer to: " + timerint);
         System.out.println("Timer started");
-        /*try{
-            Thread.sleep(timerint* 1000);
-        }
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }*/
 
         timerclass.schedule(new hello(),timerint*1000);
 
 
     }
-
 
     class hello extends TimerTask{
         public void run(){
@@ -104,6 +112,11 @@ public class Cleaningrobot extends Device {
 
     public String getName(){
         return name;
+    }
+
+    public void getInformation(){
+        System.out.println("Cleanigrobot is currently " + status.toString());
+
     }
 
 

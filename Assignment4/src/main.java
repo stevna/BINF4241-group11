@@ -18,6 +18,8 @@ public class main {
         Thread object1 = new Thread(new Microwave());
         object1.start();
 
+        Oven oven = new Oven();
+
 
 
         Remote remote = new Remote();
@@ -26,10 +28,21 @@ public class main {
         ArrayList<Device> devices= new ArrayList<>();
         devices.add(cleaningrobot);
         devices.add(microwave);
+        devices.add(oven);
 
         String input = "";
 
 
+
+
+
+        /*
+
+        OvenSwitchOnCommand switchon = new OvenSwitchOnCommand(oven);
+        remote.setCommand(switchon);
+        remote.pressButton();
+
+        */
 
 
 
@@ -42,6 +55,31 @@ public class main {
             Scanner scanner = new Scanner(System.in);
             System.out.println(("Please type in the device name"));
             input = scanner.nextLine();
+
+
+            for (Device p : devices) {
+                if(input.equals(p.getName())) {
+
+                    System.out.println("Following information about your device:");
+                    p.getInformation();
+                    System.out.println("You see the functions of that device:");
+                    p.printFunc();
+
+                    System.out.println("Choose the function you want to execute:");
+                    input = scanner.nextLine();
+
+                    //wie chan ich dur en user input eh function ufrüefe
+                }
+
+            }
+
+            System.out.println(("Please type in exit or another device name"));
+            input = scanner.nextLine();
+
+
+
+
+
 
 
 
@@ -66,6 +104,39 @@ public class main {
         remote.pressButton();
 
         */
+
+
+
+
+
+        /*OvenSwitchOnCommand switchon = new OvenSwitchOnCommand(oven);
+        remote.setCommand(switchon);
+        remote.pressButton();
+
+
+        OvenSetTemperatureCommand setTempt= new OvenSetTemperatureCommand(oven);
+        remote.setCommand(setTempt);
+        remote.pressButton();
+
+        OvenSetTimerCommand setTimer = new OvenSetTimerCommand(oven);
+        remote.setCommand(setTimer);
+        remote.pressButton();
+
+        OvenStartCookingCommand startCooking = new OvenStartCookingCommand(oven);
+        remote.setCommand(startCooking);
+        remote.pressButton();
+
+        OvenSwitchOffCommand switchOff = new OvenSwitchOffCommand(oven);
+        remote.setCommand(switchOff);
+        remote.pressButton();
+
+
+        OvenCheckTimerCommand checkTimer = new OvenCheckTimerCommand(oven);
+        remote.setCommand(checkTimer);
+        remote.pressButton();
+
+
+
 
 
 
