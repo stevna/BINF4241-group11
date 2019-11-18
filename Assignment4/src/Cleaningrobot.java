@@ -4,17 +4,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Cleaningrobot extends Device {
+    private final int identifier = 1;
 
 
     public Cleaningrobot(){
-        func.add("Back to charge");
-        func.add("Battery Charging Status");
-        func.add("Battery Status");
-        func.add("Check cleaning percentage");
-        func.add("Complete cleaning");
-        func.add("End cleaning");
-        func.add("Set timer");
-        func.add("Start vacuum cleaner");
+        func.add("(1) Back to charge");
+        func.add("(2) Battery Charging Status");
+        func.add("(3) Battery Status");
+        func.add("(4) Check cleaning percentage");
+        func.add("(5) Complete cleaning");
+        func.add("(6) End cleaning");
+        func.add("(7) Set timer");
+        func.add("(8) Start vacuum cleaner");
     }
 
 
@@ -110,15 +111,17 @@ public class Cleaningrobot extends Device {
         }
     }
 
-    public String getName(){
-        return name;
-    }
 
     public void getInformation(){
         System.out.println("Cleanigrobot is currently " + status.toString());
 
     }
 
+    public String getName(){
+        return name;
+    }
 
-
+    public int getIdentifier() {
+        return identifier;
+    }
 }

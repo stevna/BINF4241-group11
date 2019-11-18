@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public abstract class Device {
+    private int identifier;
     private String name;
     ArrayList<String> func= new ArrayList<>();
 
@@ -20,5 +21,6 @@ public abstract class Device {
 
     }
 
+    public abstract int getIdentifier();
 
-}
+  }

@@ -1,8 +1,11 @@
 import java.util.Scanner;
+
 public class Washingmachine extends Device {
+    private final int identifier = 4;
     enum eStatus{on, off}
     private eStatus status = eStatus.off;
     int degrees;
+    String name = "Washingmachine";
 
     public void switchOn(){
         if(status == eStatus.on) {
@@ -42,5 +45,13 @@ public class Washingmachine extends Device {
             }
         }
 
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getIdentifier() {
+        return identifier;
     }
 }

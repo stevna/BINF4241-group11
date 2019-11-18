@@ -4,15 +4,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Microwave extends Device implements Runnable {
+    private final int identifier = 2;
 
     public Microwave(){
-        func.add("Check timer");
-        func.add("Interrupt");
-        func.add("Set temperature");
-        func.add("Set timer");
-        func.add("Start baking");
-        func.add("Switch off");
-        func.add("Switch on");
+        func.add("(1) Check timer");
+        func.add("(2) Interrupt");
+        func.add("(3) Set temperature");
+        func.add("(4) Set timer");
+        func.add("(5) Start baking");
+        func.add("(6) Switch off");
+        func.add("(7) Switch on");
     }
 
 
@@ -151,5 +152,7 @@ public class Microwave extends Device implements Runnable {
         return name;
     }
 
-
+    public int getIdentifier() {
+        return identifier;
+    }
 }

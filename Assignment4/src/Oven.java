@@ -4,17 +4,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Oven extends Device {
-
+    private final int identifier = 3;
 
     public Oven(){
-        func.add("Check timer");
-        func.add("Interrupt");
-        func.add("Set program");
-        func.add("Set temperature");
-        func.add("Set timer");
-        func.add("Start cooking");
-        func.add("Switch off");
-        func.add("Switch on");
+        func.add("(1) Check timer");
+        func.add("(2) Interrupt");
+        func.add("(3) Set program");
+        func.add("(4) Set temperature");
+        func.add("(5) Set timer");
+        func.add("(6) Start cooking");
+        func.add("(7) Switch off");
+        func.add("(8) Switch on");
     }
     private String name = "Oven";
 
@@ -174,5 +174,9 @@ public class Oven extends Device {
 
     public String getName(){
         return name;
+    }
+
+    public int getIdentifier() {
+        return identifier;
     }
 }
