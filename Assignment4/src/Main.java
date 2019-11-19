@@ -3,9 +3,18 @@ import com.sun.jdi.ArrayReference;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String args[])
     {
+        Smartphone s = new Smartphone();
+        try {
+            s.use();
+        } catch (InterruptedException e) {
+            System.err.println("An error occurred!!!");
+        }
+
+
+        /*
 
         //every object get instantiated
 
@@ -32,6 +41,8 @@ public class main {
 
         String input = "";
 
+         */
+
 
 
 
@@ -45,6 +56,7 @@ public class main {
         */
 
 
+        /*
 
         while(!input.equals("exit") ){
             for (Device p : devices) {
@@ -76,15 +88,9 @@ public class main {
             System.out.println(("Please type in exit or another device name"));
             input = scanner.nextLine();
 
-
-
-
-
-
-
-
         }
 
+        */
 
 
         //isch zum teste gsie

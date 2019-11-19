@@ -155,4 +155,10 @@ public class Microwave extends Device implements Runnable {
     public int getIdentifier() {
         return identifier;
     }
+
+    public void getInformation() {
+        /**
+         * some code
+          */
+    }
 }

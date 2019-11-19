@@ -18,10 +18,8 @@ public abstract class Device {
         System.out.println("(-1) go back");
     }
 
-    public void getInformation(){
+    public abstract void getInformation(); // ABSTRACT METHOD
 
-    }
-
-    public abstract int getIdentifier();
+    public abstract int getIdentifier(); // ABSTRACT METHOD
 
   }
