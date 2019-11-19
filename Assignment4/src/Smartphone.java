@@ -110,21 +110,27 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 5) {
-                            CleaningrobotEndCleaningCommand c5 = new CleaningrobotEndCleaningCommand(cleaningrobot);
+                            CleaningrobotCompleteCleaningCommand c5 = new CleaningrobotCompleteCleaningCommand(cleaningrobot);
                             thread = new Thread(c5);
                             thread.start();
                         }
 
                         else if (selectedCommand == 6) {
-                            CleaningrobotSetTimerCommand c6 = new CleaningrobotSetTimerCommand(cleaningrobot);
+                            CleaningrobotEndCleaningCommand c6 = new CleaningrobotEndCleaningCommand(cleaningrobot);
                             thread = new Thread(c6);
+                            thread.start();
+                        }
+
+                        else if (selectedCommand == 7) {
+                            CleaningrobotSetTimerCommand c7 = new CleaningrobotSetTimerCommand(cleaningrobot);
+                            thread = new Thread(c7);
                             thread.start();
 
                         }
 
-                        else if (selectedCommand == 7) {
-                            CleaningrobotStartVacuumCleanerCommand c7 = new CleaningrobotStartVacuumCleanerCommand(cleaningrobot);
-                            thread = new Thread(c7);
+                        else if (selectedCommand == 8) {
+                            CleaningrobotStartVacuumCleanerCommand c8 = new CleaningrobotStartVacuumCleanerCommand(cleaningrobot);
+                            thread = new Thread(c8);
                         }
 
 
