@@ -5,7 +5,7 @@ public class Washingmachine extends Device {
     private final int identifier = 4;
     String name = "Washingmachine";
     enum eStatus{on, off}
-    enum typesOfWashing{DoubleRinse, Intense, Quick, Spin};
+    enum typesOfWashing{doublerinse, intense, quick, spin};
     private eStatus status = eStatus.off;
     private int degrees = 0;
     private int timer = 0;
@@ -35,7 +35,7 @@ public class Washingmachine extends Device {
 
     public void selectDegrees(int deg){
         if(status.equals(eStatus.off)){
-            System.out.println("You have to switch on the  washing machine first.");
+            System.out.println("You have to switch on the washing machine first.");
         }
         else {
             degrees = deg;
@@ -45,24 +45,24 @@ public class Washingmachine extends Device {
 
     public void setTimer(String type) {
         int t = 1000;
-        if(type.equals(typesOfWashing.DoubleRinse.toString())){
+        if(type.toLowerCase().equals(typesOfWashing.doublerinse.toString())){
+            timer = 40*t;
+        }
+        else if(type.toLowerCase().equals(typesOfWashing.intense.toString())){
+            timer = 60*t;
+        }
+        else if(type.toLowerCase().equals(typesOfWashing.quick.toString())) {
             timer = 20*t;
         }
-        if(type.equals(typesOfWashing.Intense.toString())){
-            timer = 30*t;
-        }
-        if(type.equals(typesOfWashing.Quick.toString())) {
-            timer = 10*t;
-        }
         else { //Spin
-            timer = 7*t;
+            timer = 13*t;
         }
         System.out.println("Set timer to "+timer/t+" seconds.");
     }
 
     public void setTypeOfWashing(String type){
         if(status.equals(eStatus.off)){
-            System.out.println("You have to switch on the  washing machine first.");
+            System.out.println("You have to switch on the washing machine first.");
         }
         else {
             for (typesOfWashing t : typesOfWashing.values()) {
@@ -136,6 +136,12 @@ public class Washingmachine extends Device {
 
     public int getIdentifier() {
         return identifier;
+    }
+
+    public void getInformation(){
+        /**
+         * some code
+         */
     }
 
 }
