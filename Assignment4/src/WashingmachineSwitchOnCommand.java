@@ -7,12 +7,12 @@ public class WashingmachineSwitchOnCommand implements Command, Runnable{
 
     @Override
     public void run() {
-        washingmachine.switchOn();
+        execute();
     }
 
 
     @Override
     public void execute() {
-        
+        washingmachine.switchOn();
     }
 }

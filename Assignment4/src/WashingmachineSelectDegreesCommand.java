@@ -1,16 +1,20 @@
 import java.util.Scanner;
-public class WashingmachineSelectDegreesCommand implements Runnable {
+public class WashingmachineSelectDegreesCommand implements Command,Runnable {
     private Washingmachine washingmachine;
+    private int degree;
 
-    public WashingmachineSelectDegreesCommand(Washingmachine wm){
+    public WashingmachineSelectDegreesCommand(Washingmachine wm, int deg){
         washingmachine = wm;
+        degree = deg;
     }
 
     @Override
     public void run() {
-        System.out.print("Select degrees: ");
-        Scanner scanner = new Scanner(System.in);
-        String deg = scanner.nextLine();
-        washingmachine.selectDegrees(Integer.parseInt(deg));
+        execute();
+    }
+
+    @Override
+    public void execute() {
+        washingmachine.selectDegrees(degree);
     }
 }
