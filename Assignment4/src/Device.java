@@ -15,6 +15,7 @@ public abstract class Device {
         for(String s:func){
             System.out.println(s);
         }
+        System.out.println("(-1) go back");
     }
 
     public void getInformation(){
