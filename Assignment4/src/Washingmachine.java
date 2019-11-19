@@ -91,7 +91,7 @@ public class Washingmachine extends Device {
             timer = 0;
             typeOfWashing = null;
             isRunning = false;
-            runningProgram = null;
+            runningProgram. = null;
         }
     }
 
