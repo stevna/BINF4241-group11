@@ -80,6 +80,7 @@ public class Smartphone {
                         break;
                     }
 
+                    // THREAD
                     Thread thread;
 
                     if (selectedDevice == 1 && selectedCommand != 0) {
@@ -122,7 +123,11 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 7) {
-                            CleaningrobotSetTimerCommand c7 = new CleaningrobotSetTimerCommand(cleaningrobot);
+                            Scanner scan = new Scanner(System.in);
+                            System.out.println(("Please type how many seconds the timer should be"));
+                            String timerStr = scan.nextLine();
+                            int timerInt = Integer.parseInt(timerStr);
+                            CleaningrobotSetTimerCommand c7 = new CleaningrobotSetTimerCommand(cleaningrobot, timerInt);
                             thread = new Thread(c7);
                             thread.start();
 
@@ -131,6 +136,7 @@ public class Smartphone {
                         else if (selectedCommand == 8) {
                             CleaningrobotStartVacuumCleanerCommand c8 = new CleaningrobotStartVacuumCleanerCommand(cleaningrobot);
                             thread = new Thread(c8);
+                            thread.start();
                         }
 
 
@@ -148,6 +154,43 @@ public class Smartphone {
 
                     else if (selectedDevice == 4 && selectedCommand != 0) {
                         System.out.println("Washingmachine");
+                        if (selectedCommand == 1) {
+                            WashingmachineSwitchOnCommand wmOn = new WashingmachineSwitchOnCommand(washingmachine);
+                            thread = new Thread(wmOn);
+                            thread.start();
+                        }
+                        else if (selectedCommand == 2) {
+                            System.out.print("Select degrees: ");
+                            Scanner scan = new Scanner(System.in);
+                            String deg = scan.nextLine();
+                            WashingmachineSelectDegreesCommand wmsd = new WashingmachineSelectDegreesCommand(washingmachine, Integer.parseInt(deg));
+                            thread = new Thread(wmsd);
+                            thread.start();
+                        }
+                        else if (selectedCommand == 3){
+                            System.out.print("Select Program: ");
+                            Scanner scans = new Scanner(System.in);
+                            String type = scans.nextLine();
+                            WashingmachineTypeOfWashingCommand wmtow = new WashingmachineTypeOfWashingCommand(washingmachine, type);
+                            thread = new Thread(wmtow);
+                            thread.start();
+                        }
+                        else if (selectedCommand == 4) {
+                            WashingmachineStartProgramCommand wmsp = new WashingmachineStartProgramCommand(washingmachine);
+                            thread = new Thread(wmsp);
+                            thread.start();
+                        }
+                        else if(selectedCommand == 5) {
+                            WashingmachineTurnOffCommand wmto = new WashingmachineTurnOffCommand(washingmachine);
+                            thread = new Thread(wmto);
+                            thread.start();
+                        }
+                        else if(selectedCommand == 6) {
+                            WashingmachineSwitchOffCommand wmso = new WashingmachineSwitchOffCommand(washingmachine);
+                            thread = new Thread(wmso);
+                            thread.start();
+                        }
+
 
                     }
                     Thread.sleep(500);
