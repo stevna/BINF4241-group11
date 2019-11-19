@@ -20,7 +20,7 @@ public class Smartphone {
         devices.add(washingmachine);
     }
 
-    public void use() {
+    public void use() throws InterruptedException {
         String input = "";
 
         do {
@@ -89,27 +89,42 @@ public class Smartphone {
                             CleaningrobotBackToChargeCommand c1 = new CleaningrobotBackToChargeCommand(cleaningrobot);
                             thread = new Thread(c1);
                             thread.start();
-
                         }
+
                         else if (selectedCommand == 2) {
-
+                            CleaningrobotBatteryChargingStatusCommand c2 = new CleaningrobotBatteryChargingStatusCommand(cleaningrobot);
+                            thread = new Thread(c2);
+                            thread.start();
                         }
+
                         else if (selectedCommand == 3) {
                             CleaningrobotBatteryStatusCommand c3 = new CleaningrobotBatteryStatusCommand(cleaningrobot);
                             thread = new Thread(c3);
                             thread.start();
                         }
+
                         else if (selectedCommand == 4) {
-
+                            CleaningrobotCheckCleaningPercentageCommand c4 = new CleaningrobotCheckCleaningPercentageCommand(cleaningrobot);
+                            thread = new Thread(c4);
+                            thread.start();
                         }
+
                         else if (selectedCommand == 5) {
-
+                            CleaningrobotEndCleaningCommand c5 = new CleaningrobotEndCleaningCommand(cleaningrobot);
+                            thread = new Thread(c5);
+                            thread.start();
                         }
+
                         else if (selectedCommand == 6) {
+                            CleaningrobotSetTimerCommand c6 = new CleaningrobotSetTimerCommand(cleaningrobot);
+                            thread = new Thread(c6);
+                            thread.start();
 
                         }
-                        else if (selectedCommand == 7) {
 
+                        else if (selectedCommand == 7) {
+                            CleaningrobotStartVacuumCleanerCommand c7 = new CleaningrobotStartVacuumCleanerCommand(cleaningrobot);
+                            thread = new Thread(c7);
                         }
 
 
@@ -129,8 +144,10 @@ public class Smartphone {
                         System.out.println("Washingmachine");
 
                     }
+                    Thread.sleep(500);
 
                 } while (selectedCommand == 0);
+
             } while (selectedDevice == 0);
 
 
@@ -142,7 +159,11 @@ public class Smartphone {
 
     public static void main(String[] args) {
         Smartphone s = new Smartphone();
-        s.use();
+        try {
+            s.use();
+        } catch (InterruptedException e) {
+            System.err.println("An error occurred!!!");
+        }
     }
 
 }

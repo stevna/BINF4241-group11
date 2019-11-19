@@ -45,7 +45,7 @@ public class Cleaningrobot extends Device {
     }
 
     public void checkBatteryChargingStatus(){
-        System.out.println("Battery Charging Status is" + BatteryStatus + "%");
+        System.out.println("Battery Charging Status is " + BatteryStatus + " %");
 
     }
 

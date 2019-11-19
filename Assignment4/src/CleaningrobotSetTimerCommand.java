@@ -1,4 +1,4 @@
-public class CleaningrobotSetTimerCommand implements Command {
+public class CleaningrobotSetTimerCommand implements Command, Runnable {
     Cleaningrobot cleaningrobot;
 
     public CleaningrobotSetTimerCommand(Cleaningrobot cleaningrobot){
@@ -9,4 +9,8 @@ public class CleaningrobotSetTimerCommand implements Command {
         cleaningrobot.setTimer();
     }
 
+    @Override
+    public void run() {
+        execute();
+    }
 }

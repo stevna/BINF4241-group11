@@ -1,4 +1,4 @@
-public class CleaningrobotStartVacuumCleanerCommand implements Command {
+public class CleaningrobotStartVacuumCleanerCommand implements Command, Runnable {
     Cleaningrobot cleaningrobot;
 
     public CleaningrobotStartVacuumCleanerCommand(Cleaningrobot cleaningrobot){
@@ -7,5 +7,10 @@ public class CleaningrobotStartVacuumCleanerCommand implements Command {
 
     public void execute() {
         cleaningrobot.startVacuumCleaner();
+    }
+
+    @Override
+    public void run() {
+        execute();
     }
 }
