@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Washingmachine extends Device {
     private final int identifier = 4;
@@ -129,62 +130,6 @@ public class Washingmachine extends Device {
 
     }
 
-    public static void main(String[] args) {
-        Washingmachine wm = new Washingmachine();
-        Thread mt;
-        System.out.println("\nWhat do you want to do? (washing machine)");
-        System.out.println("1. Switch on");
-        System.out.println("2. Select degrees");
-        System.out.println("3. Select program");
-        System.out.println("4. Start program");
-        System.out.println("5. Turn off");
-        System.out.println("6. Switch off");
-        String command ="";
-        do {
-            System.out.println("Input: ");
-            Scanner scanner = new Scanner(System.in);
-            command = scanner.nextLine();
-
-            if (command.equals("1")) {
-                WashingmachineSwitchOnCommand wmOn = new WashingmachineSwitchOnCommand(wm);
-                mt = new Thread(wmOn);
-                mt.start();
-            }
-            else if (command.equals("2")) {
-                System.out.print("Select degrees: ");
-                Scanner scan = new Scanner(System.in);
-                String deg = scan.nextLine();
-                WashingmachineSelectDegreesCommand wmsd = new WashingmachineSelectDegreesCommand(wm, Integer.parseInt(deg));
-                mt = new Thread(wmsd);
-                mt.start();
-            }
-            else if (command.equals("3")){
-                System.out.print("Select Program: ");
-                Scanner scans = new Scanner(System.in);
-                String type = scans.nextLine();
-                WashingmachineTypeOfWashingCommand wmtow = new WashingmachineTypeOfWashingCommand(wm, type);
-                mt = new Thread(wmtow);
-                mt.start();
-            }
-            else if (command.equals("4")) {
-                WashingmachineStartProgramCommand wmsp = new WashingmachineStartProgramCommand(wm);
-                mt = new Thread(wmsp);
-                mt.start();
-            }
-            else if(command.equals("5")) {
-                WashingmachineTurnOffCommand wmto = new WashingmachineTurnOffCommand(wm);
-                mt = new Thread(wmto);
-                mt.start();
-            }
-            else if(command.equals("6")) {
-                WashingmachineSwitchOffCommand wmso = new WashingmachineSwitchOffCommand(wm);
-                mt = new Thread(wmso);
-                mt.start();
-            }
-        }while(command!="exit");
-
-    }
-
     public String getName(){
         return name;
     }
@@ -192,4 +137,5 @@ public class Washingmachine extends Device {
     public int getIdentifier() {
         return identifier;
     }
+
 }
