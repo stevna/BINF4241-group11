@@ -12,6 +12,15 @@ public class Washingmachine extends Device {
     private boolean isRunning = false;
     Thread runningProgram;
 
+    public Washingmachine(){
+        func.add("(1) Switch on");
+        func.add("(2) Select degrees");
+        func.add("(3) Select program");
+        func.add("(4) Start program");
+        func.add("(5) Turn off");
+        func.add("(6) Switch off");
+    }
+
 
     public void switchOn(){
         if(status == eStatus.on) {
