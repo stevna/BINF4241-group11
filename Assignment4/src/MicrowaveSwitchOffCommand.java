@@ -1,4 +1,4 @@
-public class MicrowaveSwitchOffCommand {
+public class MicrowaveSwitchOffCommand implements Command {
 
     Microwave microwave;
 

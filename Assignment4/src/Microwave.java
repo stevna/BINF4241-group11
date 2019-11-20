@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Microwave extends Device {
     private final int identifier = 2;
-    private Instant end;
-    private Instant start;
+    // private Instant end;
+    // private Instant start;
 
 
 
@@ -24,7 +24,7 @@ public class Microwave extends Device {
     }
 
 
-    private Timer timerclass = new Timer();
+    // private Timer timerclass = new Timer();
     private String name = "Microwave";
 
     enum eStatus{on, off}
@@ -33,11 +33,25 @@ public class Microwave extends Device {
     private eBaking baking = eBaking.off;
 
     private int temp = 0;
+    private int lastTimer;
+    private int currentTimer;
     ArrayList<Integer> timerlist= new ArrayList<>();
 
 
     public void checkTimer(){
-
+        if(status == eStatus.off){
+            System.out.println("You have to turn on the microwave first");
+        }
+        else if (baking == eBaking.off && lastTimer != 0) {
+            System.out.println("The last timer set was: " + lastTimer);
+        }
+        else if (baking == eBaking.on && lastTimer != 0) {
+            System.out.println("Current timer of the microwave: " + currentTimer);
+        }
+        else{
+            System.out.println("You never put a timer, please do that first");
+        }
+        /*
         //give back last element of the timerlist
 
         try {
@@ -66,8 +80,8 @@ public class Microwave extends Device {
         }
         catch (IndexOutOfBoundsException e){
             System.out.println("You never put a timer, please do that first");
-        }
-        }
+        }*/
+    }
 
 
 
@@ -84,7 +98,11 @@ public class Microwave extends Device {
         }
     }
 
-    public void setTemp(){
+    public void setTemp(int newtemp){
+        if (status == eStatus.on) {
+            temp = newtemp;
+        }
+        /*
         if(status == eStatus.on){
             Scanner scanner = new Scanner(System.in);
             System.out.println(("Please type in the temperature you want"));
@@ -94,14 +112,19 @@ public class Microwave extends Device {
             System.out.println("Your temperature was set to: " + temp );
 
         }
+         */
+
         else {
             System.out.println("The microwave has be turned on first");
         }
     }
 
     public void setTimer(int t) {
+        lastTimer = t;
 
+        /*
         System.out.println("Timer of the microwave started");
+
         timerlist.add(t);
         try {
             start = Instant.now();
@@ -113,17 +136,34 @@ public class Microwave extends Device {
 
         System.out.format("Timer of the microwave finished");
 
+         */
+
     }
 
 
-    public void startBaking(){
+    public void startBaking() {
+        if (status == eStatus.on && temp > 0 && lastTimer != 0) {
+            baking = eBaking.on;
+            for (int i = lastTimer; i > 0; i--) {
+                currentTimer = i;
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    System.err.println("An error occurred");
+                }
+            }
+            baking = eBaking.off;
+            System.out.println("Baking finished");
+        } else {
+            System.out.println("Microwave has to be on and a temperature has to be set");
 
-        if(status == eStatus.on && temp>0 && timerlist.size()>0 && timerlist.get(timerlist.size() - 1)>0){
+        /*if(status == eStatus.on && temp>0 && timerlist.size()>0 && timerlist.get(timerlist.size() - 1)>0){
             baking = eBaking.on;
             System.out.println("Baking started");
         }
         else{
             System.out.println("Microwave has to be on and a temperature has to be set");
+        }*/
         }
     }
 
