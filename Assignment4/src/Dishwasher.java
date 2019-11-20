@@ -61,10 +61,10 @@ public class Dishwasher extends Device{
         }
 
         else{
-            System.out.println("You have to turn Dishwasher on first");
+            System.out.println("You have to start Dishwasher on first");
         }
 
-        }
+    }
 
 
 
@@ -94,6 +94,7 @@ public class Dishwasher extends Device{
                 Thread.sleep(timer);
                 isRunning = false;
                 System.out.println("Finished washing program");
+                timer = 0;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

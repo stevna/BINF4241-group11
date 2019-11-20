@@ -58,8 +58,8 @@ public class Smartphone {
                         device = d;
 
                         System.out.println("##### " + d.getName() + " #####");
-                        System.out.println("You see the functions of that device:");
-                        d.printFunc();
+                        // System.out.println("You see the functions of that device:");
+                        // d.printFunc();
                     }
                 }
 
@@ -69,8 +69,11 @@ public class Smartphone {
                 }
 
                 do {
-                    System.out.println("\nDevice information:");
+                    System.out.println("\nDEVICE INFORMATION:");
                     device.getInformation();
+                    System.out.println();
+                    System.out.println("ALL FUNCTIONS:");
+                    device.printFunc();
                     System.out.println();
                     System.out.println("Choose the function you want to execute:");
                     input = scanner.nextLine();

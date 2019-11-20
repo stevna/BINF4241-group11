@@ -159,8 +159,11 @@ public class Microwave extends Device {
     }
 
     public void getInformation() {
-        /*
-         * some code
-          */
+        System.out.println("Microwave is currently " + status.toString());
+
+        if (baking == eBaking.on) {
+            System.out.println("Baking...");
+        }
+
     }
 }
