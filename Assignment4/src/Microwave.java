@@ -76,6 +76,7 @@ public class Microwave extends Device {
     public void interrupt(){
         if(baking == eBaking.on){
             baking = eBaking.off;
+            temp = 0;
             System.out.println("Baking was interrupted");
         }
         else{
@@ -86,7 +87,7 @@ public class Microwave extends Device {
     public void setTemp(){
         if(status == eStatus.on){
             Scanner scanner = new Scanner(System.in);
-            System.out.println(("Please type in the tempearture you want"));
+            System.out.println(("Please type in the temperature you want"));
             String tempstr = scanner.nextLine();
             int tempint = Integer.parseInt(tempstr);
             temp = tempint;
@@ -163,6 +164,9 @@ public class Microwave extends Device {
 
         if (baking == eBaking.on) {
             System.out.println("Baking...");
+        }
+        if (temp != 0) {
+            System.out.println("-> Temperature is set to: " + temp);
         }
 
     }
