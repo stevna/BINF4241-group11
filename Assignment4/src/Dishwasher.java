@@ -22,10 +22,9 @@ public class Dishwasher extends Device{
         func.add("(1) Switch ON");
         func.add("(2) Start dishwasher");
         func.add("(3) Choose program");
-        func.add("(4) Automatic timer");
-        func.add("(5) Check timer");
-        func.add("(6) Stop dishwasher");
-        func.add("(7) Switch off");
+        func.add("(4) Check timer");
+        func.add("(5) Stop dishwasher");
+        func.add("(6) Switch off");
     }
 
 

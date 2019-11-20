@@ -6,7 +6,7 @@ public class Smartphone {
     private Microwave microwave;
     private Oven oven;
     private Washingmachine washingmachine;
-    // private Dishwasher dishwasher;
+    private Dishwasher dishwasher;
     private ArrayList<Device> devices= new ArrayList<>();
 
     public Smartphone() {
@@ -311,28 +311,45 @@ public class Smartphone {
                     else if (selectedDevice == 5 && selectedCommand != 0) {
 
                         if (selectedCommand == 1) {
+                            DishwasherSwitchOnCommand dw = new DishwasherSwitchOnCommand(dishwasher);
+                            dw.execute();
                             commandSuccessful = true;
                         }
 
                         else if (selectedCommand == 2) {
+                            DishWasherStartCommand dw = new DishWasherStartCommand(dishwasher);
+                            thread = new Thread(dw);
+                            thread.start();
                             commandSuccessful = true;
                         }
 
                         else if (selectedCommand == 3){
+                            System.out.print("Select Program: ");
+                            Scanner scans = new Scanner(System.in);
+                            String type = scans.nextLine();
+                            DishwasherChooseProgramCommand dw = new DishwasherChooseProgramCommand(dishwasher, type);
+                            dw.execute();
                             commandSuccessful = true;
                         }
 
                         else if (selectedCommand == 4) {
+                            DishwasherCheckTimerCommand dw = new DishwasherCheckTimerCommand(dishwasher);
+                            dw.execute();
                             commandSuccessful = true;
                         }
 
                         else if(selectedCommand == 5) {
+                            DishwasherStopCommand dw = new DishwasherStopCommand(dishwasher);
+                            dw.execute();
                             commandSuccessful = true;
                         }
 
                         else if(selectedCommand == 6) {
+                            DishwasherSwitchOffCommand dw = new DishwasherSwitchOffCommand(dishwasher);
+                            dw.execute();
                             commandSuccessful = true;
                         }
+
                     }
 
                     if (!commandSuccessful || commandError) {
@@ -349,19 +366,6 @@ public class Smartphone {
         } while (!input.equals("exit"));
 
         System.out.println("Shutdown Smartphone...");
-        // System.exit(0);
     }
-
-    /*
-    public static void main(String[] args) {
-        Smartphone s = new Smartphone();
-        try {
-            s.use();
-        } catch (InterruptedException e) {
-            System.err.println("An error occurred!!!");
-        }
-    }
-
-    */
 
 }
