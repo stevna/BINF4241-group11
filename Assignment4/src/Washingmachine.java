@@ -101,7 +101,9 @@ public class Washingmachine extends Device {
             timer = 0;
             typeOfWashing = null;
             isRunning = false;
-            runningProgram = null;
+            runningProgram.interrupt();
+            System.out.println("Stopped the washing program.");
+
         }
     }
 
@@ -123,9 +125,14 @@ public class Washingmachine extends Device {
                 Thread.sleep(timer);
                 isRunning = false;
                 System.out.println("Finished washing program");
+                degrees = 0;
+                timer = 0;
+                typeOfWashing = null;
+                isRunning = false;
             } catch (InterruptedException e) {
                 System.err.println("An error occurred!!!");
             }
+
         }
 
     }
