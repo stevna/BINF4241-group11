@@ -214,7 +214,7 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 2) {
-                            OvenInteruptCommand o = new OvenInteruptCommand(oven);
+                            OvenInterruptCommand o = new OvenInterruptCommand(oven);
                             o.execute();
                             commandSuccessful = true;
                         }
