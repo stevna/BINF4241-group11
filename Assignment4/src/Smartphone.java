@@ -14,10 +14,12 @@ public class Smartphone {
         microwave = new Microwave();
         oven = new Oven();
         washingmachine = new Washingmachine();
+        dishwasher = new Dishwasher();
         devices.add(cleaningrobot);
         devices.add(microwave);
         devices.add(oven);
         devices.add(washingmachine);
+        devices.add(dishwasher);
     }
 
     public void use() throws InterruptedException {
@@ -89,43 +91,38 @@ public class Smartphone {
                     // Cleaningrobot
                     if (selectedDevice == 1 && selectedCommand != 0) {
 
-                        if (selectedCommand == 1) {
-                            CleaningrobotBackToChargeCommand c1 = new CleaningrobotBackToChargeCommand(cleaningrobot);
-                            c1.execute();
-                            commandSuccessful = true;
-                        }
 
-                        else if (selectedCommand == 2) {
+                        if (selectedCommand == 1) {
                             CleaningrobotBatteryChargingStatusCommand c2 = new CleaningrobotBatteryChargingStatusCommand(cleaningrobot);
                             c2.execute();
                             commandSuccessful = true;
                         }
 
-                        else if (selectedCommand == 3) {
+                        else if (selectedCommand == 2) {
                             CleaningrobotBatteryStatusCommand c3 = new CleaningrobotBatteryStatusCommand(cleaningrobot);
                             c3.execute();
                             commandSuccessful = true;
                         }
 
-                        else if (selectedCommand == 4) {
+                        else if (selectedCommand == 3) {
                             CleaningrobotCheckCleaningPercentageCommand c4 = new CleaningrobotCheckCleaningPercentageCommand(cleaningrobot);
                             c4.execute();
                             commandSuccessful = true;
                         }
 
-                        else if (selectedCommand == 5) {
+                        else if (selectedCommand == 4) {
                             CleaningrobotCompleteCleaningCommand c5 = new CleaningrobotCompleteCleaningCommand(cleaningrobot);
                             c5.execute();
                             commandSuccessful = true;
                         }
 
-                        else if (selectedCommand == 6) {
+                        else if (selectedCommand == 5) {
                             CleaningrobotEndCleaningCommand c6 = new CleaningrobotEndCleaningCommand(cleaningrobot);
                             c6.execute();
                             commandSuccessful = true;
                         }
 
-                        else if (selectedCommand == 7) {
+                        else if (selectedCommand == 6) {
                             Scanner scanC = new Scanner(System.in);
                             System.out.println(("Please type how many seconds the timer should be"));
                             String timerStr = scanC.nextLine();
@@ -137,7 +134,7 @@ public class Smartphone {
                             Thread.sleep(200);
                         }
 
-                        else if (selectedCommand == 8) {
+                        else if (selectedCommand == 7) {
                             CleaningrobotStartVacuumCleanerCommand c8 = new CleaningrobotStartVacuumCleanerCommand(cleaningrobot);
                             c8.execute();
                             commandSuccessful = true;

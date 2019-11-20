@@ -9,14 +9,13 @@ public class Cleaningrobot extends Device {
 
 
     public Cleaningrobot(){
-        func.add("(1) Back to charge");
-        func.add("(2) Battery Charging Status");
-        func.add("(3) Battery Status");
-        func.add("(4) Check cleaning percentage");
-        func.add("(5) Complete cleaning");
-        func.add("(6) End cleaning");
-        func.add("(7) Set timer");
-        func.add("(8) Start vacuum cleaner");
+        func.add("(1) Battery Charging Status");
+        func.add("(2) Battery Status");
+        func.add("(3) Check cleaning percentage");
+        func.add("(4) Complete cleaning");
+        func.add("(5) End cleaning");
+        func.add("(6) Set timer");
+        func.add("(7) Start vacuum cleaner");
     }
 
 
@@ -35,7 +34,7 @@ public class Cleaningrobot extends Device {
 
 
 
-    public void backToCharge(){
+    /*public void backToCharge(){
         if(status == eStatus.on) {
             System.out.println("Time expired, Robot goes back to charging station");
             loading = eloading.yes;
@@ -44,9 +43,15 @@ public class Cleaningrobot extends Device {
             System.out.println("You have to start the Cleaining Robot first");
         }
     }
+    */
 
     public void checkBatteryChargingStatus(){
-        System.out.println("Battery Charging Status is " + BatteryStatus + " %");
+        if(loading == eloading.yes) {
+            System.out.println("Battery Charging Status is " + BatteryStatus + " %");
+        }
+        else {
+            System.out.println("Robot is not charging at the moment");
+        }
 
     }
 
@@ -61,24 +66,45 @@ public class Cleaningrobot extends Device {
     }
 
     public void getCleaningPercentage(){
-        System.out.println("Percentage of cleaning completion is " + cleaningCompletion);
+        if(loading == eloading.no && status == eStatus.on) {
+            System.out.println("Percentage of cleaning completion is " + cleaningCompletion);
+        }
+        else{
+            System.out.println("Robot is not cleaning at the moment");
+        }
+
+
 
     }
 
     public void completeCleaning(){
-        System.out.println("Outstanding cleaning completed");
-        status = eStatus.off;
+        if(status == eStatus.on) {
+            System.out.println("Outstanding cleaning completed, robot goes back to chargin station");
+            status = eStatus.off;
+            loading = eloading.yes;
+        }
+        else{
+            System.out.println("You have to start the robot first");
+        }
+
     }
 
     public void endCleaning(){
-        System.out.println("Cleaning finished and going back to station");
-        status = eStatus.off;
-        loading = eloading.yes;
+        if(status == eStatus.on) {
+            System.out.println("Cleaning finished and going back to station");
+            status = eStatus.off;
+            loading = eloading.yes;
+        }
+        else{
+            System.out.println("You have to start the robot first");
+        }
     }
 
     public void setTimer(int t) {
 
-        //mit sleep funktionierts anschinend nid, bruched de timer
+        if(status == eStatus.on) {
+
+            //mit sleep funktionierts anschinend nid, bruched de timer
         /*
         Scanner scanner = new Scanner(System.in);
         System.out.println(("Please type how many seconds the timer should be"));
@@ -88,14 +114,19 @@ public class Cleaningrobot extends Device {
 
         System.out.println("You set your timer to: " + timerint);
          */
-        System.out.println("Timer started");
-        try {
-            TimeUnit.SECONDS.sleep(t);
-        } catch (InterruptedException e) {
-            System.out.println("An error occurred!");
-        }
+            System.out.println("Timer started");
+            try {
+                TimeUnit.SECONDS.sleep(t);
+            } catch (InterruptedException e) {
+                System.out.println("An error occurred!");
+            }
 
-        System.out.format("Timer Task Finished..!%n");
+            System.out.format("Timer Finished, Robot goes back to charging station");
+            status = eStatus.off;
+            loading = eloading.yes;
+        }
+        else{
+            System.out.println("You have to start the robot first");}
 
         // timerclass.schedule(new hello(),timerint*1000);
 
@@ -111,7 +142,7 @@ public class Cleaningrobot extends Device {
 
 
     public void startVacuumCleaner(){
-        if(inBase && BatteryStatus == 100 ){
+        if(loading == eloading.yes && BatteryStatus == 100 && status == eStatus.off ){
             System.out.println("Vacuum cleaner is started");
             status = eStatus.on;
             loading = eloading.no;
