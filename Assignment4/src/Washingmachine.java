@@ -39,7 +39,7 @@ public class Washingmachine extends Device {
         }
         else {
             degrees = deg;
-            System.out.println("Selected degrees: " + deg);
+            //System.out.println("Selected degrees: " + deg);
         }
     }
 
@@ -57,7 +57,7 @@ public class Washingmachine extends Device {
         else { //Spin
             timer = 13*t;
         }
-        System.out.println("Set timer to "+timer/t+" seconds.");
+        //System.out.println("Set timer to "+timer/t+" seconds.");
     }
 
     public void setTypeOfWashing(String type){
@@ -68,7 +68,7 @@ public class Washingmachine extends Device {
             for (typesOfWashing t : typesOfWashing.values()) {
                 if (type.equals(t.toString())) {
                     typeOfWashing = t.toString();
-                    System.out.println("Set type of washing to " + typeOfWashing + ".");
+                    //System.out.println("Set type of washing to " + typeOfWashing + ".");
                     setTimer(typeOfWashing);
                 }
             }
@@ -109,7 +109,7 @@ public class Washingmachine extends Device {
 
     public void startProgram(){
         if(status.equals(eStatus.off)){
-            System.out.println("You have to switch on the  washing machine first.");
+            System.out.println("You have to switch on the washing machine first.");
         }
         else if(isRunning) {
             System.out.println("The washing program "+ typeOfWashing +" is already running");
@@ -120,11 +120,11 @@ public class Washingmachine extends Device {
         else {
             try {
                 runningProgram = Thread.currentThread();
-                System.out.println("Started washing program ("+typeOfWashing+", "+degrees+"°C)");
+                System.out.println("Started washing program ("+typeOfWashing+", "+degrees+"°C).");
                 isRunning = true;
                 Thread.sleep(timer);
                 isRunning = false;
-                System.out.println("Finished washing program");
+                System.out.println("Finished washing program ("+typeOfWashing+", "+degrees+"°C).");
                 degrees = 0;
                 timer = 0;
                 typeOfWashing = null;
