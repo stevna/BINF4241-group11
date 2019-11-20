@@ -226,7 +226,11 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 4) {
-                            OvenSetTemperatureCommand o = new OvenSetTemperatureCommand(oven);
+                            Scanner scanr = new Scanner(System.in);
+                            System.out.println(("Please type in the temperature you want for the Oven"));
+                            String tempstr = scanr.nextLine();
+                            int tempint = Integer.parseInt(tempstr);
+                            OvenSetTemperatureCommand o = new OvenSetTemperatureCommand(oven, tempint);
                             o.execute();
                             commandSuccessful = true;
                         }
