@@ -35,7 +35,8 @@ public class Microwave extends Device {
     private int temp = 0;
     private int lastTimer;
     private int currentTimer;
-    ArrayList<Integer> timerlist= new ArrayList<>();
+    //ArrayList<Integer> timerlist= new ArrayList<>();
+    private Thread runningProgram;
 
 
     public void checkTimer(){
@@ -46,7 +47,7 @@ public class Microwave extends Device {
             System.out.println("The last timer set was: " + lastTimer);
         }
         else if (baking == eBaking.on && lastTimer != 0) {
-            System.out.println("Current timer of the microwave: " + currentTimer);
+            System.out.println("Current timer of the microwave: " + currentTimer + "s");
         }
         else{
             System.out.println("You never put a timer, please do that first");
@@ -89,9 +90,10 @@ public class Microwave extends Device {
 
     public void interrupt(){
         if(baking == eBaking.on){
+            runningProgram.interrupt();
+            runningProgram = null;
             baking = eBaking.off;
             temp = 0;
-            System.out.println("Baking was interrupted");
         }
         else{
             System.out.println("There is no baking to interrupt");
@@ -144,18 +146,21 @@ public class Microwave extends Device {
     public void startBaking() {
         if (status == eStatus.on && temp > 0 && lastTimer != 0) {
             baking = eBaking.on;
+            runningProgram = Thread.currentThread();
             for (int i = lastTimer; i > 0; i--) {
                 currentTimer = i;
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
-                    System.err.println("An error occurred");
+                    System.err.println("Baking has been stopped.");
                 }
+
             }
             baking = eBaking.off;
+            temp = 0;
             System.out.println("Baking finished");
         } else {
-            System.out.println("Microwave has to be on and a temperature has to be set");
+            System.out.println("Microwave has to be on and a temperature and timer has to be set");
 
         /*if(status == eStatus.on && temp>0 && timerlist.size()>0 && timerlist.get(timerlist.size() - 1)>0){
             baking = eBaking.on;
@@ -172,6 +177,9 @@ public class Microwave extends Device {
         if(status == eStatus.on){
             status = eStatus.off;
             System.out.println("Microwave was switched off");
+        }
+        else if(baking == eBaking.on) {
+            System.out.println("The microwave can't be switched while baking.");
         }
         else {
             System.out.println("You cannot switch off the microwave if you did not start it");
