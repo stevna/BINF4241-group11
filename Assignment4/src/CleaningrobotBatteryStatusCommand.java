@@ -1,4 +1,4 @@
-public class CleaningrobotBatteryStatusCommand implements Command, Runnable {
+public class CleaningrobotBatteryStatusCommand implements Command {
     Cleaningrobot cleaningrobot;
 
     public CleaningrobotBatteryStatusCommand(Cleaningrobot cleaningrobot){
@@ -9,8 +9,4 @@ public class CleaningrobotBatteryStatusCommand implements Command, Runnable {
         cleaningrobot.checkBatteryStatus();
     }
 
-    @Override
-    public void run() {
-        execute();
-    }
 }

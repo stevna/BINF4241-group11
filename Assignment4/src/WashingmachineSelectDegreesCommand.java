@@ -1,5 +1,4 @@
-import java.util.Scanner;
-public class WashingmachineSelectDegreesCommand implements Command,Runnable {
+public class WashingmachineSelectDegreesCommand implements Command {
     private Washingmachine washingmachine;
     private int degree;
 
@@ -8,12 +7,6 @@ public class WashingmachineSelectDegreesCommand implements Command,Runnable {
         degree = deg;
     }
 
-    @Override
-    public void run() {
-        execute();
-    }
-
-    @Override
     public void execute() {
         washingmachine.selectDegrees(degree);
     }
