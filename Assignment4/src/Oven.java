@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
@@ -19,8 +21,10 @@ public class Oven extends Device {
     }
     private String name = "Oven";
 
+    private Instant end;
+    private Instant start;
 
-    private Timer timerclass = new Timer();
+
     enum eStatus{on, off}
     private eStatus status = eStatus.off;
     enum eCooking{on,off}
@@ -41,11 +45,21 @@ public class Oven extends Device {
     public void checkTimer(){
 
         //give back last element of the timerlist
-        if(cooking == eCooking.off) {
+
+        if(status == eStatus.off){
+            System.out.println("You have to turn on the oven first");
+        }
+        else if(cooking == eCooking.off) {
             System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
         }
-        else{
-            System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
+        else if(cooking == eCooking.on){
+            end = Instant.now();
+            Duration timeElapsed = Duration.between(start,end);
+            long timeelapsedinMilis = timeElapsed.toMillis()/1000;
+            int timer = timerlist.get(timerlist.size() - 1)/1000;
+            System.out.println(timeElapsed.toMillis()/1000);
+            long timerend = timer-timeelapsedinMilis;
+            System.out.println("current timer of the oven: " + timerend) ;
 
         }
     }
@@ -104,45 +118,24 @@ public class Oven extends Device {
 
     public void setTimer(int t) {
 
-        System.out.println("Timer started");
+        System.out.println("Timer of oven started");
         try {
+            start = Instant.now();
+            timerlist.add(t);
             TimeUnit.SECONDS.sleep(t);
+
         } catch (InterruptedException e) {
             System.out.println("An error occurred!");
         }
 
-        System.out.format("Timer Task Finished..!%n");
-
-        /*
-        mit sleep funktionierts anschinend nid, bruched de timer
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(("Please type how many seconds the timer should be"));
-        String timer = scanner.nextLine();
-        int timerint = Integer.parseInt(timer);
-        timerlist.add(timerint);
-
-        System.out.println("You set your timer to: " + timerint);
-        System.out.println("Timer started");
-
-        timerclass.schedule(new hello(),timerint*1000);
-
-         */
-
+        System.out.format("Timer of oven is finished");
 
 
     }
-
-    class hello extends TimerTask {
-        public void run(){
-            System.out.format("Timer Task Finished..!%n");
-            timerclass.cancel(); // Terminate the timer thread
-        }
-    }
-
 
     public void startCooking(){
 
-        if(status == eStatus.on && temp>0 && timerlist.size()>0 && timerlist.get(timerlist.size() - 1)>0){
+        if(status == eStatus.on && temp>0 && timerlist.size()>0 && timerlist.get(timerlist.size() - 1)>0 && program != eProgram.none){
             cooking = eCooking.on;
             System.out.println("Cooking started");
         }

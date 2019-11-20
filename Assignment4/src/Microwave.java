@@ -1,11 +1,17 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class Microwave extends Device implements Runnable {
+public class Microwave extends Device {
     private final int identifier = 2;
+    private Instant end;
+    private Instant start;
+
+
 
     public Microwave(){
         func.add("(1) Check timer");
@@ -30,38 +36,42 @@ public class Microwave extends Device implements Runnable {
     ArrayList<Integer> timerlist= new ArrayList<>();
 
 
-    public void run(){
-        try
-        {
-            // Displaying the thread that is running
-            System.out.println ("Thread " +
-                    Thread.currentThread().getId() +
-                    " is running");
-
-        }
-        catch (Exception e)
-        {
-            // Throwing an exception
-            System.out.println ("Exception is caught");
-        }
-    }
-
-
-
-
-
-
     public void checkTimer(){
 
         //give back last element of the timerlist
-        if(baking == eBaking.off) {
-            System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
-        }
-        else{
-            System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
 
+        try {
+
+            if(status == eStatus.off){
+                System.out.println("You have to turn on the microwave first");
+            }
+
+            else if(baking == eBaking.off && !timerlist.isEmpty()) {
+                System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
+            }
+            else if(baking == eBaking.on && !timerlist.isEmpty()){
+                end = Instant.now();
+                Duration timeElapsed = Duration.between(start,end);
+                long timeelapsedinMilis = timeElapsed.toMillis()/1000;
+                int timer = timerlist.get(timerlist.size() - 1)/1000;
+                System.out.println(timeElapsed.toMillis()/1000);
+                long timerend = timer-timeelapsedinMilis;
+                System.out.println("current timer of the microwave: " + timerend) ;
+
+            }
+
+            else{
+                System.out.println("You never put a timer, please do that first");
+            }
         }
-    }
+        catch (IndexOutOfBoundsException e){
+            System.out.println("You never put a timer, please do that first");
+        }
+        }
+
+
+
+
 
     public void interrupt(){
         if(baking == eBaking.on){
@@ -74,7 +84,6 @@ public class Microwave extends Device implements Runnable {
     }
 
     public void setTemp(){
-        //aso wenn sie lauft, denn chame tempeartur ihstelle
         if(status == eStatus.on){
             Scanner scanner = new Scanner(System.in);
             System.out.println(("Please type in the tempearture you want"));
@@ -85,44 +94,24 @@ public class Microwave extends Device implements Runnable {
 
         }
         else {
-            System.out.println("The microvate has be turned on first");
+            System.out.println("The microwave has be turned on first");
         }
     }
 
     public void setTimer(int t) {
 
-        System.out.println("Timer started");
+        System.out.println("Timer of the microwave started");
+        timerlist.add(t);
         try {
+            start = Instant.now();
             TimeUnit.SECONDS.sleep(t);
+
         } catch (InterruptedException e) {
             System.out.println("An error occurred!");
         }
 
-        System.out.format("Timer Task Finished..!%n");
+        System.out.format("Timer of the microwave finished");
 
-        /*
-        mit sleep funktionierts anschinend nid, bruched de timer
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(("Please type how many seconds the timer should be"));
-        String timer = scanner.nextLine();
-        int timerint = Integer.parseInt(timer);
-        timerlist.add(timerint);
-
-        System.out.println("You set your timer to: " + timerint);
-        System.out.println("Timer started");
-
-        timerclass.schedule(new hello(),timerint*1000);
-
-         */
-
-
-    }
-
-    class hello extends TimerTask {
-        public void run(){
-            System.out.format("Timer Task Finished..!%n");
-            timerclass.cancel(); // Terminate the timer thread
-        }
     }
 
 
@@ -170,7 +159,7 @@ public class Microwave extends Device implements Runnable {
     }
 
     public void getInformation() {
-        /**
+        /*
          * some code
           */
     }

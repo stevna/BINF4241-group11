@@ -34,17 +34,6 @@ public class Cleaningrobot extends Device {
 
 
 
-    /*public void backToCharge(){
-        if(status == eStatus.on) {
-            System.out.println("Time expired, Robot goes back to charging station");
-            loading = eloading.yes;
-        }
-        else {
-            System.out.println("You have to start the Cleaining Robot first");
-        }
-    }
-    */
-
     public void checkBatteryChargingStatus(){
         if(loading == eloading.yes) {
             System.out.println("Battery Charging Status is " + BatteryStatus + " %");
@@ -104,16 +93,6 @@ public class Cleaningrobot extends Device {
 
         if(status == eStatus.on) {
 
-            //mit sleep funktionierts anschinend nid, bruched de timer
-        /*
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(("Please type how many seconds the timer should be"));
-        String timerstr = scanner.nextLine();
-        int timerint = Integer.parseInt(timerstr);
-        timer = timerint;
-
-        System.out.println("You set your timer to: " + timerint);
-         */
             System.out.println("Timer started");
             try {
                 TimeUnit.SECONDS.sleep(t);
@@ -121,7 +100,7 @@ public class Cleaningrobot extends Device {
                 System.out.println("An error occurred!");
             }
 
-            System.out.format("Timer Finished, Robot goes back to charging station");
+            System.out.format("Robot Timer Finished, Robot goes back to charging station");
             status = eStatus.off;
             loading = eloading.yes;
         }
@@ -131,13 +110,6 @@ public class Cleaningrobot extends Device {
         // timerclass.schedule(new hello(),timerint*1000);
 
 
-    }
-
-    class hello extends TimerTask{
-        public void run(){
-            System.out.format("Timer Task Finished..!%n");
-            timerclass.cancel(); // Terminate the timer thread
-        }
     }
 
 

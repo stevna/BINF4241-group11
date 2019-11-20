@@ -50,7 +50,8 @@ public class Dishwasher extends Device{
         if(isRunning){
             end = Instant.now();
             Duration timeElapsed = Duration.between(start,end);
-            System.out.println("Remaining time of the program is " + timeElapsed);
+            long timerend = timer/1000-timeElapsed.toMillis()/1000;
+            System.out.println("Remaining time of the program is " + timerend);
         }
 
         else if(!isRunning && typeOfProgram != null){
@@ -136,7 +137,7 @@ public class Dishwasher extends Device{
             System.out.println("The dishwasher is already switched off.");
         }
         else {
-            status = eStatus.on;
+            status = eStatus.off;
             System.out.println("Switched off the dishwasher.");
         }
 
