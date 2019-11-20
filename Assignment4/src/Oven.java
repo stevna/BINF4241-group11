@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class Oven extends Device {
     private final int identifier = 3;
@@ -101,9 +102,19 @@ public class Oven extends Device {
         }
     }
 
-    public void setTimer() {
+    public void setTimer(int t) {
 
-        //mit sleep funktionierts anschinend nid, bruched de timer
+        System.out.println("Timer started");
+        try {
+            TimeUnit.SECONDS.sleep(t);
+        } catch (InterruptedException e) {
+            System.out.println("An error occurred!");
+        }
+
+        System.out.format("Timer Task Finished..!%n");
+
+        /*
+        mit sleep funktionierts anschinend nid, bruched de timer
         Scanner scanner = new Scanner(System.in);
         System.out.println(("Please type how many seconds the timer should be"));
         String timer = scanner.nextLine();
@@ -114,6 +125,8 @@ public class Oven extends Device {
         System.out.println("Timer started");
 
         timerclass.schedule(new hello(),timerint*1000);
+
+         */
 
 
 

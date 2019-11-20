@@ -1,17 +1,10 @@
-public class WashingmachineSwitchOnCommand implements Command, Runnable{
+public class WashingmachineSwitchOnCommand implements Command {
     private Washingmachine washingmachine;
 
     public WashingmachineSwitchOnCommand(Washingmachine wm){
         washingmachine = wm;
     }
 
-    @Override
-    public void run() {
-        execute();
-    }
-
-
-    @Override
     public void execute() {
         washingmachine.switchOn();
     }

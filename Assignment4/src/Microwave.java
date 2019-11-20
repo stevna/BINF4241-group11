@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class Microwave extends Device implements Runnable {
     private final int identifier = 2;
@@ -88,9 +89,19 @@ public class Microwave extends Device implements Runnable {
         }
     }
 
-    public void setTimer() {
+    public void setTimer(int t) {
 
-        //mit sleep funktionierts anschinend nid, bruched de timer
+        System.out.println("Timer started");
+        try {
+            TimeUnit.SECONDS.sleep(t);
+        } catch (InterruptedException e) {
+            System.out.println("An error occurred!");
+        }
+
+        System.out.format("Timer Task Finished..!%n");
+
+        /*
+        mit sleep funktionierts anschinend nid, bruched de timer
         Scanner scanner = new Scanner(System.in);
         System.out.println(("Please type how many seconds the timer should be"));
         String timer = scanner.nextLine();
@@ -101,6 +112,8 @@ public class Microwave extends Device implements Runnable {
         System.out.println("Timer started");
 
         timerclass.schedule(new hello(),timerint*1000);
+
+         */
 
 
     }

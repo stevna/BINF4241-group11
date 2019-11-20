@@ -1,4 +1,4 @@
-public class WashingmachineTypeOfWashingCommand implements Command,Runnable {
+public class WashingmachineTypeOfWashingCommand implements Command  {
     private Washingmachine washingmachine;
     private String typeOfWashing;
 
@@ -7,14 +7,8 @@ public class WashingmachineTypeOfWashingCommand implements Command,Runnable {
         typeOfWashing = type;
     }
 
-
-    @Override
     public void execute() {
         washingmachine.setTypeOfWashing(typeOfWashing);
     }
 
-    @Override
-    public void run() {
-        execute();
-    }
 }

@@ -1,4 +1,4 @@
-public class CleaningrobotCheckCleaningPercentageCommand implements Command, Runnable {
+public class CleaningrobotCheckCleaningPercentageCommand implements Command {
     Cleaningrobot cleaningrobot;
 
     public CleaningrobotCheckCleaningPercentageCommand(Cleaningrobot cleaningrobot){
@@ -9,8 +9,4 @@ public class CleaningrobotCheckCleaningPercentageCommand implements Command, Run
         cleaningrobot.getCleaningPercentage();
     }
 
-    @Override
-    public void run() {
-        execute();
-    }
 }

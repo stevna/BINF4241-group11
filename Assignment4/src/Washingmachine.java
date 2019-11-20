@@ -3,15 +3,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Washingmachine extends Device {
     private final int identifier = 4;
-    String name = "Washingmachine";
-    enum eStatus{on, off}
-    enum typesOfWashing{doublerinse, intense, quick, spin};
+    private String name = "Washingmachine";
+    private enum eStatus{on, off}
+    private enum typesOfWashing{doublerinse, intense, quick, spin};
     private eStatus status = eStatus.off;
     private int degrees = 0;
     private int timer = 0;
     private String typeOfWashing = null;
     private boolean isRunning = false;
-    Thread runningProgram;
+    private Thread runningProgram;
 
     public Washingmachine(){
         func.add("(1) Switch on");
@@ -124,7 +124,7 @@ public class Washingmachine extends Device {
                 isRunning = false;
                 System.out.println("Finished washing program");
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("An error occurred!!!");
             }
         }
 
@@ -139,9 +139,20 @@ public class Washingmachine extends Device {
     }
 
     public void getInformation(){
-        /**
-         * some code
-         */
+        System.out.println("Washingmachine is currently " + status.toString());
+
+        if (isRunning) {
+            System.out.println("Running...");
+        }
+
+        if (typeOfWashing != null) {
+            System.out.println("-> Type of washing: " + typeOfWashing);
+        }
+
+        if (degrees != 0) {
+            System.out.println("-> Degrees: " + degrees);
+        }
+
     }
 
 }

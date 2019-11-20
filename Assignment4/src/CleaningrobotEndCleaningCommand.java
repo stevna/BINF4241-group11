@@ -1,4 +1,4 @@
-public class CleaningrobotEndCleaningCommand implements Command, Runnable {
+public class CleaningrobotEndCleaningCommand implements Command {
     Cleaningrobot cleaningrobot;
 
     public CleaningrobotEndCleaningCommand(Cleaningrobot cleaningrobot){
@@ -9,8 +9,4 @@ public class CleaningrobotEndCleaningCommand implements Command, Runnable {
         cleaningrobot.endCleaning();
     }
 
-    @Override
-    public void run() {
-        execute();
-    }
 }
