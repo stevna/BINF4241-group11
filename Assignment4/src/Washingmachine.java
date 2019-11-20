@@ -57,7 +57,7 @@ public class Washingmachine extends Device {
         else { //Spin
             timer = 13*t;
         }
-        //System.out.println("Set timer to "+timer/t+" seconds.");
+        System.out.println("Set timer to "+timer/t+" seconds.");
     }
 
     public void setTypeOfWashing(String type){
@@ -68,7 +68,7 @@ public class Washingmachine extends Device {
             for (typesOfWashing t : typesOfWashing.values()) {
                 if (type.equals(t.toString())) {
                     typeOfWashing = t.toString();
-                    //System.out.println("Set type of washing to " + typeOfWashing + ".");
+                    System.out.println("Set type of washing to " + typeOfWashing + ".");
                     setTimer(typeOfWashing);
                 }
             }
@@ -102,9 +102,8 @@ public class Washingmachine extends Device {
             typeOfWashing = null;
             isRunning = false;
             runningProgram.interrupt();
-            System.out.println("Stopped the washing program.");
-
-        }
+            runningProgram = null;
+         }
     }
 
     public void startProgram(){
@@ -130,7 +129,7 @@ public class Washingmachine extends Device {
                 typeOfWashing = null;
                 isRunning = false;
             } catch (InterruptedException e) {
-                System.err.println("An error occurred!!!");
+                System.err.println("The program has been stopped.");
             }
 
         }
@@ -148,16 +147,16 @@ public class Washingmachine extends Device {
     public void getInformation(){
         System.out.println("Washingmachine is currently " + status.toString());
 
-        if (isRunning) {
-            System.out.println("Running...");
-        }
-
         if (typeOfWashing != null) {
-            System.out.println("-> Type of washing: " + typeOfWashing);
+            System.out.println("-> Type of washing: " + typeOfWashing + " (" + timer/1000+" seconds)");
         }
 
         if (degrees != 0) {
             System.out.println("-> Degrees: " + degrees);
+        }
+
+        if (isRunning) {
+            System.out.println("Running...");
         }
 
     }

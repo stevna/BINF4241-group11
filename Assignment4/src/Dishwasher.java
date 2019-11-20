@@ -96,7 +96,7 @@ public class Dishwasher extends Device{
                 System.out.println("Finished washing program");
                 timer = 0;
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("The program has been stopped.");
             }
         }
 
@@ -114,10 +114,11 @@ public class Dishwasher extends Device{
             System.out.println("You have to switch on the dishwasher first.");
            }
         else {
+            runningProgram.interrupt();
+            runningProgram = null;
             timer = 0;
             typeOfProgram = null;
             isRunning = false;
-            System.out.println("Dishwasher was stopped");
             }
         }
 
@@ -138,7 +139,7 @@ public class Dishwasher extends Device{
             System.out.println("The dishwasher is already switched off.");
         }
         else if (status == eStatus.on && isRunning) {
-            System.out.println("The washing program "+ typeOfProgram +" is already running");
+            System.out.println("The washing program \""+ typeOfProgram +"\" is currently running. You can't switch it off.");
         }
         else {
             status = eStatus.off;
