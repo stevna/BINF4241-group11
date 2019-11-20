@@ -150,8 +150,14 @@ public class Dishwasher extends Device{
     }
 
     public void getInformation(){
-        /**
-         * some code
-         */
+        System.out.println("Dishwasher is currently " + status.toString());
+
+        if (isRunning) {
+            System.out.println("Running...");
+        }
+
+        if (typeOfProgram != null) {
+            System.out.println("-> Type of washing: " + typeOfProgram);
+        }
     }
 }
