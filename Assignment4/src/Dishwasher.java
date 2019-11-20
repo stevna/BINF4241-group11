@@ -137,6 +137,9 @@ public class Dishwasher extends Device{
         if(status == eStatus.off) {
             System.out.println("The dishwasher is already switched off.");
         }
+        else if (status == eStatus.on && isRunning) {
+            System.out.println("The washing program "+ typeOfProgram +" is already running");
+        }
         else {
             status = eStatus.off;
             System.out.println("Switched off the dishwasher.");
