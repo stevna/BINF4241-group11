@@ -49,15 +49,15 @@ public class Smartphone {
                     tmp = 0;
                 }
                 selectedDevice = 0;
+                Device device = null;
 
                 for (Device d : devices) {
 
                     if (tmp == d.getIdentifier()) {
                         selectedDevice = d.getIdentifier();
+                        device = d;
 
-                        System.out.println("Following information about your device:");
                         System.out.println("##### " + d.getName() + " #####");
-                        d.getInformation();
                         System.out.println("You see the functions of that device:");
                         d.printFunc();
                     }
@@ -69,6 +69,9 @@ public class Smartphone {
                 }
 
                 do {
+                    System.out.println("\nDevice information:");
+                    device.getInformation();
+                    System.out.println();
                     System.out.println("Choose the function you want to execute:");
                     input = scanner.nextLine();
                     selectedCommand = 0;
