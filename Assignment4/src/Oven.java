@@ -90,7 +90,7 @@ public class Oven extends Device {
         //aso wenn sie lauft, denn chame tempeartur ihstelle
         if(status == eStatus.on){
             Scanner scanner = new Scanner(System.in);
-            System.out.println(("Please type in the tempearture you want for the Oven"));
+            System.out.println(("Please type in the temperature you want for the Oven"));
             String tempstr = scanner.nextLine();
             int tempint = Integer.parseInt(tempstr);
             temp = tempint;
