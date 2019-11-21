@@ -11,4 +11,4 @@ We also decided usability wise to let the user insert numbers rather than a whol
 
 
 
-
+Also we did not see the post on the olat forum about the cleaning robot always being turned on. So we implemented, that you have to start the vacuum cleaner first, which basically turn the robot on. Then the other functions get accessible.
