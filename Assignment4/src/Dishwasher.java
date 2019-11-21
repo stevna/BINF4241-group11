@@ -9,13 +9,14 @@ public class Dishwasher extends Device{
     enum eStatus{on, off}
     enum typesOfProgram{glasses, plates, pans, mixed, none};
     private eStatus status = eStatus.off;
-    private int timer = 0;
+    private int lastTimer;
+    private int currentTimer;
     private String typeOfProgram = null;
     private boolean isRunning = false;
     private final int identifier = 5;
-    private Instant end;
-    private Instant start;
-    Thread runningProgram;
+    // private Instant end;
+    // private Instant start;
+    private Thread runningProgram;
 
 
     public Dishwasher(){
@@ -31,40 +32,41 @@ public class Dishwasher extends Device{
     public void automaticTimer(String type) {
         int t = 1000;
         if(type.toLowerCase().equals(typesOfProgram.glasses.toString())){
-            timer = 40*t;
+            lastTimer = 40*t;
         }
         else if(type.toLowerCase().equals(typesOfProgram.mixed.toString())){
-            timer = 60*t;
+            lastTimer = 60*t;
         }
         else if(type.toLowerCase().equals(typesOfProgram.pans.toString())) {
-            timer = 20*t;
+            lastTimer = 20*t;
         }
         else if(type.toLowerCase().equals(typesOfProgram.plates.toString())) {
-            timer = 13*t;
+            lastTimer = 13*t;
         }
-        System.out.println("Timer is "+timer/t+" seconds.");
+        System.out.println("Timer is set to "+lastTimer/t+" seconds.");
     }
 
     public void checkTimer(){
 
         if(isRunning){
+            System.out.println("Remaining time of the program is " + currentTimer);
+            /*
             end = Instant.now();
             Duration timeElapsed = Duration.between(start,end);
-            long timerend = timer/1000-timeElapsed.toMillis()/1000;
+            long timerend = lastTimer/1000-timeElapsed.toMillis()/1000;
             System.out.println("Remaining time of the program is " + timerend);
+            */
         }
 
         else if(!isRunning && typeOfProgram != null){
             automaticTimer(typeOfProgram);
-
-
         }
 
         else{
-            System.out.println("You have to turn Dishwasher on first");
+            System.out.println("You have to start Dishwasher on first");
         }
 
-        }
+    }
 
 
 
@@ -77,7 +79,7 @@ public class Dishwasher extends Device{
                 if (type.equals(t.toString())) {
                     typeOfProgram = t.toString();
                     System.out.println("Set type of washing to " + typeOfProgram + ".");
-                    start = Instant.now();
+                    // start = Instant.now();
                     automaticTimer(typeOfProgram);
                 }
             }
@@ -86,17 +88,22 @@ public class Dishwasher extends Device{
     }
 
     public void start(){
-        if(status == eStatus.on && typeOfProgram != null){
-            try {
-                runningProgram = Thread.currentThread();
-                System.out.println("Started washing program");
-                isRunning = true;
-                Thread.sleep(timer);
-                isRunning = false;
-                System.out.println("Finished washing program");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(status == eStatus.on && typeOfProgram != null) {
+            runningProgram = Thread.currentThread();
+            System.out.println("Started washing program");
+            isRunning = true;
+
+            for (int i = lastTimer; i > 0; i--) {
+                currentTimer = i;
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    System.err.println("The program has been stopped.");
+                }
             }
+            isRunning = false;
+            System.out.println("Finished washing program");
+            lastTimer = 0;
         }
 
         else if(status == eStatus.off){
@@ -113,10 +120,11 @@ public class Dishwasher extends Device{
             System.out.println("You have to switch on the dishwasher first.");
            }
         else {
-            timer = 0;
+            runningProgram.interrupt();
+            runningProgram = null;
+            lastTimer = 0;
             typeOfProgram = null;
             isRunning = false;
-            System.out.println("Dishwasher was stopped");
             }
         }
 
@@ -136,6 +144,9 @@ public class Dishwasher extends Device{
         if(status == eStatus.off) {
             System.out.println("The dishwasher is already switched off.");
         }
+        else if (status == eStatus.on && isRunning) {
+            System.out.println("The washing program \""+ typeOfProgram +"\" is currently running. You can't switch it off.");
+        }
         else {
             status = eStatus.off;
             System.out.println("Switched off the dishwasher.");
@@ -153,12 +164,12 @@ public class Dishwasher extends Device{
     public void getInformation(){
         System.out.println("Dishwasher is currently " + status.toString());
 
-        if (isRunning) {
-            System.out.println("Running...");
-        }
-
         if (typeOfProgram != null) {
             System.out.println("-> Type of washing: " + typeOfProgram);
+        }
+
+        if (isRunning) {
+            System.out.println("Running...");
         }
     }
 }

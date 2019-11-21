@@ -2,8 +2,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class Oven extends Device {
@@ -23,7 +21,8 @@ public class Oven extends Device {
 
     private Instant end;
     private Instant start;
-
+    private int lastTimer;
+    private int currentTimer;
 
     enum eStatus{on, off}
     private eStatus status = eStatus.off;
@@ -50,16 +49,18 @@ public class Oven extends Device {
             System.out.println("You have to turn on the oven first");
         }
         else if(cooking == eCooking.off) {
-            System.out.println("the last timer set was: " + timerlist.get(timerlist.size() - 1));
+            System.out.println("The last timer set was: " + lastTimer);
         }
         else if(cooking == eCooking.on){
+            /*
             end = Instant.now();
             Duration timeElapsed = Duration.between(start,end);
             long timeelapsedinMilis = timeElapsed.toMillis()/1000;
             int timer = timerlist.get(timerlist.size() - 1)/1000;
             System.out.println(timeElapsed.toMillis()/1000);
             long timerend = timer-timeelapsedinMilis;
-            System.out.println("current timer of the oven: " + timerend) ;
+            */
+            System.out.println("Current timer of the oven: " + currentTimer) ;
 
         }
     }
@@ -79,20 +80,20 @@ public class Oven extends Device {
         if(status == eStatus.on){
             Scanner scanner = new Scanner(System.in);
             System.out.println(("Please type in the Program you want"));
-            String programinp = scanner.nextLine();
+            String programing = scanner.nextLine();
 
-            if(programinp.equals("ventilated") ){
+            if(programing.equals("ventilated") ){
                 program = eProgram.ventilated;
             }
-            else if (programinp.equals("grill")){
+            else if (programing.equals("grill")){
                 program = eProgram.grill;
             }
 
             else{
                 program = eProgram.none;
             }
+        }
 
-            }
         else{
             System.out.println("Oven has to be turned on first");
         }
@@ -100,32 +101,28 @@ public class Oven extends Device {
     }
 
 
-    public void setTemp(){
-        //aso wenn sie lauft, denn chame tempeartur ihstelle
+    public void setTemp(int tempint){
         if(status == eStatus.on){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println(("Please type in the temperature you want for the Oven"));
-            String tempstr = scanner.nextLine();
-            int tempint = Integer.parseInt(tempstr);
             temp = tempint;
             System.out.println("Your Oven temperature was set to: " + temp );
-
         }
+
         else {
             System.out.println("The Oven has be turned on first");
         }
     }
 
     public void setTimer(int t) {
+        lastTimer = t;
 
         System.out.println("Timer of oven started");
-        try {
-            start = Instant.now();
-            timerlist.add(t);
-            TimeUnit.SECONDS.sleep(t);
-
-        } catch (InterruptedException e) {
-            System.out.println("An error occurred!");
+        for (int i = lastTimer; i > 0; i--) {
+            currentTimer = i;
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                System.err.println("The program has been stopped.");
+            }
         }
 
         System.out.format("Timer of oven is finished");

@@ -58,8 +58,8 @@ public class Smartphone {
                         device = d;
 
                         System.out.println("##### " + d.getName() + " #####");
-                        System.out.println("You see the functions of that device:");
-                        d.printFunc();
+                        // System.out.println("You see the functions of that device:");
+                        // d.printFunc();
                     }
                 }
 
@@ -69,8 +69,11 @@ public class Smartphone {
                 }
 
                 do {
-                    System.out.println("\nDevice information:");
+                    System.out.println("\nDEVICE INFORMATION:");
                     device.getInformation();
+                    System.out.println();
+                    System.out.println("ALL FUNCTIONS:");
+                    device.printFunc();
                     System.out.println();
                     System.out.println("Choose the function you want to execute:");
                     input = scanner.nextLine();
@@ -134,7 +137,6 @@ public class Smartphone {
                             thread = new Thread(c7);
                             thread.start();
                             commandSuccessful = true;
-                            Thread.sleep(200);
                         }
 
                         else if (selectedCommand == 7) {
@@ -162,26 +164,29 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 3) {
-                            MicrowaveSetTempeartureCommand mw = new MicrowaveSetTempeartureCommand(microwave);
+                            Scanner scanMw = new Scanner(System.in);
+                            System.out.println(("Please type in the temperature: "));
+                            String timerStr = scanMw.nextLine();
+                            int tempInt = Integer.parseInt(timerStr);
+                            MicrowaveSetTemperatureCommand mw = new MicrowaveSetTemperatureCommand(microwave, tempInt);
                             mw.execute();
                             commandSuccessful = true;
                         }
 
                         else if (selectedCommand == 4) {
                             Scanner scanMw = new Scanner(System.in);
-                            System.out.println(("Please type how many seconds the timer should be"));
+                            System.out.println(("Please type how many seconds the timer should be: "));
                             String timerStr = scanMw.nextLine();
                             int timerInt = Integer.parseInt(timerStr);
                             MicrowaveSetTimerCommand mw = new MicrowaveSetTimerCommand(microwave, timerInt);
-                            thread = new Thread(mw);
-                            thread.start();
+                            mw.execute();
                             commandSuccessful = true;
-                            Thread.sleep(200);
                         }
 
                         else if (selectedCommand == 5) {
                             MicrowaveStartBakingCommand mw = new MicrowaveStartBakingCommand(microwave);
-                            mw.execute();
+                            thread = new Thread(mw);
+                            thread.start();
                             commandSuccessful = true;
                         }
 
@@ -209,7 +214,7 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 2) {
-                            OvenInteruptCommand o = new OvenInteruptCommand(oven);
+                            OvenInterruptCommand o = new OvenInterruptCommand(oven);
                             o.execute();
                             commandSuccessful = true;
                         }
@@ -221,21 +226,24 @@ public class Smartphone {
                         }
 
                         else if (selectedCommand == 4) {
-                            OvenSetTemperatureCommand o = new OvenSetTemperatureCommand(oven);
+                            Scanner scanr = new Scanner(System.in);
+                            System.out.println(("Please type in the temperature you want for the Oven"));
+                            String tempstr = scanr.nextLine();
+                            int tempint = Integer.parseInt(tempstr);
+                            OvenSetTemperatureCommand o = new OvenSetTemperatureCommand(oven, tempint);
                             o.execute();
                             commandSuccessful = true;
                         }
 
                         else if (selectedCommand == 5) {
                             Scanner scanO = new Scanner(System.in);
-                            System.out.println(("Please type how many seconds the timer should be"));
+                            System.out.println(("Please type how many seconds the timer should be. "));
                             String timerStr = scanO.nextLine();
                             int timerInt = Integer.parseInt(timerStr);
                             OvenSetTimerCommand o = new OvenSetTimerCommand(oven, timerInt);
                             thread = new Thread(o);
                             thread.start();
                             commandSuccessful = true;
-                            Thread.sleep(200);
                         }
 
                         else if (selectedCommand == 6) {
@@ -291,7 +299,6 @@ public class Smartphone {
                             thread = new Thread(wmsp);
                             thread.start();
                             commandSuccessful = true;
-                            Thread.sleep(200);
                         }
 
                         else if(selectedCommand == 5) {
@@ -356,7 +363,7 @@ public class Smartphone {
                         System.err.println("Wrong input! Please try again.");
                     }
 
-                    // Thread.sleep(300);
+                    Thread.sleep(200);
 
                 } while (true);
 

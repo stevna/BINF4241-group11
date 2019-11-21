@@ -39,7 +39,7 @@ public class Washingmachine extends Device {
         }
         else {
             degrees = deg;
-            System.out.println("Selected degrees: " + deg);
+            //System.out.println("Selected degrees: " + deg);
         }
     }
 
@@ -101,13 +101,14 @@ public class Washingmachine extends Device {
             timer = 0;
             typeOfWashing = null;
             isRunning = false;
+            runningProgram.interrupt();
             runningProgram = null;
-        }
+         }
     }
 
     public void startProgram(){
         if(status.equals(eStatus.off)){
-            System.out.println("You have to switch on the  washing machine first.");
+            System.out.println("You have to switch on the washing machine first.");
         }
         else if(isRunning) {
             System.out.println("The washing program "+ typeOfWashing +" is already running");
@@ -118,14 +119,19 @@ public class Washingmachine extends Device {
         else {
             try {
                 runningProgram = Thread.currentThread();
-                System.out.println("Started washing program ("+typeOfWashing+", "+degrees+"°C)");
+                System.out.println("Started washing program ("+typeOfWashing+", "+degrees+"°C).");
                 isRunning = true;
                 Thread.sleep(timer);
                 isRunning = false;
-                System.out.println("Finished washing program");
+                System.out.println("Finished washing program ("+typeOfWashing+", "+degrees+"°C).");
+                degrees = 0;
+                timer = 0;
+                typeOfWashing = null;
+                isRunning = false;
             } catch (InterruptedException e) {
-                System.err.println("An error occurred!!!");
+                System.err.println("The program has been stopped.");
             }
+
         }
 
     }
@@ -141,16 +147,16 @@ public class Washingmachine extends Device {
     public void getInformation(){
         System.out.println("Washingmachine is currently " + status.toString());
 
-        if (isRunning) {
-            System.out.println("Running...");
-        }
-
         if (typeOfWashing != null) {
-            System.out.println("-> Type of washing: " + typeOfWashing);
+            System.out.println("-> Type of washing: " + typeOfWashing + " (" + timer/1000+" seconds)");
         }
 
         if (degrees != 0) {
             System.out.println("-> Degrees: " + degrees);
+        }
+
+        if (isRunning) {
+            System.out.println("Running...");
         }
 
     }
