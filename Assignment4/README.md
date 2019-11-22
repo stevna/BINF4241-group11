@@ -2,7 +2,7 @@
 ##Class diagram
 
 1:Class diagram of our home automation system
-![Iterator_ClassDiagram](./img/classdiagram.JPG)
+![ClassDiagram](./img/classdiagram.JPG)
 
 Explanation:  
 Since we did not find it helpful to have a class diagram with a large amount classes, which would only be confusing, we decided to sum up the command classes.  
