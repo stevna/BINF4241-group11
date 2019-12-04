@@ -1,3 +1,4 @@
+package main;
 import java.lang.Math;
 
 public class Leader extends Square{

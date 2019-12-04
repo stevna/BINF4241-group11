@@ -1,3 +1,4 @@
+package main;
 public class Player {
     public String name;
     private int id;
