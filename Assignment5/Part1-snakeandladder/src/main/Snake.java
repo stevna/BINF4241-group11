@@ -34,4 +34,8 @@ public class Snake extends Square{
 
     }
 
+    public int getLength(){
+        return getId()-getEnd();
+    }
+
 }
