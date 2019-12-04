@@ -191,4 +191,8 @@ public class Game {
         }
         System.out.println();
     }
+
+    public ArrayList<Square> getSquares(){
+        return squares;
+    }
 }
