@@ -1,10 +1,10 @@
-package softcon.tictactoe.tictactoe;
+package main.java.softcon.tictactoe.tictactoe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import softcon.tictactoe.Position;
+import main.java.softcon.tictactoe.Position;
 
 /**
  * Represents a TicTacToe game board.

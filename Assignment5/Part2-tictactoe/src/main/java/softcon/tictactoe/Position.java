@@ -1,4 +1,4 @@
-package softcon.tictactoe;
+package main.java.softcon.tictactoe;
 
 /**
  * A position on a 2D game board. Positions are represented as a row and column beginning at the top

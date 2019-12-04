@@ -1,7 +1,7 @@
-package softcon.tictactoe.ai.heuristic.tictactoe;
+package main.java.softcon.tictactoe.ai.heuristic.tictactoe;
 
-import softcon.tictactoe.ai.heuristic.StateEvaluator;
-import softcon.tictactoe.tictactoe.TicTacToeGameState;
+import main.java.softcon.tictactoe.ai.heuristic.StateEvaluator;
+import main.java.softcon.tictactoe.tictactoe.TicTacToeGameState;
 
 /**
  * A {@link StateEvaluator} for a {@link TicTacToeGameState} game state, relative to a particular

@@ -1,13 +1,16 @@
-package softcon.tictactoe.tictactoe;
+package test.java.softcon.tictactoe.tictactoe;
 
 
+import main.java.softcon.tictactoe.tictactoe.GameBoard;
+import main.java.softcon.tictactoe.tictactoe.TicTacToeGameState;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import softcon.tictactoe.Position;
+
+import main.java.softcon.tictactoe.Position;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,6 +7,7 @@ public abstract class ChessPiece {
     String color;
     String shortName; // name that ist printed out in the console
     private boolean firstMove = true;
+    private Board board;
 
 
     public ChessPiece(){
@@ -33,6 +34,7 @@ public abstract class ChessPiece {
     public void setCord(int x, int y) {
         this.xcord = x;
         this.ycord = y;
+        board = Board.getInstance();
     }
 
     public abstract boolean moveValidation(Board board, int xDest, int yDest); // abstract method
@@ -52,4 +54,7 @@ public abstract class ChessPiece {
     boolean isFirst_move() {
         return firstMove;
     }
+
+
+
 }

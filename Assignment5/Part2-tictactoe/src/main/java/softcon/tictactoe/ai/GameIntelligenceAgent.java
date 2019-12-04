@@ -1,6 +1,6 @@
-package softcon.tictactoe.ai;
+package main.java.softcon.tictactoe.ai;
 
-import softcon.tictactoe.DiscreteGameState;
+import main.java.softcon.tictactoe.DiscreteGameState;
 
 /**
  * A game agent for discrete game states that evaluates the next game state from the current game

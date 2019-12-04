@@ -1,8 +1,8 @@
-package softcon.tictactoe.tictactoe;
+package main.java.softcon.tictactoe.tictactoe;
 
 import java.io.PrintStream;
 
-import softcon.tictactoe.tictactoe.TicTacToeGameState.Player;
+import main.java.softcon.tictactoe.tictactoe.TicTacToeGameState.Player;
 
 /**
  * Prints a TicTacToe game board to the console.

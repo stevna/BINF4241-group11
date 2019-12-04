@@ -1,6 +1,6 @@
-package softcon.tictactoe.ai.heuristic;
+package main.java.softcon.tictactoe.ai.heuristic;
 
-import softcon.tictactoe.DiscreteGameState;
+import main.java.softcon.tictactoe.DiscreteGameState;
 
 /**
  * An evaluator that examines a {@link DiscreteGameState} and calculates a simple heuristic score.

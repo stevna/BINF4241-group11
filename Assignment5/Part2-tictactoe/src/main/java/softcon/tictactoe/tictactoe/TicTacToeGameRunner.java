@@ -1,11 +1,11 @@
-package softcon.tictactoe.tictactoe;
+package main.java.softcon.tictactoe.tictactoe;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import softcon.tictactoe.Position;
-import softcon.tictactoe.ai.GameIntelligenceAgent;
-import softcon.tictactoe.tictactoe.TicTacToeGameState.Player;
+import main.java.softcon.tictactoe.Position;
+import main.java.softcon.tictactoe.ai.GameIntelligenceAgent;
+import main.java.softcon.tictactoe.tictactoe.TicTacToeGameState.Player;
 
 /**
  * A class for configuring and running a TicTacToe game.

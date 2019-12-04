@@ -1,12 +1,12 @@
-package softcon.tictactoe.ai;
+package main.java.softcon.tictactoe.ai;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import softcon.tictactoe.DiscreteGameState;
-import softcon.tictactoe.ai.heuristic.StateEvaluator;
+import main.java.softcon.tictactoe.DiscreteGameState;
+import main.java.softcon.tictactoe.ai.heuristic.StateEvaluator;
 
 /**
  * Implementation of {@link GameIntelligenceAgent} that evaluates the next optimal game state using
