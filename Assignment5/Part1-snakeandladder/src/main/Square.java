@@ -1,3 +1,4 @@
+package main;
 public class Square {
     private int squareId;
     private static int numberOfSquares = 0;
