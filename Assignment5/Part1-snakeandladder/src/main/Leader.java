@@ -21,4 +21,8 @@ public class Leader extends Square{
         return end;
     }
 
+    public int getLength(){
+        return getEnd()-getId();
+    }
+
 }

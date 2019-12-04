@@ -5,6 +5,7 @@ public class Game {
     int numberOfSquares;
     ArrayList<Player> players = new ArrayList<Player>();
     ArrayList<Square> squares = new ArrayList<Square>();
+    int lastDice;
 
     public Game (int size, String[] names){
         createPlayers(names);
@@ -12,9 +13,6 @@ public class Game {
         for(Player player : players) {
             player.setPosition(0);
         }
-        System.out.print("Initial state: ");
-        getState();
-        play();
     }
 
     private void createPlayers(String[] names){
@@ -118,6 +116,7 @@ public class Game {
 
     public void move(Player player){
         int dice = Dice.calculate();
+        lastDice = dice;
         String action = new String(player.name+" rolls "+dice+": ");
         System.out.printf("%-15s", action);
         getState();
@@ -194,5 +193,13 @@ public class Game {
 
     public ArrayList<Square> getSquares(){
         return squares;
+    }
+
+    public int getLastDice() {
+        return lastDice;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 }

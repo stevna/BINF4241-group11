@@ -35,6 +35,9 @@ public class Main{
 
 
             Game mygame = new Game(number, names);
+            System.out.print("Initial state: ");
+            mygame.getState();
+            mygame.play();
 
         }
         catch (InputMismatchException e){
