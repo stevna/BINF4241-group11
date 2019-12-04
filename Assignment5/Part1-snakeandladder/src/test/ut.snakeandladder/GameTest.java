@@ -1,4 +1,4 @@
-package ut.snakeandladder;
+package test.ut.snakeandladder;
 
 public class GameTest {
 }
