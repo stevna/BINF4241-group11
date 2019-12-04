@@ -105,7 +105,7 @@ public class Game {
                 move(player);
                 if(squares.get(numberOfSquares-1).checkoccupied()) {
                     win = true;
-                    System.out.printf("%-15s", "Final State: ");
+                    System.out.printf("%-20s", "Final State: ");
                     getState();
                     System.out.println(player.name+" wins!");
                     break;
@@ -118,7 +118,7 @@ public class Game {
         int dice = Dice.calculate();
         lastDice = dice;
         String action = new String(player.name+" rolls "+dice+": ");
-        System.out.printf("%-15s", action);
+        System.out.printf("%-20s", action);
         getState();
 
         Square actualPosition = findSquare(player.getPosition());

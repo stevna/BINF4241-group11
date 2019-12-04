@@ -13,17 +13,14 @@ import java.util.ArrayList;
 public class GameTest {
     private static Game game;
     private static ArrayList<Square> squares;
-    private static ArrayList<Player> players;
 
 
     @BeforeClass
     public static void setUp() {
-        String[] names = {"Blossom", "Bubbles"};
+        String[] names = {"Blossom", "Bubbles", "Buttercup"};
         game = new Game(100, names);
         squares = new ArrayList<Square>();
         squares = game.getSquares();
-        players = new ArrayList<Player>();
-        players = game.getPlayers();
     }
 
 
@@ -97,7 +94,6 @@ public class GameTest {
                 }
                 if (squares.get(game.getSquares().size() - 1).checkoccupied()) {
                     win = true;
-                    break;
                 }
             }
         }

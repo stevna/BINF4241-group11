@@ -21,23 +21,23 @@ public class PlayerTest {
 
     /*@Test
     public void testUnoccupied(){
-        Assert.assertFalse("Square is occupied, should be unocuppied",square1.checkoccupied());
+        Assert.assertFalse("Square is occupied, should be unoccupied",square1.checkoccupied());
     }
     */
 
     @Test
     public void TestEnterSquare(){
-        Assert.assertFalse("Square is occupied, should be unocuppied",square2.checkoccupied());
+        Assert.assertFalse("Square is occupied, should be unoccupied",square2.checkoccupied());
         player.enterSquare(square2);
-        Assert.assertTrue("Square is unoccupied, should be ocuppied",square2.checkoccupied());
+        Assert.assertTrue("Square is unoccupied, should be occupied",square2.checkoccupied());
     }
 
     @Test
     public void TestRemoveFromSquare(){
         square2.setoccupied();
-        Assert.assertTrue("Square is unoccupied, should be ocuppied",square2.checkoccupied());
+        Assert.assertTrue("Square is unoccupied, should be occupied",square2.checkoccupied());
         player.removeFromSquare(square2);
-        Assert.assertFalse("Square is occupied, should be unocuppied",square2.checkoccupied());
+        Assert.assertFalse("Square is occupied, should be unoccupied",square2.checkoccupied());
     }
 
 
