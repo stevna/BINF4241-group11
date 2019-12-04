@@ -68,10 +68,10 @@ public class GameBoard {
       throw new IllegalArgumentException("cannot mark null player");
     }
     if (board[row][col] != null) {
-      return true;
+      return false;
     } else {
       board[row][col] = player;
-      return false;
+      return true;
     }
   }
 
@@ -96,7 +96,7 @@ public class GameBoard {
   public List<Position> getOpenPositions() {
     ArrayList<Position> positions = new ArrayList<Position>();
     for (int row = 0; row < ROWS; row++) {
-      for (int col = 1; col < COLS; col++) {
+      for (int col = 0; col < COLS; col++) {
         if (board[row][col] == null) {
           positions.add(new Position(row, col));
         }
