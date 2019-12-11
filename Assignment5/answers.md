@@ -8,22 +8,17 @@ We only added some functions like getLastDice() and getPlayers() in the game cla
 ## Part 2 - TicTacToe
 ### GameboardTest
 As we first ran the GameBoardTest file four tests failed (“markOnBoard()”, “markTwice()”, “getOpenPositions” and “getOpenPositionsAll”).
-* “markOnBoard” and “markTwice”:
-
+* “markOnBoard” and “markTwice”:  
     The method “mark” returned true if the position was already marked and false if it was empty. But the correct solution is exactly the other way around. To solve the problem, we changed both return statements with each other.
-* “getOpenPositions” and “getOpenPositionsAll”:
-
+* “getOpenPositions” and “getOpenPositionsAll”:  
     To get these to tests passed, we had to make a change on the “getOpenPostions” method. Since the second for loop started with 1 instead of 0 the first column was never considered. To resolve this, we changed the initial value of the integer “col” to 0.
 ### TicTacToeGameStateTest
 After all tests of the GameBoardTest were working, we ran the TicTacToeGameStateTest and seven tests failed (“hasWinColl”, “hasWinRow”, “isOverWin”, “hasWinDiagonal”, “startingPlayerIsX”, “getAvailableStatesLastOne” and “switchPlayer”).
-* “hasWinColl”, “hasWinRow” and “isOverWin”:
- 
+* “hasWinColl”, “hasWinRow” and “isOverWin”:  
     The method “hasWin” returned false if the player completed a row or a column. That violates the rules of tictactoe, because completing a row or a column is the goal of the game. We just needed to rewrite the return statement to true.
-* “hasWinDiagonal”:
-
+* “hasWinDiagonal”:  
     The method “completesDiagonal” had an error in the last return statement. Instead of returning true if one of two possible diagonals was completed, it method return true if you achieved a diagonal looking like a front slash or a formation like a equal to or greater symbol. The second comparison in the first part of the return statement had to be changed (TicTacToeGameState, line 158). Therefore, the row attribute passed to the getMark method changed from 0 to 2.
-* “startingPlayerIsX”, “getAvailableStatesLastOne” and “switchPlayer”:
-
+* “startingPlayerIsX”, “getAvailableStatesLastOne” and “switchPlayer”:  
     To pass these tests, we had to make changes in the method “getCurrentPlayer”, because all three tests use this method. Instead of returning the current player, a new player, called randomPlayer, was created and returned. To fix the problem, we deleted the randomPlayer.
 
 ## Part 3 - UNO
@@ -31,15 +26,20 @@ After all tests of the GameBoardTest were working, we ran the TicTacToeGameState
 ##### expected input
 Every card has an identifier.
 The system only allows these identifiers as input.
-* Standard cards: the identifier consists of a letter which stands for the color, a number which stands for the specific figure of the card.
+* Standard cards:  
+    The identifier consists of a letter which stands for the color, a number which stands for the specific figure of the card.
 For example B3 stands for the blue card with the number three.
-* Wild Draw 4: the identifier consists of an equal sign followed by the first letter of the card's color and +4 which means the next player has to take four more cards.
+* Wild Draw 4:  
+    The identifier consists of an equal sign followed by the first letter of the card's color and +4 which means the next player has to take four more cards.
 For example =B+4 stands for a Wild Draw 4 card where the player desired to change the color to blue.
-* Wild: the identifier consists of an equal sign followed by the first letter of the specific color which the player desires.
+* Wild:  
+    The identifier consists of an equal sign followed by the first letter of the specific color which the player desires.
 For example =R stands for a Wild card where the player desired to change the color to red.
-* Draw Two: the identifier consists of the first letter of specific color of the card followed by +2 which means the next player has to take two more cards.
+* Draw Two:  
+    The identifier consists of the first letter of specific color of the card followed by +2 which means the next player has to take two more cards.
 For example G+2 stands for the yellow Draw Two card.
-* Reverse: insert -1 to reverse order of the game.
+* Reverse:  
+    Insert -1 to reverse order of the game.
 
 
 ##### Behavior of the system
