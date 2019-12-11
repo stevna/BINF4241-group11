@@ -19,7 +19,6 @@ public class GameTest {
     private static Game game;
     private static ArrayList<Square> squares;
 
-
     /**
      * Method sets up needed things for testing. A game is created, also a list of squares are extracted and saved from that game.
      */
@@ -31,7 +30,6 @@ public class GameTest {
         squares = game.getSquares();
     }
 
-
     /**
      * This is the testboard size method. We assert, that the size is equal to 100, which is by instantiating the game in the setUp.
      * @author Group 11
@@ -41,7 +39,6 @@ public class GameTest {
         int cnt = squares.size();
         Assert.assertEquals("Wrong number of squares.",cnt,100);
     }
-
 
     /**
      * Method asserts, that the first square of a game is not allowed to be a leader and the last square of a game is not allowed to be a snake.
@@ -70,7 +67,6 @@ public class GameTest {
         }
     }
 
-
     /**
      * Method asserts, that the end of a leader must not be another ladder or snake. Thus chaining is not possible.
      */
@@ -97,7 +93,6 @@ public class GameTest {
         }
     }
 
-
     /**
      *Method asserts, that fieds are occupied, after they are set so
      */
@@ -118,7 +113,6 @@ public class GameTest {
 
     }
 
-
     /**
      * Assert, that the method getEndOfLeader returns the correct end
      */
@@ -129,7 +123,6 @@ public class GameTest {
         Assert.assertTrue("leader get end does not work",leader.getEnd() == 110);
 
     }
-
 
     /**
      * Assert, that the method getLengthofLadder returns the correct length
@@ -144,21 +137,16 @@ public class GameTest {
 
     }
 
-
-
-
     /**
      * Assert, that the method getLengthofSnake returns the correct length
      */
-
     @Test
-    public void TestLengthOfSnake(){
+    public void testLengthOfSnake(){
         Snake snake= new Snake();
         snake.setEnd(50);
         Assert.assertEquals("Length of snake does not work",50,snake.getLength());
 
     }
-
 
     /**
      * Method asserts, that the move method works correctly. Different cases had to be checked, a very important one was, that if the player threw the dice and he had a larger

@@ -6,7 +6,7 @@ Therefore we didn't find any bug in our snakeandladder-game.
 We only added some functions like getLastDice() and getPlayers() in the game class to help with testing.
 
 We didn't indicate the tags @param and @return when using javadocs because our test methods have no parameters that the method accepts
-and it also don't return anything.
+and they also don't return anything.
 
 ## Part 2 - TicTacToe
 ### GameboardTest
@@ -27,6 +27,8 @@ After all tests of the GameBoardTest were working, we ran the TicTacToeGameState
 ## Part 3 - UNO
 
 ##### expected input
+First of all the user has insert the player's names.
+Afterwards each player inserts which card he wanna use.
 Every card has an identifier.
 The system only allows these identifiers as input.
 * Standard cards:  
