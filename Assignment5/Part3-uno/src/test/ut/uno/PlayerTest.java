@@ -4,11 +4,12 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
 
 public class PlayerTest {
     private static Player player1;
     private static Player player2;
+
+    enum Color{Blue, Yellow, Green, Red, Black}
 
     @BeforeClass
     public static void setUp() {
@@ -30,8 +31,18 @@ public class PlayerTest {
 
     @Test
     public void testEmptyHandCards() {
-        Assert.assertEquals(player1.handCards, null);
-        Assert.assertEquals(player2.handCards, null);
+        Assert.assertNotEquals(player1.handCards, null);
+        Assert.assertNotEquals(player2.handCards, null);
+    }
+
+    @Test
+    public void testPlayCard() {
+        Deck d = new Deck();
+        StandardCard standardCard = new StandardCard(Color.Red, 7);
+        d.addCardToDeck(standardCard);
+        d.getCardToPlayer();
+        player1.playCard("R7");
+        Assert.assertEquals("Player 1 failed to play a card.", player1.getHandCards().length(), 0);
     }
 
     @Test
@@ -40,10 +51,7 @@ public class PlayerTest {
         Wild wild = new Wild();
         player1.handCards.add(standardCard);
         player1.handCards.add(wild);
-        ArrayList cards = new Arraylist<Card>();
-        cards.add(standardCard);
-        cards.add(wild);
-        Assert.assertEquals(player1.getHandCards, cards);
+        Assert.assertEquals(player1.getHandCards.get(0), standardCard);
 
     }
 }
