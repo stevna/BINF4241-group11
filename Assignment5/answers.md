@@ -1,5 +1,5 @@
 # Assignment 5
-## Part 1 - SnakeandLadder
+## Part 1 - SnakeAndLadder
 Our test cases cover the entire functional area of our game.
 All test cases were successful.
 Therefore we didn't find any bug in our snakeandladder-game.
