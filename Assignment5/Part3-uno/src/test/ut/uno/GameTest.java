@@ -33,15 +33,6 @@ public class GameTest {
     }
 
     /**
-     * The method checks, if the correct number of cards are left to draw
-     * We assume that there are only 93 cards left to draw
-     */
-    @Test
-    public void testGetCardsToDraw() {
-        Assert.assertEquals(game.getCardsToDraw(), 93);
-    }
-
-    /**
      * The method checks, if the correct number of players is returned
      * We assume that two players are playing at the moment
      */

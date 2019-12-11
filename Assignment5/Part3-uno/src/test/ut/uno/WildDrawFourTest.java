@@ -22,8 +22,6 @@ public class WildDrawFourTest {
         player1 = game.getPlayers().get(0);
     }
 
-
-
     @Test
     public void WildDrawFourTest(){
 
@@ -41,24 +39,13 @@ public class WildDrawFourTest {
         else {
 
             while(!(card.getColor.toString().equals(Color.black.toString()) && card.getValue == 4)) {
-                Game.getCardToPlayer(player1, deck.drawVard());
+                Game.getCardToPlayer(player1, deck.drawCard());
             }
             player1.playCard(Color.black,cardValue);
             Assert.assertEquals("wild draw four does not work", 4, game.getCardsToDraw() );
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
