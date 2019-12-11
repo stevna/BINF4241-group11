@@ -29,7 +29,7 @@ public class DrawTwoTest {
     public void WildDrawTwoTest(){
 
         for(Card card:player1.getHandCards()){
-            if(card instanceof DrawTwo == true){
+            if(card instanceof DrawTwo){
                 drawTwo = (DrawTwo) card;
                 flag = 'y';
             }

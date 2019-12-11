@@ -16,24 +16,36 @@ public class PlayerTest {
         player2 = new Player("Fred");
     }
 
+    /**
+     * The method checks, if the getter of the attribute name works as desired.
+     */
     @Test
     public void testNames() {
         Assert.assertEquals("Wrong Name of player1", player1.getName(), "Ted");
         Assert.assertEquals("Wrong Name of player2", player2.getName(), "Fred");
     }
 
+    /**
+     * The method checks, if the getter of the attribute Id works as desired.
+     */
     @Test
     public void testIds() {
         Assert.assertEquals(player1.getID, 0);
         Assert.assertEquals(player2.getID, 1);
     }
 
+    /**
+     * The method tests the initial handCards for each player. They should not be null.
+     */
     @Test
     public void testEmptyHandCards() {
-        Assert.assertNotEquals(player1.handCards, null);
-        Assert.assertNotEquals(player2.handCards, null);
+        Assert.assertNotEquals(player1.getHandCards(), null);
+        Assert.assertNotEquals(player2.getHandCards(), null);
     }
 
+    /**
+     * Checks, if player1 can play a card.
+     */
     @Test
     public void testPlayCard() {
         Deck d = new Deck();
@@ -44,6 +56,9 @@ public class PlayerTest {
         Assert.assertEquals("Player 1 failed to play a card.", player1.getHandCards().length(), 0);
     }
 
+    /**
+     * Checks, if the getter method for the handCards works correctly.
+     */
     @Test
     public void testGetHandCards() {
         StandardCard standardCard = new StandardCard(Color.Red, 7);
