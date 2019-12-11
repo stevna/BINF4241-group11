@@ -5,6 +5,9 @@ All test cases were successful.
 Therefore we didn't find any bug in our snakeandladder-game.
 We only added some functions like getLastDice() and getPlayers() in the game class to help with testing.
 
+We didn't indicate the tags @param and @return when using javadocs because our test methods have no parameters that the method accepts
+and it also don't return anything.
+
 ## Part 2 - TicTacToe
 ### GameboardTest
 As we first ran the GameBoardTest file four tests failed (“markOnBoard()”, “markTwice()”, “getOpenPositions” and “getOpenPositionsAll”).
