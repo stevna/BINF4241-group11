@@ -1,4 +1,4 @@
-package test.ut.snakeandladder;
+package test.ut.uno.ut.snakeandladder;
 
 import main.*;
 
