@@ -4,19 +4,23 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class DeckTest {
     private static Deck d;
 
     enum Color{Blue, Yellow, Green, Red, Black}
 
+    /**
+     * The method sets up needed things for testing. A deck is created.
+     */
     @BeforeClass
     public static void setUp() {
         d = new Deck();
 
     }
 
+    /**
+     * The method tests, if deck is able to draw a card correctly.
+     */
     @Test
     public void testDrawCard() {
         StandardCard card = new StandardCard(Color.Blue, 7);
@@ -25,6 +29,9 @@ public class DeckTest {
         Assert.assertEquals("Could not draw a card.", d.getDeck().length(), 0);
     }
 
+    /**
+     * The method tests, if the actual deck is returned.
+     */
     @Test
     public void testGetDeck() {
         StandardCard card = new StandardCard(Color.Blue, 7);
@@ -32,6 +39,9 @@ public class DeckTest {
         Assert.assertEquals("Failed to return the deck.", d.getDeck().get(0), card);
     }
 
+    /**
+     * This method checks, if the deck can be shuffled with its shuffle method.
+     */
     @Test
     public void testShuffle() {
         StandardCard card = new StandardCard(Color.Blue, 7);
@@ -45,17 +55,29 @@ public class DeckTest {
         d1.shuffle();
         Assert.assertNotEquals(d1.getDeck().get(0), d2.getDeck.get(0));
 
-        }
     }
 
+    /**
+     * The method tests, if the addCardToDeck method works correctly.
+     */
     @Test
     public void testAddCardToDeck() {
-
+        StandardCard card = new StandardCard(Color.Blue, 7);
+        Deck d1 = new Deck();
+        d1.addCardToDeck(card);
+        Assert.assertNotEquals(d1.getDeck().get(0), card);
     }
 
+    /**
+     * The method tests, if the removeCardOfDeck method works correctly.
+     */
     @Test
     public void testRemoveCardOfDeck() {
-
+        StandardCard card = new StandardCard(Color.Blue, 7);
+        Deck d1 = new Deck();
+        d1.addCardToDeck(card);
+        d1.removeCardOfDeck(card);
+        Assert.assertNotEquals(d1.getDeck().get(0), null);
     }
 
 
