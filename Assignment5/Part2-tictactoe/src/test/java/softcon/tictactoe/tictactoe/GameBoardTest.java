@@ -1,4 +1,4 @@
-package test.ut.uno.java.softcon.tictactoe.tictactoe;
+package test.java.softcon.tictactoe.tictactoe;
 
 
 import main.java.softcon.tictactoe.tictactoe.GameBoard;
