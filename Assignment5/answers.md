@@ -50,3 +50,6 @@ If the played card is a special card for example like Draw Two the system automa
 ##### expected output
 The system informs if the input is valid, whats happening when the card is played and which the last played card is.
 It should also notify if a player has no cards anymore which means he has won.
+
+##### Class Diagram
+![ClassDiagram](./img/classdiagram.jpeg)
