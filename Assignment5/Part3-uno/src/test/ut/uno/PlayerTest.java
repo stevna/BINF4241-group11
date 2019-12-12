@@ -8,7 +8,7 @@ public class PlayerTest {
     private static Player player1;
     private static Player player2;
 
-    enum Color{Blue, Yellow, Green, Red, Black}
+    enum Color{blue, yellow, green, red, black}
 
     @BeforeClass
     public static void setUp() {
@@ -49,7 +49,7 @@ public class PlayerTest {
     @Test
     public void testPlayCard() {
         Deck d = new Deck();
-        StandardCard standardCard = new StandardCard(Color.Red, 7);
+        StandardCard standardCard = new StandardCard(Color.red, 7);
         d.addCardToDeck(standardCard);
         d.getCardToPlayer();
         player1.playCard("R7");
@@ -61,7 +61,7 @@ public class PlayerTest {
      */
     @Test
     public void testGetHandCards() {
-        StandardCard standardCard = new StandardCard(Color.Red, 7);
+        StandardCard standardCard = new StandardCard(Color.red, 7);
         Wild wild = new Wild();
         player1.handCards.add(standardCard);
         player1.handCards.add(wild);

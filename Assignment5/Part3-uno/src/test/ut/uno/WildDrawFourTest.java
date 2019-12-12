@@ -6,24 +6,27 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class WildDrawFourTest {
-    enum Color{black,yellow,red,blue}
+    enum Color{black,yellow,red,blue, green}
     int cardValue = 4;
     private Card card;
     private static Player player1;
     private static Player player2;
-    String[] player = {"Bubbles", "Thomas", "Spongebob", "Thanos" };
+    String[] players = {"Bubbles", "Thomas", "Spongebob", "Thanos" };
     private Game game;
     char flag = 'n';
 
 
     @BeforeClass
     public void setUp() {
-        game = new Game();
+        game = new Game(players);
         player1 = game.getPlayers().get(0);
     }
 
+    /**
+     * Checks, if the behavior of the WildDrawTwo card works as expected
+     */
     @Test
-    public void WildDrawFourTest(){
+    public void testWildDrawFour(){
 
         for(Card card:player1.getHandCards()){
             if(card.getColor().isEqual(Color.black.toString()) && card.getValue()){

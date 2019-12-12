@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class DrawTwoTest {
 
-    enum Color{black,yellow,red,blue}
+    enum Color{black,yellow,red,blue, green}
     int cardValue = 4;
     private Card cardIni;
     private DrawTwo drawTwo;
@@ -23,10 +23,11 @@ public class DrawTwoTest {
         player1 = game.getPlayers().get(0);
     }
 
-
-
+    /**
+     * Checks, if the behavior of the DrawTwo card works as expected
+     */
     @Test
-    public void WildDrawTwoTest(){
+    public void testDrawTwo(){
 
         for(Card card:player1.getHandCards()){
             if(card instanceof DrawTwo){
