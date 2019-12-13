@@ -24,6 +24,8 @@ public class WildDrawFourTest {
 
     /**
      * Checks, if the behavior of the WildDrawTwo card works as expected
+     * Since we initialise the Players with the handcard when creating the game, we first test if player one got a wilddrawfour or not. if not, he draws cards unless
+     * he gets one. After that he plays the card, and +4 should be addedcto the Cards to draw from the game. This variable is needed, since anohter +4 could be played.
      */
     @Test
     public void testWildDrawFour(){

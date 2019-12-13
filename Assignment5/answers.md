@@ -51,6 +51,8 @@ For example G+2 stands for the yellow Draw Two card.
 Once the player did a valid input the system takes the card from the player's hand and places it on the graveyard.
 If the played card is a special card for example like Draw Two the system automatically puts two additional cards on the next player's hand
 (on the condition that this player hasn't played a second Draw Two card).
+We used different design patterns for the behavior of the system. For instance we use a singleton for the deck class, since there only one deck is allowed and 
+the deck is accessible from everywhere. Also we used the command pattern to program the behavior of the cards.
 
 ##### expected output
 The system informs if the input is valid, whats happening when the card is played and which the last played card is.

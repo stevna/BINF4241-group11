@@ -25,6 +25,7 @@ public class DrawTwoTest {
 
     /**
      * Checks, if the behavior of the DrawTwo card works as expected
+     *
      */
     @Test
     public void testDrawTwo(){
@@ -42,14 +43,13 @@ public class DrawTwoTest {
 
         }
 
-        //funktioniert nonid
         else {
 
             while(!(cardIni instanceof DrawTwo)){
                 Game.getCardToPlayer(player1, deck.drawVard());
             }
-            player1.playCard(WildDrawFourTest.Color.black,cardValue);
-            Assert.assertEquals("wild draw four does not work", 4, game.getCardsToDraw() );
+            player1.playCard(drawTwo);
+            Assert.assertEquals("draw two does not work", 2, game.getCardsToDraw() );
         }
 
     }
